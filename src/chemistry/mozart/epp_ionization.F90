@@ -36,6 +36,15 @@ module epp_ionization
   character(len=cl) :: epp_gcr_filepath = 'NONE'
   character(len=cs) :: epp_gcr_varname  = 'iprg'
 
+  character(len=cl) :: epp_tagged_all_filepath = 'NONE'
+  character(len=cs) :: epp_tagged_all_varname  = 'epp_ion_rates'
+  character(len=cl) :: epp_tagged_mee_filepath = 'NONE'
+  character(len=cs) :: epp_tagged_mee_varname  = 'iprm'
+  character(len=cl) :: epp_tagged_spe_filepath = 'NONE'
+  character(len=cs) :: epp_tagged_spe_varname  = 'iprp'
+  character(len=cl) :: epp_tagged_gcr_filepath = 'NONE'
+  character(len=cs) :: epp_tagged_gcr_varname  = 'iprg'
+
   logical, protected :: epp_ionization_active = .false.
 
   type input_obj_t
@@ -57,6 +66,11 @@ module epp_ionization
   type(input_obj_t), pointer :: mee_in => null()
   type(input_obj_t), pointer :: gcr_in => null()
 
+  type(input_obj_t), pointer :: tagged_epp_in => null()
+  type(input_obj_t), pointer :: tagged_spe_in => null()
+  type(input_obj_t), pointer :: tagged_mee_in => null()
+  type(input_obj_t), pointer :: tagged_gcr_in => null()
+
 contains
 
   !-----------------------------------------------------------------------------
@@ -75,6 +89,10 @@ contains
 
     namelist /epp_ionization_nl/ epp_all_filepath, epp_all_varname, &
          epp_mee_filepath, epp_mee_varname, epp_spe_filepath, epp_spe_varname, epp_gcr_filepath, epp_gcr_varname
+
+    namelist /epp_ionization_nl/ epp_tagged_all_filepath, epp_tagged_all_varname, &
+         epp_tagged_mee_filepath, epp_tagged_mee_varname, epp_tagged_spe_filepath, &
+         epp_tagged_spe_varname, epp_tagged_gcr_filepath, epp_tagged_gcr_varname
 
     ! Read namelist
     if (masterproc) then
@@ -102,16 +120,35 @@ contains
     call mpi_bcast(epp_spe_varname, len(epp_spe_varname), mpi_character, masterprocid, mpicom, ierr)
     call mpi_bcast(epp_gcr_varname, len(epp_gcr_varname), mpi_character, masterprocid, mpicom, ierr)
 
+    call mpi_bcast(epp_tagged_all_filepath, len(epp_tagged_all_filepath), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_mee_filepath, len(epp_tagged_mee_filepath), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_spe_filepath, len(epp_tagged_spe_filepath), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_gcr_filepath, len(epp_tagged_gcr_filepath), mpi_character, masterprocid, mpicom, ierr)
+
+    call mpi_bcast(epp_tagged_all_varname, len(epp_tagged_all_varname), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_mee_varname, len(epp_tagged_mee_varname), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_spe_varname, len(epp_tagged_spe_varname), mpi_character, masterprocid, mpicom, ierr)
+    call mpi_bcast(epp_tagged_gcr_varname, len(epp_tagged_gcr_varname), mpi_character, masterprocid, mpicom, ierr)
+
     epp_ionization_active = epp_all_filepath /= 'NONE'
     epp_ionization_active = epp_mee_filepath /= 'NONE' .or. epp_ionization_active
     epp_ionization_active = epp_spe_filepath /= 'NONE' .or. epp_ionization_active
     epp_ionization_active = epp_gcr_filepath /= 'NONE' .or. epp_ionization_active
+
+    epp_ionization_active = epp_tagged_all_filepath /= 'NONE' .or. epp_ionization_active
+    epp_ionization_active = epp_tagged_mee_filepath /= 'NONE' .or. epp_ionization_active
+    epp_ionization_active = epp_tagged_spe_filepath /= 'NONE' .or. epp_ionization_active
+    epp_ionization_active = epp_tagged_gcr_filepath /= 'NONE' .or. epp_ionization_active
 
     if ( epp_ionization_active .and. masterproc ) then
        write(iulog,*) subname//':: epp_all_filepath = '//trim(epp_all_filepath)
        write(iulog,*) subname//':: epp_mee_filepath = '//trim(epp_mee_filepath)
        write(iulog,*) subname//':: epp_spe_filepath = '//trim(epp_spe_filepath)
        write(iulog,*) subname//':: epp_gcr_filepath = '//trim(epp_gcr_filepath)
+       write(iulog,*) subname//':: epp_tagged_all_filepath = '//trim(epp_tagged_all_filepath)
+       write(iulog,*) subname//':: epp_tagged_mee_filepath = '//trim(epp_tagged_mee_filepath)
+       write(iulog,*) subname//':: epp_tagged_spe_filepath = '//trim(epp_tagged_spe_filepath)
+       write(iulog,*) subname//':: epp_tagged_gcr_filepath = '//trim(epp_tagged_gcr_filepath)
     endif
 
   end subroutine epp_ionization_readnl
@@ -143,6 +180,27 @@ contains
     endif
     call addfld( 'EPPions', (/ 'lev' /), 'A', fldunits, 'EPP ionization data' )
 
+    fldunits = ''
+
+    if (epp_tagged_all_filepath /= 'NONE') then
+       tagged_epp_in => create_input_obj(epp_tagged_all_filepath,epp_tagged_all_varname)
+       fldunits = trim(tagged_epp_in%units)
+    else
+       if (epp_tagged_mee_filepath /= 'NONE') then
+          tagged_mee_in => create_input_obj(epp_tagged_mee_filepath,epp_tagged_mee_varname)
+          fldunits = trim(tagged_mee_in%units)
+       endif
+       if (epp_tagged_spe_filepath /= 'NONE') then
+          tagged_spe_in => create_input_obj(epp_tagged_spe_filepath,epp_tagged_spe_varname)
+          fldunits = trim(tagged_spe_in%units)
+       endif
+       if (epp_tagged_gcr_filepath /= 'NONE') then
+          tagged_gcr_in => create_input_obj(epp_tagged_gcr_filepath,epp_tagged_gcr_varname)
+          fldunits = trim(tagged_gcr_in%units)
+       endif
+    endif
+    call addfld( 'EPPions_tagged', (/ 'lev' /), 'A', fldunits, 'Tagged EPP ionization data' )
+
   end subroutine epp_ionization_init
 
   !-----------------------------------------------------------------------------
@@ -163,6 +221,20 @@ contains
        endif
        if ( associated(gcr_in) ) then
           call set_wghts(maglat,gcr_in)
+       endif
+    endif
+
+    if ( associated(tagged_epp_in) ) then
+       call set_wghts(maglat,tagged_epp_in)
+    else
+       if ( associated(tagged_mee_in) ) then
+          call set_wghts(maglat,tagged_mee_in)
+       endif
+       if ( associated(tagged_spe_in) ) then
+          call set_wghts(maglat,tagged_spe_in)
+       endif
+       if ( associated(tagged_gcr_in) ) then
+          call set_wghts(maglat,tagged_gcr_in)
        endif
     endif
 
@@ -188,17 +260,33 @@ contains
        endif
     endif
 
-  end subroutine epp_ionization_adv
+    if ( associated(tagged_epp_in) ) then
+       call update_input(tagged_epp_in)
+    else
+       if ( associated(tagged_spe_in) ) then
+          call update_input(tagged_spe_in)
+       endif
+       if ( associated(tagged_gcr_in) ) then
+          call update_input(tagged_gcr_in)
+       endif
+       if ( associated(tagged_mee_in) ) then
+          call update_input(tagged_mee_in)
+       endif
+    endif
+
+ end subroutine epp_ionization_adv
 
   !-----------------------------------------------------------------------------
   !-----------------------------------------------------------------------------
-  subroutine epp_ionization_ionpairs( ncol, lchnk, pmid, temp, ionpairs )
+  subroutine epp_ionization_ionpairs( ncol, lchnk, pmid, temp, ionpairs, tagged_ionpairs )
 
     integer,  intent(in) :: ncol, lchnk
     real(r8), intent(in) :: pmid(:,:), temp(:,:)
     real(r8), intent(out) :: ionpairs(:,:) ! ion pair production rate
+    real(r8), intent(out) :: tagged_ionpairs(:,:) ! ion pair production rate
 
     ionpairs = 0._r8
+    tagged_ionpairs = 0._r8
     if (.not.epp_ionization_active) return
 
     if ( associated(epp_in) ) then
@@ -214,6 +302,24 @@ contains
           ionpairs(:ncol,:) = ionpairs(:ncol,:) + interp_ionpairs( ncol, lchnk, pmid, temp, mee_in )
        endif
     endif
+
+    if ( associated(tagged_epp_in) ) then
+       tagged_ionpairs(:ncol,:) = tagged_ionpairs(:ncol,:) + interp_ionpairs( ncol, lchnk, pmid, temp, tagged_epp_in )
+    else 
+       if ( associated(tagged_spe_in) ) then
+          tagged_ionpairs(:ncol,:) = tagged_ionpairs(:ncol,:) + interp_ionpairs( ncol, lchnk, pmid, temp, tagged_spe_in )
+       endif
+       if ( associated(tagged_gcr_in) ) then
+          tagged_ionpairs(:ncol,:) = tagged_ionpairs(:ncol,:) + interp_ionpairs( ncol, lchnk, pmid, temp, tagged_gcr_in )
+       endif
+       if ( associated(tagged_mee_in) ) then
+          tagged_ionpairs(:ncol,:) = tagged_ionpairs(:ncol,:) + interp_ionpairs( ncol, lchnk, pmid, temp, tagged_mee_in )
+       endif
+    endif
+
+    if (.not.(associated(tagged_epp_in).or.associated(tagged_spe_in).or.associated(tagged_gcr_in).or.associated(tagged_mee_in))) then
+       tagged_ionpairs(:ncol,:) = ionpairs(:ncol,:)
+    end if
 
   end subroutine epp_ionization_ionpairs
 

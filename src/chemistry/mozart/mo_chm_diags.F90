@@ -19,6 +19,8 @@ module mo_chm_diags
   public :: het_diags
 
   integer :: id_n,id_no,id_no2,id_no3,id_n2o5,id_hno3,id_ho2no2,id_clono2,id_brono2
+  integer :: id_xn,id_xno,id_xno2,id_xno3,id_xno2no3,id_xno3no2,id_xno2xno3,id_xhno3,id_xho2no2,id_xclono2,id_xbrono2
+
   integer :: id_cl,id_clo,id_hocl,id_cl2,id_cl2o2,id_oclo,id_hcl,id_brcl
   integer :: id_ccl4,id_cfc11,id_cfc113,id_ch3ccl3,id_cfc12,id_ch3cl,id_hcfc22,id_cf3br,id_cf2clbr
   integer :: id_cfc114,id_cfc115,id_hcfc141b,id_hcfc142b,id_h1202,id_h2402,id_ch2br2,id_chbr3
@@ -27,7 +29,7 @@ module mo_chm_diags
   integer :: id_o,id_o2,id_h, id_h2o2, id_n2o
   integer :: id_co2,id_o3,id_oh,id_ho2,id_so4_a1,id_so4_a2,id_so4_a3
   integer :: id_num_a2,id_num_a3,id_dst_a3,id_ncl_a3
-  integer :: id_ndep,id_nhdep
+  integer :: id_ndep,id_nhdep, id_xndep
 
   integer, parameter :: NJEUV = neuv
   integer :: rid_jeuv(NJEUV), rid_jno_i, rid_jno
@@ -35,6 +37,8 @@ module mo_chm_diags
   logical :: has_jeuvs, has_jno_i, has_jno
 
   integer :: nox_species(3),  noy_species(26)
+  integer :: xnox_species(3), xnoy_species(28)
+
   integer :: clox_species(6), cloy_species(9), tcly_species(21)
   integer :: brox_species(4), broy_species(6), tbry_species(13)
   integer :: foy_species(4),  tfy_species(16)
@@ -72,6 +76,8 @@ contains
     character(len=2)  :: unit_basename  ! Units 'kg' or '1' 
 
     integer :: id_pan, id_onit, id_mpan, id_isopno3, id_onitr, id_nh4no3
+    integer :: id_xpan, id_xonit, id_xmpan, id_xisopno3, id_xonitr, id_xnh4no3
+
     integer :: id_so2, id_so4, id_h2so4
     integer :: id_nh3, id_nh4
     integer :: id_honitr
@@ -85,6 +91,19 @@ contains
     integer :: id_nterpooh
     integer :: id_pbznit
     integer :: id_terpnit
+
+    integer :: id_xhonitr
+    integer :: id_xalknit
+    integer :: id_xisopnita
+    integer :: id_xisopnitb
+    integer :: id_xisopnooh
+    integer :: id_xnc4ch2oh
+    integer :: id_xnc4cho
+    integer :: id_xnoa
+    integer :: id_xnterpooh
+    integer :: id_xpbznit
+    integer :: id_xterpnit
+
     integer :: id_dst01, id_dst02, id_dst03, id_dst04, id_sslt01, id_sslt02, id_sslt03, id_sslt04
     integer :: id_soa,  id_oc1, id_oc2, id_cb1, id_cb2
     integer :: id_soam,id_soai,id_soat,id_soab,id_soax
@@ -120,6 +139,19 @@ contains
     id_ho2no2  = get_spc_ndx( 'HO2NO2' )
     id_clono2  = get_spc_ndx( 'CLONO2' )
     id_brono2  = get_spc_ndx( 'BRONO2' )
+
+    id_xn       = get_spc_ndx( 'XN' )
+    id_xno      = get_spc_ndx( 'XNO' )
+    id_xno2     = get_spc_ndx( 'XNO2' )
+    id_xno3     = get_spc_ndx( 'XNO3' )
+    id_xno2no3  = get_spc_ndx( 'XNO2NO3' )
+    id_xno3no2  = get_spc_ndx( 'XNO3NO2' )
+    id_xno2xno3 = get_spc_ndx( 'XNO2XNO3' )
+    id_xhno3    = get_spc_ndx( 'XHNO3' )
+    id_xho2no2  = get_spc_ndx( 'XHO2NO2' )
+    id_xclono2  = get_spc_ndx( 'XCLONO2' )
+    id_xbrono2  = get_spc_ndx( 'XBRONO2' )
+
     id_cl      = get_spc_ndx( 'CL' )
     id_clo     = get_spc_ndx( 'CLO' )
     id_hocl    = get_spc_ndx( 'HOCL' )
@@ -188,6 +220,13 @@ contains
     id_onitr   = get_spc_ndx( 'ONITR' )
     id_nh4no3  = get_spc_ndx( 'NH4NO3' )
 
+    id_xpan     = get_spc_ndx( 'XPAN' )
+    id_xonit    = get_spc_ndx( 'XONIT' )
+    id_xmpan    = get_spc_ndx( 'XMPAN' )
+    id_xisopno3 = get_spc_ndx( 'XISOPNO3' )
+    id_xonitr   = get_spc_ndx( 'XONITR' )
+    id_xnh4no3  = get_spc_ndx( 'XNH4NO3' )
+
     id_honitr    = get_spc_ndx( 'HONITR' ) 
     id_alknit    = get_spc_ndx( 'ALKNIT' ) 
     id_isopnita  = get_spc_ndx( 'ISOPNITA' ) 
@@ -199,6 +238,19 @@ contains
     id_nterpooh  = get_spc_ndx( 'NTERPOOH' ) 
     id_pbznit    = get_spc_ndx( 'PBZNIT' )
     id_terpnit   = get_spc_ndx( 'TERPNIT' ) 
+
+    id_xhonitr    = get_spc_ndx( 'XHONITR' ) 
+    id_xalknit    = get_spc_ndx( 'XALKNIT' ) 
+    id_xisopnita  = get_spc_ndx( 'XISOPNITA' ) 
+    id_xisopnitb  = get_spc_ndx( 'XISOPNITB' ) 
+    id_xisopnooh  = get_spc_ndx( 'XISOPNOOH' ) 
+    id_xnc4ch2oh  = get_spc_ndx( 'XNC4CH2OH' ) 
+    id_xnc4cho    = get_spc_ndx( 'XNC4CHO' ) 
+    id_xnoa       = get_spc_ndx( 'XNOA' ) 
+    id_xnterpooh  = get_spc_ndx( 'XNTERPOOH' ) 
+    id_xpbznit    = get_spc_ndx( 'XPBZNIT' )
+    id_xterpnit   = get_spc_ndx( 'XTERPNIT' ) 
+
     id_ndep      = get_spc_ndx( 'NDEP' )
     id_nhdep     = get_spc_ndx( 'NHDEP' )
 
@@ -209,6 +261,8 @@ contains
     id_nh3     = get_spc_ndx( 'NH3' )
     id_nh4     = get_spc_ndx( 'NH4' )
     id_nh4no3  = get_spc_ndx( 'NH4NO3' )
+
+    id_xnh4no3  = get_spc_ndx( 'XNH4NO3' )
 
     id_dst01   = get_spc_ndx( 'DST01' )
     id_dst02   = get_spc_ndx( 'DST02' )
@@ -241,6 +295,12 @@ contains
                      id_brono2, id_pan, id_onit, id_mpan, id_isopno3, id_onitr, id_nh4no3, &
                      id_honitr, id_alknit, id_isopnita, id_isopnitb, id_isopnooh, id_nc4ch2oh, &
                      id_nc4cho, id_noa, id_nterpooh, id_pbznit, id_terpnit /)
+!... XNOY species
+    xnox_species = (/ id_xn, id_xno, id_xno2 /)
+    xnoy_species = (/ id_xn, id_xno, id_xno2, id_xno3, id_xno2no3, id_xno3no2, id_xno2xno3, id_xhno3, id_xho2no2, id_xclono2, &
+                     id_xbrono2, id_xpan, id_xonit, id_xmpan, id_xisopno3, id_xonitr, id_xnh4no3, &
+                     id_xhonitr, id_xalknit, id_xisopnita, id_xisopnitb, id_xisopnooh, id_xnc4ch2oh, &
+                     id_xnc4cho, id_xnoa, id_xnterpooh, id_xpbznit, id_xterpnit /)
 !... HOX species
     hox_species = (/ id_h, id_oh, id_ho2, id_h2o2 /)
 
@@ -288,6 +348,11 @@ contains
     call addfld( 'NOX',     (/ 'lev' /), 'A', 'mol/mol', 'nox (N+NO+NO2)' )
     call addfld( 'NOY',     (/ 'lev' /), 'A', 'mol/mol', &
                  'noy = total nitrogen (N+NO+NO2+NO3+2N2O5+HNO3+HO2NO2+ORGNOY+NH4NO3' )
+
+    call addfld( 'XNOX',     (/ 'lev' /), 'A', 'mol/mol', 'xnox (XN+XNO+XNO2)' )
+    call addfld( 'XNOY',     (/ 'lev' /), 'A', 'mol/mol', &
+                 'xnoy = total nitrogen (XN+XNO+XNO2+XNO3+XNO2NO3+XNO3NO2+XNO2XNO3+XHNO3+XHO2NO2+XORGNOY+XNH4NO3' )
+
     call addfld( 'NOY_SRF', horiz_only,  'A', 'mol/mol', 'surface noy volume mixing ratio' )
     call addfld( 'HOX',     (/ 'lev' /), 'A', 'mol/mol', 'HOx (H+OH+HO2+2H2O2)' )
 
@@ -439,10 +504,12 @@ contains
     call addfld( 'AREA', horiz_only,  'A', 'm2', 'area of grid box' )
 
     call addfld( 'dry_deposition_NOy_as_N', horiz_only, 'I', 'kg/m2/s', 'NOy dry deposition flux ' )
+    call addfld( 'dry_deposition_XNOy_as_N', horiz_only, 'I', 'kg/m2/s', 'XNOy dry deposition flux ' )
     call addfld( 'DF_SOX', horiz_only, 'I', 'kg/m2/s', 'SOx dry deposition flux ' )
     call addfld( 'dry_deposition_NHx_as_N', horiz_only, 'I', 'kg/m2/s', 'NHx dry deposition flux ' )
     if (gas_wetdep_method=='NEU') then
        call addfld( 'wet_deposition_NOy_as_N', horiz_only, 'A', 'kg/m2/s', 'NOy wet deposition' )
+       call addfld( 'wet_deposition_XNOy_as_N', horiz_only, 'A', 'kg/m2/s', 'XNOy wet deposition' )
        call addfld( 'wet_deposition_NHx_as_N', horiz_only, 'A', 'kg/m2/s', 'NHx wet deposition' )
     elseif (gas_wetdep_method=='MOZ') then
        call addfld( 'wet_deposition_NOy_as_N', horiz_only, 'A', 'kg/s', 'NOy wet deposition' )
@@ -451,8 +518,10 @@ contains
     endif
     if ( history_cesm_forcing ) then
        call add_default('dry_deposition_NOy_as_N', 1, ' ')
+       call add_default('dry_deposition_XNOy_as_N', 1, ' ')
        call add_default('dry_deposition_NHx_as_N', 1, ' ')
        call add_default('wet_deposition_NOy_as_N', 1, ' ')
+       call add_default('wet_deposition_XNOy_as_N', 1, ' ')
        call add_default('wet_deposition_NHx_as_N', 1, ' ')
     endif
 
@@ -502,11 +571,11 @@ contains
     !      real(r8)    :: m(ncol,pver)
     real(r8)    :: un2(ncol)
     
-    real(r8), dimension(ncol,pver) :: vmr_nox, vmr_noy, vmr_clox, vmr_cloy, vmr_tcly, vmr_brox, vmr_broy, vmr_toth
+    real(r8), dimension(ncol,pver) :: vmr_nox, vmr_noy, vmr_xnox, vmr_xnoy, vmr_clox, vmr_cloy, vmr_tcly, vmr_brox, vmr_broy, vmr_toth
     real(r8), dimension(ncol,pver) :: vmr_tbry, vmr_foy, vmr_tfy
     real(r8), dimension(ncol,pver) :: mmr_noy, mmr_sox, mmr_nhx, net_chem
-    real(r8), dimension(ncol)      :: df_noy, df_sox, df_nhx, do3chm_trp, do3chm_lms
-    real(r8), dimension(ncol)      :: wd_noy, wd_nhx
+    real(r8), dimension(ncol)      :: df_noy, df_xnoy, df_sox, df_nhx, do3chm_trp, do3chm_lms
+    real(r8), dimension(ncol)      :: wd_noy, wd_xnoy, wd_nhx
     real(r8), dimension(ncol,pver) :: vmr_hox
 
     real(r8) :: area(ncol), mass(ncol,pver)
@@ -517,6 +586,8 @@ contains
     !--------------------------------------------------------------------
     vmr_nox(:ncol,:) = 0._r8
     vmr_noy(:ncol,:) = 0._r8
+    vmr_xnox(:ncol,:) = 0._r8
+    vmr_xnoy(:ncol,:) = 0._r8
     vmr_hox(:ncol,:) = 0._r8
     vmr_clox(:ncol,:) = 0._r8
     vmr_cloy(:ncol,:) = 0._r8
@@ -530,11 +601,13 @@ contains
     mmr_noy(:ncol,:) = 0._r8
     mmr_sox(:ncol,:) = 0._r8
     mmr_nhx(:ncol,:) = 0._r8
-    df_noy(:ncol) = 0._r8
+    df_noy (:ncol) = 0._r8
+    df_xnoy(:ncol) = 0._r8
     df_sox(:ncol) = 0._r8
     df_nhx(:ncol) = 0._r8
 
     wd_noy(:ncol) = 0._r8
+    wd_xnoy(:ncol) = 0._r8
     wd_nhx(:ncol) = 0._r8
 
     call get_area_all_p(lchnk, ncol, area)
@@ -570,7 +643,7 @@ contains
        endif
 
 !... counting chlorine and bromines, etc... (and total H2 species)
-       if ( m == id_ch4 .or. m == id_n2o5 .or. m == id_cfc12 .or. m == id_cl2 .or. m == id_cl2o2 .or. m==id_h2o2  ) then
+       if ( m == id_ch4 .or. m == id_n2o5 .or. m == id_xno2xno3 .or. m == id_cfc12 .or. m == id_cl2 .or. m == id_cl2o2 .or. m==id_h2o2  ) then
           wgt = 2._r8
        elseif (m == id_cfc114 .or. m == id_hcfc141b .or. m == id_h1202 .or. m == id_h2402 .or. m == id_ch2br2 ) then
           wgt = 2._r8
@@ -587,6 +660,13 @@ contains
        endif
        if ( any( noy_species == m ) ) then
           vmr_noy(:ncol,:) = vmr_noy(:ncol,:) +  wgt * vmr(:ncol,:,m)
+       endif
+!...XNOY
+       if ( any( xnox_species == m ) ) then
+          vmr_xnox(:ncol,:) = vmr_xnox(:ncol,:) +  wgt * vmr(:ncol,:,m)
+       endif
+       if ( any( xnoy_species == m ) ) then
+          vmr_xnoy(:ncol,:) = vmr_xnoy(:ncol,:) +  wgt * vmr(:ncol,:,m)
        endif
 !...NOY, SOX, NHX
        if ( any( noy_species == m ) ) then
@@ -641,6 +721,10 @@ contains
        if ( any( noy_species == m ) ) then
           df_noy(:ncol) = df_noy(:ncol) +  wgt * depflx(:ncol,m)*N_molwgt/adv_mass(m)
        endif
+       if ( any( xnoy_species == m ) ) then
+          df_xnoy(:ncol) = df_xnoy(:ncol) +  wgt * depflx(:ncol,m)*N_molwgt/adv_mass(m)
+       endif
+
        if ( any( sox_species == m ) ) then
           df_sox(:ncol) = df_sox(:ncol) +  wgt * depflx(:ncol,m)*S_molwgt/adv_mass(m)
        endif
@@ -651,6 +735,9 @@ contains
        if ( any( noy_species == m ) ) then
           wd_noy(:ncol) = wd_noy(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m)
        endif
+       if ( any( xnoy_species == m ) ) then
+          wd_xnoy(:ncol) = wd_xnoy(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m)
+       endif
        if ( any( nhx_species == m ) ) then
           wd_nhx(:ncol) = wd_nhx(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m)
        endif
@@ -659,6 +746,9 @@ contains
 !
        if ( id_ndep == m ) then
           wd_noy(:ncol) = wd_noy(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m) 
+       end if
+       if ( id_xndep == m ) then
+          wd_xnoy(:ncol) = wd_xnoy(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m) 
        end if
        if ( id_nhdep == m ) then
           wd_nhx(:ncol) = wd_nhx(:ncol) +  wgt * wetdepflx(:ncol,m)*N_molwgt/adv_mass(m) 
@@ -703,6 +793,8 @@ contains
 
     call outfld( 'NOX',  vmr_nox  (:ncol,:), ncol, lchnk )
     call outfld( 'NOY',  vmr_noy  (:ncol,:), ncol, lchnk )
+    call outfld( 'XNOX', vmr_xnox  (:ncol,:), ncol, lchnk )
+    call outfld( 'XNOY', vmr_xnoy  (:ncol,:), ncol, lchnk )
     call outfld( 'HOX',  vmr_hox  (:ncol,:), ncol, lchnk )
     call outfld( 'NOY_SRF',  vmr_noy(:ncol,pver),  ncol, lchnk )
     call outfld( 'CLOX', vmr_clox (:ncol,:), ncol, lchnk )
@@ -719,12 +811,15 @@ contains
     call outfld( 'SOX_mmr', mmr_sox(:ncol,:), ncol ,lchnk )
     call outfld( 'NHX_mmr', mmr_nhx(:ncol,:), ncol ,lchnk )
     call outfld( 'dry_deposition_NOy_as_N', df_noy(:ncol), ncol ,lchnk )
+    call outfld( 'dry_deposition_XNOy_as_N', df_xnoy(:ncol), ncol ,lchnk )
     call outfld( 'DF_SOX', df_sox(:ncol), ncol ,lchnk )
     call outfld( 'dry_deposition_NHx_as_N', df_nhx(:ncol), ncol ,lchnk )
     if (gas_wetdep_method=='NEU') then
       wd_noy(:ncol) = -wd_noy(:ncol) ! downward is possitive 
+      wd_xnoy(:ncol) = -wd_xnoy(:ncol) ! downward is possitive 
       wd_nhx(:ncol) = -wd_nhx(:ncol)
       call outfld( 'wet_deposition_NOy_as_N', wd_noy(:ncol), ncol, lchnk )
+      call outfld( 'wet_deposition_XNOy_as_N', wd_xnoy(:ncol), ncol, lchnk )
       call outfld( 'wet_deposition_NHx_as_N', wd_nhx(:ncol), ncol, lchnk )
     end if
 

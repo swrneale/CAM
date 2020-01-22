@@ -398,12 +398,12 @@ contains
        endif
     endif
 
-    if (.not.(index>0.and.index<obj%ntimes)) then
-       errmsg = 'input_data_utils::set_wghts_indices cannot not find time indices for input file: '&
-            // trim(obj%filename)
-       write(iulog,*) trim(errmsg)
-       call endrun(trim(errmsg))
-    endif
+!    if (.not.(index>0.and.index<obj%ntimes)) then
+!       errmsg = 'input_data_utils::set_wghts_indices cannot not find time indices for input file: '&
+!            // trim(obj%filename)
+!       write(iulog,*) trim(errmsg)
+!       call endrun(trim(errmsg))
+!    endif
 
     if (obj%time_interp) then
        obj%wghts(2) = ( model_time - obj%times(index) ) / ( obj%times(index+1) - obj%times(index) )

@@ -96,6 +96,12 @@ module mo_drydep
   logical :: noa_dd, alknit_dd, isopnita_dd, isopnitb_dd, honitr_dd, isopnooh_dd
   logical :: nc4cho_dd, nc4ch2oh_dd, terpnit_dd, nterpooh_dd
 
+!LKE 3/6/2018 new XNOX
+  integer :: xo3_ndx, xnoa_ndx, xalknit_ndx, xisopnita_ndx, xisopnitb_ndx, xhonitr_ndx, xisopnooh_ndx
+  integer :: xnc4cho_ndx, xnc4ch2oh_ndx, xterpnit_ndx, xnterpooh_ndx
+  logical :: xo3_dd, xnoa_dd, xalknit_dd, xisopnita_dd, xisopnitb_dd, xhonitr_dd, xisopnooh_dd
+  logical :: xnc4cho_dd, xnc4ch2oh_dd, xterpnit_dd, xnterpooh_dd
+
   integer :: cohc_ndx=-1, come_ndx=-1
   integer, parameter :: NTAGS = 50
   integer :: cotag_ndx(NTAGS)
@@ -312,9 +318,14 @@ contains
     if( mpan_ndx>0 ) then
        dvelocity(:ncol,mpan_ndx) = dvelocity(:ncol,mpan_ndx)/3._r8
     endif
+!LKE 3/27/18
     if( xmpan_ndx>0 ) then
        dvelocity(:ncol,xmpan_ndx) = dvelocity(:ncol,xmpan_ndx)/3._r8
     endif
+    if( xo3_ndx>0 ) then
+       dvelocity(:ncol,xo3_ndx) = dvelocity(:ncol,o3_ndx)
+    endif
+!
     if( hcn_ndx>0 ) then
        dvelocity(:ncol,hcn_ndx) = ocnice_dvel(:ncol,hcn_ndx) ! should be zero over land
     endif
@@ -322,12 +333,6 @@ contains
        dvelocity(:ncol,ch3cn_ndx) = ocnice_dvel(:ncol,ch3cn_ndx) ! should be zero over land
     endif
 
-    ! HCOOH, use CH3COOH dep.vel
-    if( hcooh_ndx > 0 .and. ch3cooh_ndx > 0 ) then
-       if( has_dvel(hcooh_ndx) ) then
-          dvelocity(:ncol,hcooh_ndx) = dvelocity(:ncol,ch3cooh_ndx)
-       end if
-    end if
     
     !-------------------------------------------------------------------------------------
     !        ... assign CO tags to CO
@@ -448,7 +453,30 @@ contains
     xonitr_dd    = has_drydep( 'XONITR')
     xno_dd       = has_drydep( 'XNO')
     xho2no2_dd   = has_drydep( 'XHO2NO2')
-
+!LKE 3/6/2018 new XNOX
+    xo3_ndx   = get_spc_ndx( 'XO3')
+    xnoa_ndx  = get_spc_ndx( 'XNOA')
+    xalknit_ndx = get_spc_ndx( 'XALKNIT')
+    xisopnita_ndx = get_spc_ndx( 'XISOPNITA')
+    xisopnitb_ndx = get_spc_ndx( 'XISOPNITB')
+    xhonitr_ndx = get_spc_ndx( 'XHONITR')
+    xisopnooh_ndx = get_spc_ndx( 'XISOPNOOH')
+    xnc4cho_ndx = get_spc_ndx( 'XNC4CHO')
+    xnc4ch2oh_ndx = get_spc_ndx( 'XNC4CH2OH')
+    xterpnit_ndx = get_spc_ndx( 'XTERPNIT')
+    xnterpooh_ndx = get_spc_ndx( 'XNTERPOOH')
+    xo3_dd   = has_drydep( 'XO3')
+    xnoa_dd  = has_drydep( 'XNOA')
+    xalknit_dd = has_drydep( 'XALKNIT')
+    xisopnita_dd = has_drydep( 'XISOPNITA')
+    xisopnitb_dd = has_drydep( 'XISOPNITB')
+    xhonitr_dd = has_drydep( 'XHONITR')
+    xisopnooh_dd = has_drydep( 'XISOPNOOH')
+    xnc4cho_dd = has_drydep( 'XNC4CHO')
+    xnc4ch2oh_dd = has_drydep( 'XNC4CH2OH')
+    xterpnit_dd = has_drydep( 'XTERPNIT')
+    xnterpooh_dd = has_drydep( 'XNTERPOOH')
+!-
     pan_ndx  = get_spc_ndx( 'PAN')
     mpan_ndx = get_spc_ndx( 'MPAN')
     no2_ndx  = get_spc_ndx( 'NO2')
@@ -1550,6 +1578,74 @@ contains
           dflx(:ncol,nterpooh_ndx)   = wrk(:ncol) * depvel(:ncol,nterpooh_ndx) * q(:ncol,plev,nterpooh_ndx)
        end if
     endif
+!LKE 3/6/2018 new XNOX
+    if( xo3_dd ) then 
+       if( map(xo3_ndx) == 0 ) then
+          depvel(:ncol,xo3_ndx) = depvel(:ncol,o3_ndx)
+          dflx(:ncol,xo3_ndx)   = wrk(:ncol) * depvel(:ncol,xo3_ndx) * q(:ncol,plev,xo3_ndx)
+       end if
+    endif
+    if( xnoa_dd ) then
+       if( map(xnoa_ndx) == 0 ) then
+          depvel(:ncol,xnoa_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xnoa_ndx)   = wrk(:ncol) * depvel(:ncol,xnoa_ndx) * q(:ncol,plev,xnoa_ndx)
+       end if
+    endif
+    if( xalknit_dd ) then
+       if( map(xalknit_ndx) == 0 ) then
+          depvel(:ncol,xalknit_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xalknit_ndx)   = wrk(:ncol) * depvel(:ncol,xalknit_ndx) * q(:ncol,plev,xalknit_ndx)
+       end if
+    endif
+    if( xisopnita_dd ) then
+       if( map(xisopnita_ndx) == 0 ) then
+          depvel(:ncol,xisopnita_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xisopnita_ndx)   = wrk(:ncol) * depvel(:ncol,xisopnita_ndx) * q(:ncol,plev,xisopnita_ndx)
+       end if
+    endif
+    if( xisopnitb_dd ) then
+       if( map(xisopnitb_ndx) == 0 ) then
+          depvel(:ncol,xisopnitb_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xisopnitb_ndx)   = wrk(:ncol) * depvel(:ncol,xisopnitb_ndx) * q(:ncol,plev,xisopnitb_ndx)
+       end if
+    endif
+    if( xhonitr_dd ) then
+       if( map(xhonitr_ndx) == 0 ) then
+          depvel(:ncol,xhonitr_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xhonitr_ndx)   = wrk(:ncol) * depvel(:ncol,xhonitr_ndx) * q(:ncol,plev,xhonitr_ndx)
+       end if
+    endif
+    if( xisopnooh_dd ) then
+       if( map(xisopnooh_ndx) == 0 ) then
+          depvel(:ncol,xisopnooh_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xisopnooh_ndx)   = wrk(:ncol) * depvel(:ncol,xisopnooh_ndx) * q(:ncol,plev,xisopnooh_ndx)
+       end if
+    endif
+    if( xnc4cho_dd ) then
+       if( map(xnc4cho_ndx) == 0 ) then
+          depvel(:ncol,xnc4cho_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xnc4cho_ndx)   = wrk(:ncol) * depvel(:ncol,xnc4cho_ndx) * q(:ncol,plev,xnc4cho_ndx)
+       end if
+    endif
+    if( xnc4ch2oh_dd ) then
+       if( map(xnc4ch2oh_ndx) == 0 ) then
+          depvel(:ncol,xnc4ch2oh_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xnc4ch2oh_ndx)   = wrk(:ncol) * depvel(:ncol,xnc4ch2oh_ndx) * q(:ncol,plev,xnc4ch2oh_ndx)
+       end if
+    endif
+    if( xterpnit_dd ) then
+       if( map(xterpnit_ndx) == 0 ) then
+          depvel(:ncol,xterpnit_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xterpnit_ndx)   = wrk(:ncol) * depvel(:ncol,xterpnit_ndx) * q(:ncol,plev,xterpnit_ndx)
+       end if
+    endif
+    if( xnterpooh_dd ) then
+       if( map(xnterpooh_ndx) == 0 ) then
+          depvel(:ncol,xnterpooh_ndx) = depvel(:ncol,h2o2_ndx)
+          dflx(:ncol,xnterpooh_ndx)   = wrk(:ncol) * depvel(:ncol,xnterpooh_ndx) * q(:ncol,plev,xnterpooh_ndx)
+       end if
+    endif
+!-
 
 
   end subroutine drydep_table
@@ -1632,8 +1728,6 @@ contains
     !-------------------------------------------------------------------------------------
     ! 	... get species indices
     !-------------------------------------------------------------------------------------
-    xpan_ndx      = get_spc_ndx( 'XPAN' )
-    xmpan_ndx     = get_spc_ndx( 'XMPAN' )
     o3a_ndx       = get_spc_ndx( 'O3A' )
 
     ch4_ndx      = get_spc_ndx( 'CH4' )
@@ -1756,6 +1850,32 @@ contains
     terpnit_dd   = has_drydep( 'TERPNIT')
     nterpooh_dd  = has_drydep( 'NTERPOOH')
 !
+!LKE 3/6/2018 new XNOX
+    xpan_ndx      = get_spc_ndx( 'XPAN' )
+    xmpan_ndx     = get_spc_ndx( 'XMPAN' )
+    xo3_ndx   = get_spc_ndx( 'XO3')
+    xnoa_ndx  = get_spc_ndx( 'XNOA')
+    xalknit_ndx = get_spc_ndx( 'XALKNIT')
+    xisopnita_ndx = get_spc_ndx( 'XISOPNITA')
+    xisopnitb_ndx = get_spc_ndx( 'XISOPNITB')
+    xhonitr_ndx = get_spc_ndx( 'XHONITR')
+    xisopnooh_ndx = get_spc_ndx( 'XISOPNOOH')
+    xnc4cho_ndx = get_spc_ndx( 'XNC4CHO')
+    xnc4ch2oh_ndx = get_spc_ndx( 'XNC4CH2OH')
+    xterpnit_ndx = get_spc_ndx( 'XTERPNIT')
+    xnterpooh_ndx = get_spc_ndx( 'XNTERPOOH')
+    xo3_dd   = has_drydep( 'XO3')
+    xnoa_dd  = has_drydep( 'XNOA')
+    xalknit_dd = has_drydep( 'XALKNIT')
+    xisopnita_dd = has_drydep( 'XISOPNITA')
+    xisopnitb_dd = has_drydep( 'XISOPNITB')
+    xhonitr_dd = has_drydep( 'XHONITR')
+    xisopnooh_dd = has_drydep( 'XISOPNOOH')
+    xnc4cho_dd = has_drydep( 'XNC4CHO')
+    xnc4ch2oh_dd = has_drydep( 'XNC4CH2OH')
+    xterpnit_dd = has_drydep( 'XTERPNIT')
+    xnterpooh_dd = has_drydep( 'XNTERPOOH')
+!-
     cohc_ndx     = get_spc_ndx( 'COhc' )
     come_ndx     = get_spc_ndx( 'COme' )
 
@@ -2776,7 +2896,8 @@ contains
              do i = 1,ncol
                 if( fr_lnduse(i,lt) ) then
                    sndx = index_season(i,lt)
-                   if( ispec == o3_ndx .or. ispec == o3a_ndx .or. ispec == so2_ndx ) then
+!                   if( ispec == o3_ndx .or. ispec == o3a_ndx .or. ispec == so2_ndx ) then
+                   if( ispec == o3_ndx .or. ispec == o3a_ndx .or. ispec == xo3_ndx .or. ispec == so2_ndx ) then
                       rmx = 0._r8
                    else
                       rmx = 1._r8/(heff(i,m)/3000._r8 + 100._r8*foxd(m))
@@ -2857,6 +2978,9 @@ contains
                       if( o3a_ndx > 0 ) then
                          rlux(i,lt,o3a_ndx) = rlux_o3(i,lt)
                       endif
+                      if( xo3_ndx > 0 ) then
+                         rlux(i,lt,xo3_ndx) = rlux_o3(i,lt)
+                      endif
                    end if
                    if( has_rain(i) ) then
                       ! rlux(i,lt,o3_ndx) = 1./(1.e-3 + (1./(3.*rlu(sndx,lt))))
@@ -2866,6 +2990,9 @@ contains
                       endif
                       if( o3a_ndx > 0 ) then
                          rlux(i,lt,o3a_ndx) = rlux_o3(i,lt)
+                      endif
+                      if( xo3_ndx > 0 ) then
+                         rlux(i,lt,xo3_ndx) = rlux_o3(i,lt)
                       endif
                    end if
                 end if
@@ -2878,7 +3005,10 @@ contains
                    rclx(i,lt,o3a_ndx) = cts(i) + rclo(index_season(i,lt),lt)
                    rlux(i,lt,o3a_ndx) = cts(i) + rlux(i,lt,o3a_ndx)
                 end if
-
+                if ( xo3_ndx > 0 ) then
+                   rclx(i,lt,xo3_ndx) = cts(i) + rclo(index_season(i,lt),lt)
+                   rlux(i,lt,xo3_ndx) = cts(i) + rlux(i,lt,xo3_ndx)
+                end if
              end if
           end do
        end if
@@ -2887,7 +3017,7 @@ contains
     species_loop2 : do ispec = 1,gas_pcnst
        m = map_dvel(ispec)
        if( has_dvel(ispec) ) then
-          if( ispec /= o3_ndx .and. ispec /= o3a_ndx .and. ispec /= so2_ndx ) then
+          if( ispec /= o3_ndx .and. ispec /= o3a_ndx .and. ispec /= xo3_ndx .and. ispec /= so2_ndx ) then
              do lt = beglt,endlt
                 if( lt /= 7 ) then
                    do i = 1,ncol
@@ -3044,21 +3174,15 @@ contains
           dvel(:ncol,mpan_ndx) = dvel(:ncol,mpan_ndx)/3._r8
           dflx(:ncol,mpan_ndx) = term(:ncol) * dvel(:ncol,mpan_ndx) * mmr(:ncol,plev,mpan_ndx)
        end if
-    end if
-    if( xmpan_ndx > 0 ) then
-       if( has_dvel(xmpan_ndx) ) then
-          dvel(:ncol,xmpan_ndx) = dvel(:ncol,xmpan_ndx)/3._r8
+       if( xmpan_ndx > 0 ) then
+        if( has_dvel(xmpan_ndx) ) then
+          dvel(:ncol,xmpan_ndx) = dvel(:ncol,mpan_ndx)
           dflx(:ncol,xmpan_ndx) = term(:ncol) * dvel(:ncol,xmpan_ndx) * mmr(:ncol,plev,xmpan_ndx)
+        end if
        end if
     end if
 
-    ! HCOOH, use CH3COOH dep.vel
-    if( hcooh_ndx > 0) then
-       if( has_dvel(hcooh_ndx) ) then
-          dvel(:ncol,hcooh_ndx) = dvel(:ncol,ch3cooh_ndx)
-          dflx(:ncol,hcooh_ndx) = term(:ncol) * dvel(:ncol,hcooh_ndx) * mmr(:ncol,plev,hcooh_ndx)
-       end if
-    end if
+
 !
 ! SOG species
 !

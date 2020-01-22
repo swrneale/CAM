@@ -11,7 +11,7 @@ module mo_setext
   save
 
   integer :: co_ndx, no_ndx, synoz_ndx, xno_ndx, o_ndx
-  integer :: op_ndx, o2p_ndx, np_ndx, n2p_ndx, n2d_ndx, n_ndx, e_ndx, oh_ndx
+  integer :: op_ndx, o2p_ndx, np_ndx, n2p_ndx, n2d_ndx, n_ndx, e_ndx, oh_ndx, xn_ndx, xn2d_ndx
   logical :: has_ions = .false.
   logical :: has_dregion_ions = .false.
   integer :: aoa_nh_ndx
@@ -40,7 +40,9 @@ contains
     np_ndx   = get_extfrc_ndx( 'Np' )
     n2p_ndx  = get_extfrc_ndx( 'N2p' )
     n2d_ndx  = get_extfrc_ndx( 'N2D' )
+    xn2d_ndx = get_extfrc_ndx( 'XN2D' )
     n_ndx    = get_extfrc_ndx( 'N' )
+    xn_ndx   = get_extfrc_ndx( 'XN' )
     e_ndx    = get_extfrc_ndx( 'e' )
     oh_ndx   = get_extfrc_ndx( 'OH' )
     o_ndx    = get_extfrc_ndx( 'O' )
@@ -58,6 +60,8 @@ contains
     call addfld( 'NO_Aircraft',  (/ 'lev' /), 'A', 'molec/cm3/s', 'aircraft NO source' )
     call addfld( 'CO_Aircraft',  (/ 'lev' /), 'A', 'molec/cm3/s', 'aircraft CO source' )
 
+    call addfld( 'EPP_tagged_ionpairs', (/ 'lev' /), 'A', 'pairs/cm3/s', 'EPP ionization forcing of tagged species' )
+    
     call addfld( 'EPP_ionpairs', (/ 'lev' /), 'A', 'pairs/cm3/s', 'EPP ionization forcing' )
     call addfld( 'GCR_ionpairs', (/ 'lev' /), 'A', 'pairs/cm3/s', 'GCR ionization forcing' )
     
@@ -65,6 +69,10 @@ contains
        if ( n2d_ndx > 0 .and. n_ndx>0 ) then
           call addfld( 'N4S_EPP', (/ 'lev' /), 'I', 'molec/cm3/s', 'solar proton event N(4S) source' )
           call addfld( 'N2D_EPP', (/ 'lev' /), 'I', 'molec/cm3/s', 'solar proton event N(2D) source' )
+          if ( xn2d_ndx > 0 .and. xn_ndx>0 ) then
+             call addfld( 'XN4S_EPP', (/ 'lev' /), 'I', 'molec/cm3/s', 'solar proton event tagged N(4S) source' )
+             call addfld( 'XN2D_EPP', (/ 'lev' /), 'I', 'molec/cm3/s', 'solar proton event tagged N(2D) source' )
+          endif
        elseif ( no_ndx > 0 .and. n_ndx>0 ) then
           call addfld( 'N4S_EPP', (/ 'lev' /), 'I', 'molec/cm3/s', 'solar proton event N(4S) source' )
           call addfld( 'NO_EPP',  (/ 'lev' /), 'I',  'molec/cm3/s', 'solar proton event NO source' )
@@ -155,6 +163,8 @@ contains
     real(r8) :: epp_ipr(ncol,pver)        ! ion pairs production rate associated with energetic particles
     real(r8) :: epp_hox(ncol,pver)        ! HOx production rate associated with energetic particles
 
+    real(r8) :: tagged_epp_ipr(ncol,pver)        ! ion pairs production rate associated with energetic particles
+    
     real(r8), parameter :: rad2deg = 180._r8/pi                ! radians to degrees conversion factor
     real(r8) :: xlat
 
@@ -267,8 +277,9 @@ contains
     !---------------------------------------------------------------------
     ! ion pairs production due to Energetic Particle Precipitation
     !---------------------------------------------------------------------
-    call epp_ionization_ionpairs( ncol, lchnk, pmid, tfld, epp_ipr )
+    call epp_ionization_ionpairs( ncol, lchnk, pmid, tfld, epp_ipr, tagged_epp_ipr )
     call outfld( 'EPP_ionpairs', epp_ipr, ncol, lchnk )
+    call outfld( 'EPP_tagged_ionpairs', tagged_epp_ipr, ncol, lchnk )
 
     epp_ipr(:ncol,:pver) = epp_ipr(:ncol,:) + gcr_ipr(:ncol,:)
 
@@ -293,9 +304,17 @@ contains
        ! D-region ion chemistry is NOT active
        if ( n2d_ndx>0 .and. n_ndx>0 ) then
           extfrc(:ncol,:pver,n2d_ndx) = extfrc(:ncol,:pver,n2d_ndx) +  0.7_r8*epp_ipr(:ncol,:pver)
-          extfrc(:ncol,:pver,  n_ndx) = extfrc(:ncol,:pver,  n_ndx) + 0.55_r8*epp_ipr(:ncol,:pver)
+          extfrc(:ncol,:pver,  n_ndx) = extfrc(:ncol,:pver,  n_ndx) + 0.55_r8*epp_ipr(:ncol,:pver)    
           call outfld( 'N2D_EPP', 0.7_r8*epp_ipr(:ncol,:), ncol, lchnk ) ! N(2D) produciton (molec/cm3/s)
           call outfld( 'N4S_EPP',0.55_r8*epp_ipr(:ncol,:), ncol, lchnk ) ! N(4S) produciton (molec/cm3/s)
+
+          if (xn2d_ndx>0 .and. xn_ndx>0) then
+             extfrc(:ncol,:pver,xn2d_ndx) = extfrc(:ncol,:pver,xn2d_ndx) +  0.7_r8*tagged_epp_ipr(:ncol,:pver)
+             extfrc(:ncol,:pver,  xn_ndx) = extfrc(:ncol,:pver,  xn_ndx) + 0.55_r8*tagged_epp_ipr(:ncol,:pver)
+             call outfld( 'XN2D_EPP', 0.7_r8*tagged_epp_ipr(:ncol,:), ncol, lchnk ) ! XN(2D) produciton (molec/cm3/s)
+             call outfld( 'XN4S_EPP',0.55_r8*tagged_epp_ipr(:ncol,:), ncol, lchnk ) ! XN(4S) produciton (molec/cm3/s)
+          end if
+
        elseif ( no_ndx>0 .and. n_ndx>0 ) then
           ! for mechanisms that do not include N2D -- the EPP produce NO 
           extfrc(:ncol,:pver, no_ndx) = extfrc(:ncol,:pver, no_ndx) +  0.7_r8*epp_ipr(:ncol,:pver)

@@ -31,8 +31,10 @@ module mo_photo
   integer, parameter  :: pverm = pver - 1
 
   integer ::  jno_ndx
+  integer ::  jxno_ndx
   integer ::  jonitr_ndx
   integer ::  jho2no2_ndx
+  integer ::  jxho2no2_b_ndx
   integer ::  jch3cho_a_ndx, jch3cho_b_ndx, jch3cho_c_ndx
   integer ::  jo2_a_ndx, jo2_b_ndx
   integer ::  ox_ndx, o3_ndx, o3_inv_ndx, o3rad_ndx
@@ -215,6 +217,7 @@ contains
     euv_indexer(:) = 0
 
     jno_ndx     = get_rxt_ndx( 'jno' )
+    jxno_ndx    = get_rxt_ndx( 'jxno' )
     jo2_a_ndx   = get_rxt_ndx( 'jo2_a' )
     jo2_b_ndx   = get_rxt_ndx( 'jo2_b' )
 
@@ -240,6 +243,7 @@ contains
     jpan_ndx = get_rxt_ndx( 'jpan' )
     jmpan_ndx = get_rxt_ndx( 'jmpan' )
     jho2no2_ndx  = get_rxt_ndx( 'jho2no2' )
+    jxho2no2_b_ndx  = get_rxt_ndx( 'jxho2no2_b' )
     jonitr_ndx = get_rxt_ndx( 'jonitr' )
 
     jppi_ndx = get_rxt_ndx( 'jppi' )
@@ -292,7 +296,7 @@ contains
     do_jeuv = any(euv_indexer(:)>0)
 
     !----------------------------------------------------------------------
-    !	... call module initializers
+    !	... call module initializers (xactive_prates is for FTUV)
     !----------------------------------------------------------------------
     is_xactive : if( xactive_prates ) then
        do_jshort = .false.
@@ -848,6 +852,7 @@ contains
              end do
 
              if( jno_ndx > 0 )   photos(i,pver:1:-1,jno_ndx)   = jno_sht(1:pver)
+             if( jxno_ndx > 0 )  photos(i,pver:1:-1,jxno_ndx)  = jno_sht(1:pver)
              if( jo2_a_ndx > 0 ) photos(i,pver:1:-1,jo2_a_ndx) = jo2_sht(1:pver,2)
              if( jo2_b_ndx > 0 ) photos(i,pver:1:-1,jo2_b_ndx) = jo2_sht(1:pver,1)
           endif
@@ -902,6 +907,10 @@ contains
           !-----------------------------------------------------------------
           if( jho2no2_ndx > 0 ) then
              photos(i,:,jho2no2_ndx) = photos(i,:,jho2no2_ndx) + 1.e-5_r8*cld_mult(:)
+          endif
+!LKE 1/11/2019
+          if( jxho2no2_b_ndx > 0 ) then
+             photos(i,:,jxho2no2_b_ndx) = photos(i,:,jxho2no2_b_ndx) + 1.e-5_r8*cld_mult(:)
           endif
 
           !  Save photo-ionization rates to physics buffer accessed in ionosphere module for WACCMX
@@ -959,7 +968,7 @@ contains
                             dt_diag, fracday, &
                             ncol, lchnk )
     !-----------------------------------------------------------------
-    !   	... fast online photo rates
+    !   	... fast online photo rates (FTUV)
     !-----------------------------------------------------------------
 
     use ppgrid,       only : pver, pverp

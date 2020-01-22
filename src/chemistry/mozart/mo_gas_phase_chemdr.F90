@@ -21,7 +21,7 @@ module mo_gas_phase_chemdr
 
   integer :: map2chm(pcnst) = 0           ! index map to/from chemistry/constituents list
 
-  integer :: synoz_ndx, so4_ndx, h2o_ndx, o2_ndx, o_ndx, hno3_ndx, hcl_ndx, dst_ndx, cldice_ndx, snow_ndx
+  integer :: synoz_ndx, so4_ndx, h2o_ndx, o2_ndx, o_ndx, hno3_ndx, xhno3_ndx, hcl_ndx, dst_ndx, cldice_ndx, snow_ndx
   integer :: o3_ndx, o3s_ndx
   integer :: het1_ndx
   integer :: ndx_cldfr, ndx_cmfdqr, ndx_nevapr, ndx_cldtop, ndx_prain
@@ -124,6 +124,7 @@ contains
     so4_ndx = get_spc_ndx('SO4')
     h2o_ndx = get_spc_ndx('H2O')
     hno3_ndx = get_spc_ndx('HNO3')
+    xhno3_ndx = get_spc_ndx('XHNO3')
     hcl_ndx  = get_spc_ndx('HCL')
     dst_ndx = get_spc_ndx( dust_names(1) )
     synoz_ndx = get_extfrc_ndx( 'SYNOZ' )
@@ -195,6 +196,10 @@ contains
     call addfld( 'HNO3_STS',   (/ 'lev' /), 'I', 'mol/mol', 'STS condensed HNO3' )
     call addfld( 'HNO3_NAT',   (/ 'lev' /), 'I', 'mol/mol', 'NAT condensed HNO3' )
     call addfld( 'HNO3_GAS',   (/ 'lev' /), 'I', 'mol/mol', 'gas-phase hno3' )
+    call addfld( 'XHNO3_TOTAL',(/ 'lev' /), 'I', 'mol/mol', 'total XHNO3' )
+    call addfld( 'XHNO3_STS',  (/ 'lev' /), 'I', 'mol/mol', 'STS condensed XHNO3' )
+    call addfld( 'XHNO3_NAT',  (/ 'lev' /), 'I', 'mol/mol', 'NAT condensed XHNO3' )
+    call addfld( 'XHNO3_GAS',  (/ 'lev' /), 'I', 'mol/mol', 'gas-phase XHNO3' )
     call addfld( 'H2O_GAS',    (/ 'lev' /), 'I', 'mol/mol', 'gas-phase h2o' )
     call addfld( 'HCL_TOTAL',  (/ 'lev' /), 'I', 'mol/mol', 'total hcl' )
     call addfld( 'HCL_GAS',    (/ 'lev' /), 'I', 'mol/mol', 'gas-phase hcl' )
@@ -311,6 +316,7 @@ contains
     use aero_model,        only : aero_model_gasaerexch
 
     use aero_model,        only : aero_model_strat_surfarea
+
 
     implicit none
 
@@ -435,6 +441,8 @@ contains
     real(r8) :: mmr_new(pcols,pver,gas_pcnst)      ! chem working concentrations (kg/kg)
     real(r8) :: hno3_gas(ncol,pver)            ! hno3 gas phase concentration (mol/mol)
     real(r8) :: hno3_cond(ncol,pver,2)         ! hno3 condensed phase concentration (mol/mol)
+    real(r8) :: xhno3_gas(ncol,pver)           ! xhno3 gas phase concentration (mol/mol)
+    real(r8) :: xhno3_cond(ncol,pver,2)        ! xhno3 condensed phase concentration (mol/mol)
     real(r8) :: hcl_gas(ncol,pver)             ! hcl gas phase concentration (mol/mol)
     real(r8) :: hcl_cond(ncol,pver)            ! hcl condensed phase concentration (mol/mol)
     real(r8) :: h2o_gas(ncol,pver)             ! h2o gas phase concentration (mol/mol)
@@ -644,6 +652,7 @@ contains
        hcl_gas (:,:)      = 0.0_r8  
        do k = 1,pver
           hno3_gas(:,k)   = vmr(:,k,hno3_ndx)
+          xhno3_gas(:,k)  = vmr(:,k,xhno3_ndx)
           h2o_gas(:,k)    = h2ovmr(:,k)
           hcl_gas(:,k)    = vmr(:,k,hcl_ndx)
           wrk(:,k)        = h2ovmr(:,k)
@@ -655,7 +664,8 @@ contains
        end do
        do m = 1,2
           do k = 1,pver
-             hno3_cond(:,k,m) = 0._r8
+             hno3_cond(:,k,m)  = 0._r8
+             xhno3_cond(:,k,m) = 0._r8
           end do
        end do
 
@@ -669,8 +679,23 @@ contains
             sad_strat, ncol, pbuf )
 
 !      NOTE: output of total HNO3 is before vmr is set to gas-phase.
-       call outfld( 'HNO3_TOTAL', vmr(:ncol,:,hno3_ndx), ncol ,lchnk )
-
+       call outfld( 'HNO3_TOTAL',  vmr(:ncol,:,hno3_ndx),  ncol ,lchnk )
+       call outfld( 'XHNO3_TOTAL', vmr(:ncol,:,xhno3_ndx), ncol ,lchnk )
+       
+       if (xhno3_ndx > 0) then
+         do j=1,ncol
+           do k = 1,pver 
+             if (vmr(j,k,hno3_ndx) .GT. 0._r8) then
+!              XHNO3_STS
+               xhno3_cond(j,k,1)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,1)/vmr(j,k,hno3_ndx) )
+!              XHNO3_NAT (this goes to aerosol settling)
+               xhno3_cond(j,k,2)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,2)/vmr(j,k,hno3_ndx) )
+!              XHNO3_GAS (this goes to chemical solver)
+               vmr(j,k,xhno3_ndx)  = vmr(j,k,xhno3_ndx) - ( xhno3_cond(j,k,1)+xhno3_cond(j,k,2) )
+             endif 
+           end do
+          end do
+       endif
 
        do k = 1,pver
           vmr(:,k,hno3_ndx) = hno3_gas(:,k)
@@ -678,6 +703,7 @@ contains
           vmr(:,k,h2o_ndx)  = h2o_gas(:,k)
           wrk(:,k)          = (h2ovmr(:,k) - wrk(:,k))*delt_inverse
        end do
+
 
        call outfld( 'QDSAD', wrk(:,:), ncol, lchnk )
 !
@@ -693,6 +719,10 @@ contains
        call outfld( 'HNO3_GAS',   vmr(:ncol,:,hno3_ndx), ncol, lchnk )
        call outfld( 'HNO3_STS',   hno3_cond(:,:,1), ncol, lchnk )
        call outfld( 'HNO3_NAT',   hno3_cond(:,:,2), ncol, lchnk )
+!
+       call outfld( 'XHNO3_GAS',   vmr(:ncol,:,xhno3_ndx), ncol, lchnk )
+       call outfld( 'XHNO3_STS',   xhno3_cond(:,:,1), ncol, lchnk )
+       call outfld( 'XHNO3_NAT',   xhno3_cond(:,:,2), ncol, lchnk )
 !
        call outfld( 'HCL_TOTAL',  vmr(:ncol,:,hcl_ndx), ncol, lchnk )
        call outfld( 'HCL_GAS',    hcl_gas (:,:), ncol ,lchnk )
@@ -1001,6 +1031,9 @@ contains
 #else
        call strat_aer_settling( invariants(1,1,indexm), pmid, delt, zmid, tfld, &
             hno3_cond(1,1,2), radius_strat(1,1,2), ncol, lchnk, 2 )
+!XHNO3_cond uses the radius from HNO3_cond
+       call strat_aer_settling( invariants(1,1,indexm), pmid, delt, zmid, tfld, &
+            xhno3_cond(1,1,2), radius_strat(1,1,2), ncol, lchnk, 2 )
 #endif
 
        !-----------------------------------------------------------------------      
@@ -1008,10 +1041,12 @@ contains
        !-----------------------------------------------------------------------      
 !      NOTE: vmr for hcl and hno3 is gas-phase at this point.
 !            hno3_cond(:,k,1) = STS; hno3_cond(:,k,2) = NAT
-   
+
        do k = 1,pver
           vmr(:,k,hno3_ndx) = vmr(:,k,hno3_ndx) + hno3_cond(:,k,1) &
                + hno3_cond(:,k,2) 
+          vmr(:,k,xhno3_ndx) = vmr(:,k,xhno3_ndx) + xhno3_cond(:,k,1) &
+               + xhno3_cond(:,k,2) 
           vmr(:,k,hcl_ndx)  = vmr(:,k,hcl_ndx)  + hcl_cond(:,k) 
               
        end do

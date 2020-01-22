@@ -29,6 +29,8 @@ module mo_neu_wetdep
   integer                     :: index_cldice,index_cldliq,nh3_ndx,co2_ndx
   logical                     :: debug   = .false.
   integer                     :: hno3_ndx = 0
+!lke 3/6/2018
+  integer                     :: xhno3_ndx = 0
   integer                     :: h2o2_ndx = 0
 !
 ! diagnostics
@@ -114,6 +116,19 @@ subroutine neu_wetdep_init
          test_name = 'H2O2'
       case( 'NC4CHO', 'NC4CH2OH', 'TERPNIT', 'NTERPOOH' )
          test_name = 'H2O2'
+!LKE 3/6/2018 new XNOX
+      case( 'XHNO3', 'XCLONO2', 'XBRONO2' )
+         test_name = 'HNO3'
+      case( 'XHO2NO2' )
+         test_name = 'HO2NO2'
+      case( 'XISOPNO3' )
+         test_name = 'ISOPNO3'
+      case( 'XONITR' )
+         test_name = 'ONITR'
+      case( 'XNOA', 'XALKNIT', 'XISOPNITA', 'XISOPNITB', 'XHONITR', 'XISOPNOOH' )
+         test_name = 'H2O2'
+      case( 'XNC4CHO', 'XNC4CH2OH', 'XTERPNIT', 'XNTERPOOH' )
+         test_name = 'H2O2'
       case(  'SOAGbb0' )  ! Henry's Law coeff. added for VBS SOA's, biomass burning is the same as fossil fuels
          test_name = 'SOAGff0'  
       case(  'SOAGbb1' )
@@ -152,6 +167,10 @@ subroutine neu_wetdep_init
     if ( trim(gas_wetdep_list(m)) == 'HNO3' ) then
       hno3_ndx = m
     end if
+!LKE 3/6/2018 XNOX
+    if ( trim(gas_wetdep_list(m)) == 'XHNO3' ) then
+      xhno3_ndx = m
+    end if
 !
   end do
    
@@ -183,6 +202,10 @@ subroutine neu_wetdep_init
     if ( debug ) print '(i4,a,f8.4)',m,' mol_weight ',mol_weight(m)
     ice_uptake(m) = .false.
     if ( trim(gas_wetdep_list(m)) == 'HNO3' ) then
+      ice_uptake(m) = .true.
+    end if
+!LKE 3/6/2018 new XNOX
+    if ( trim(gas_wetdep_list(m)) == 'XHNO3' ) then
       ice_uptake(m) = .true.
     end if
 !
@@ -609,7 +632,10 @@ species_loop : &
      do N = 1,NTRACE
        QTT(:lpar)    = QTTJFL(:lpar,N)
        QTTNEW(:lpar) = QTTJFL(:lpar,N)
-       is_hno3 = n == hno3_ndx
+       is_hno3 = .false.
+       if( n .eq. hno3_ndx .or. n .eq. xhno3_ndx) then
+         is_hno3 = .true.
+       endif
        if( is_hno3 ) then
          qt_rain(:lpar) = zero
          qt_rime(:lpar) = zero

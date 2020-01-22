@@ -50,19 +50,36 @@ module mo_usrrxt
   integer :: usr_NC4CHO_aer_ndx
   integer :: usr_NC4CH2OH_aer_ndx
 !
-  integer :: usr_OA_O2_NDX
+  integer :: usr_OA_O2_ndx
   integer :: usr_XNO2NO3_M_ndx
   integer :: usr_NO2XNO3_M_ndx
+  integer :: usr_XNO2XNO3_M_ndx
   integer :: usr_XHNO3_OH_ndx
   integer :: usr_XHO2NO2_M_ndx
   integer :: usr_XNO2NO3_aer_ndx
   integer :: usr_NO2XNO3_aer_ndx
+  integer :: usr_XNO2XNO3_aer_ndx
   integer :: usr_XNO3_aer_ndx
   integer :: usr_XNO2_aer_ndx
   integer :: usr_XPAN_M_ndx
   integer :: usr_XMPAN_M_ndx
   integer :: usr_MCO3_XNO2_ndx
-  
+
+!LKE 3/6/2018 new XNOX
+  integer :: usr_XO_O_ndx
+  integer :: usr_XO_O2_ndx
+  integer :: usr_XNO3NO2_M_ndx
+  integer :: usr_XPBZNIT_M_ndx
+  integer :: usr_XNO3NO2_aer_ndx
+  integer :: usr_XISOPNITA_aer_ndx
+  integer :: usr_XISOPNITB_aer_ndx
+  integer :: usr_XNC4CH2OH_aer_ndx
+  integer :: usr_XNC4CHO_aer_ndx
+  integer :: usr_XNTERPOOH_aer_ndx
+  integer :: usr_XONITR_aer_ndx
+  integer :: usr_XHONITR_aer_ndx
+  integer :: usr_XTERPNIT_aer_ndx
+
   integer :: usr_C2O3_NO2_ndx
   integer :: usr_C2H4_OH_ndx
   integer :: usr_XO2N_HO2_ndx
@@ -71,7 +88,7 @@ module mo_usrrxt
   integer :: tag_XO2N_NO_ndx
   integer :: tag_XO2_HO2_ndx
   integer :: tag_XO2_NO_ndx
-  
+    
   integer :: usr_O_O_ndx
   integer :: usr_CL2O2_M_ndx
   integer :: usr_SO3_H2O_ndx
@@ -222,8 +239,10 @@ contains
     usr_OA_O2_ndx        = get_rxt_ndx( 'usr_OA_O2' )
     usr_XNO2NO3_M_ndx    = get_rxt_ndx( 'usr_XNO2NO3_M' )
     usr_NO2XNO3_M_ndx    = get_rxt_ndx( 'usr_NO2XNO3_M' )
+    usr_XNO2XNO3_M_ndx   = get_rxt_ndx( 'usr_XNO2XNO3_M' )
     usr_XNO2NO3_aer_ndx  = get_rxt_ndx( 'usr_XNO2NO3_aer' )
     usr_NO2XNO3_aer_ndx  = get_rxt_ndx( 'usr_NO2XNO3_aer' )
+    usr_XNO2XNO3_aer_ndx = get_rxt_ndx( 'usr_XNO2XNO3_aer' )
     usr_XHNO3_OH_ndx     = get_rxt_ndx( 'usr_XHNO3_OH' )
     usr_XNO3_aer_ndx     = get_rxt_ndx( 'usr_XNO3_aer' )
     usr_XNO2_aer_ndx     = get_rxt_ndx( 'usr_XNO2_aer' )
@@ -231,6 +250,20 @@ contains
     usr_XPAN_M_ndx       = get_rxt_ndx( 'usr_XPAN_M' )
     usr_XMPAN_M_ndx      = get_rxt_ndx( 'usr_XMPAN_M' )
     usr_XHO2NO2_M_ndx    = get_rxt_ndx( 'usr_XHO2NO2_M' )
+!LKE 3/6/2018 new XNOX
+    usr_XO_O_ndx         = get_rxt_ndx( 'usr_XO_O' )
+    usr_XO_O2_ndx        = get_rxt_ndx( 'usr_XO_O2' )
+    usr_XNO3NO2_M_ndx    = get_rxt_ndx( 'usr_XNO3NO2_M' )
+    usr_XPBZNIT_M_ndx    = get_rxt_ndx( 'usr_XPBZNIT_M' )
+    usr_XNO3NO2_aer_ndx   = get_rxt_ndx( 'usr_XNO3NO2_aer' )
+    usr_XISOPNITA_aer_ndx = get_rxt_ndx( 'usr_XISOPNITA_aer' )
+    usr_XISOPNITB_aer_ndx = get_rxt_ndx( 'usr_XISOPNITB_aer' )
+    usr_XONITR_aer_ndx    = get_rxt_ndx( 'usr_XONITR_aer' )
+    usr_XHONITR_aer_ndx   = get_rxt_ndx( 'usr_XHONITR_aer' )
+    usr_XNC4CH2OH_aer_ndx = get_rxt_ndx( 'usr_XNC4CH2OH_aer' )
+    usr_XNC4CHO_aer_ndx   = get_rxt_ndx( 'usr_XNC4CHO_aer' )
+    usr_XNTERPOOH_aer_ndx = get_rxt_ndx( 'usr_XNTERPOOH_aer' )
+    usr_XTERPNIT_aer_ndx  = get_rxt_ndx( 'usr_XTERPNIT_aer' )
 !
 ! reduced hydrocarbon chemistry
 !
@@ -424,10 +457,14 @@ contains
                             ,usr_CO_OH_b_ndx,tag_C2H4_OH_ndx,tag_C3H6_OH_ndx,tag_CH3CO3_NO2_ndx,usr_PAN_M_ndx,usr_CH3COCH3_OH_ndx &
                             ,usr_MCO3_NO2_ndx,usr_MPAN_M_ndx,usr_XOOH_OH_ndx,usr_SO2_OH_ndx,usr_DMS_OH_ndx,usr_HO2_aer_ndx &
                             ,usr_GLYOXAL_aer_ndx,usr_ISOPNITA_aer_ndx,usr_ISOPNITB_aer_ndx,usr_ONITR_aer_ndx,usr_HONITR_aer_ndx &
-                            ,usr_TERPNIT_aer_ndx,usr_NTERPOOH_aer_ndx,usr_NC4CHO_aer_ndx,usr_NC4CH2OH_aer_ndx
+                            ,usr_TERPNIT_aer_ndx,usr_NTERPOOH_aer_ndx,usr_NC4CHO_aer_ndx,usr_NC4CH2OH_aer_ndx 
+       write(iulog,*) 'usrrxt_inti: XNOX diagnostics '
+       write(iulog,'(10i5)') usr_XO_O_ndx,usr_XO_O2_ndx,usr_XNO3NO2_M_ndx,usr_XPBZNIT_M_ndx,usr_XNO3NO2_aer_ndx &
+                            ,usr_XISOPNITA_aer_ndx,usr_XISOPNITB_aer_ndx,usr_XONITR_aer_ndx,usr_XHONITR_aer_ndx &
+                            ,usr_XTERPNIT_aer_ndx,usr_XNTERPOOH_aer_ndx,usr_XNC4CHO_aer_ndx,usr_XNC4CH2OH_aer_ndx
 
     end if
-
+ 
   end subroutine usrrxt_inti
 
   subroutine usrrxt( rxt, temp, tempi, tempe, invariants, h2ovmr,  &
@@ -614,12 +651,20 @@ contains
        if( usr_OA_O2_ndx > 0 ) then
           rxt(:,k,usr_OA_O2_ndx) = 6.e-34_r8 * tp(:)**2.4_r8
        end if
+!LKE 3/6/2018
+       if( usr_XO_O2_ndx > 0 ) then
+          rxt(:,k,usr_XO_O2_ndx) = 6.e-34_r8 * tp(:)**2.4_r8
+       end if
 
 !-----------------------------------------------------------------
 !	... o + o + m -> o2 + m
 !-----------------------------------------------------------------
        if ( usr_O_O_ndx > 0 ) then
           rxt(:,k,usr_O_O_ndx) = 2.76e-34_r8 * exp( 720.0_r8*tinv(:) )
+       end if
+!LKE 3/6/2018
+       if ( usr_XO_O_ndx > 0 ) then
+          rxt(:,k,usr_XO_O_ndx) = 2.76e-34_r8 * exp( 720.0_r8*tinv(:) )
        end if
          
 !-----------------------------------------------------------------
@@ -679,6 +724,23 @@ contains
              rxt(:,k,usr_NO2XNO3_M_ndx) = rxt(:,k,tag_NO2_NO3_ndx) * 1.734138e26_r8 * exp_fac(:)
           else
              rxt(:,k,usr_NO2XNO3_M_ndx) = 0._r8
+          end if
+       end if
+       if( usr_XNO2XNO3_M_ndx > 0 ) then
+          if( tag_NO2_NO3_ndx > 0 ) then
+             call comp_exp( exp_fac, -10840.0_r8*tinv, ncol )
+             rxt(:,k,usr_XNO2XNO3_M_ndx) = rxt(:,k,tag_NO2_NO3_ndx) * 1.734138e26_r8 * exp_fac(:)
+          else
+             rxt(:,k,usr_XNO2XNO3_M_ndx) = 0._r8
+          end if
+       end if
+!LKE 3/6/2018
+       if( usr_XNO3NO2_M_ndx > 0 ) then
+          if( tag_NO2_NO3_ndx > 0 ) then
+             call comp_exp( exp_fac, -10840.0_r8*tinv, ncol )
+             rxt(:,k,usr_XNO3NO2_M_ndx) = rxt(:,k,tag_NO2_NO3_ndx) * 1.734138e26_r8 * exp_fac(:)
+          else
+             rxt(:,k,usr_XNO3NO2_M_ndx) = 0._r8
           end if
        end if
 
@@ -821,6 +883,14 @@ contains
              rxt(:,k,usr_PBZNIT_M_ndx) = 0._r8
           end if
        end if
+!LKE 3/6/2018
+       if( usr_XPBZNIT_M_ndx > 0 ) then
+          if( tag_ACBZO2_NO2_ndx > 0 ) then
+             rxt(:,k,usr_XPBZNIT_M_ndx) = rxt(:,k,tag_ACBZO2_NO2_ndx) * 1.111e28_r8 * exp_fac(:)
+          else
+             rxt(:,k,usr_XPBZNIT_M_ndx) = 0._r8
+          end if
+       end if
 
 !-----------------------------------------------------------------
 !       ... xooh + oh -> h2o + oh
@@ -919,6 +989,12 @@ contains
              if( usr_NO2XNO3_aer_ndx > 0 ) then
                 rxt(i,k,usr_NO2XNO3_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_n2o5, gamma_n2o5 )
              end if
+             if( usr_XNO3NO2_aer_ndx > 0 ) then
+                rxt(i,k,usr_XNO3NO2_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_n2o5, gamma_n2o5 )
+             end if
+             if( usr_XNO2XNO3_aer_ndx > 0 ) then
+                rxt(i,k,usr_XNO2XNO3_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_n2o5, gamma_n2o5 )
+             end if
              !-------------------------------------------------------------------------
              ! 	... no3 -> hno3  (on sulfate, nh4no3, oc, soa)
              !-------------------------------------------------------------------------
@@ -957,11 +1033,18 @@ contains
              if( usr_ISOPNITA_aer_ndx > 0 ) then
                 rxt(i,k,usr_ISOPNITA_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_isopnita, gamma_isopnita )
              end if
+!LKE 3/6/2018
+             if( usr_XISOPNITA_aer_ndx > 0 ) then
+                rxt(i,k,usr_XISOPNITA_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_isopnita, gamma_isopnita )
+             end if
              !-------------------------------------------------------------------------
              ! 	... ISOPNITB -> HNO3  (on sulfate, nh4no3, oc2, soa)
              !-------------------------------------------------------------------------
              if( usr_ISOPNITB_aer_ndx > 0 ) then
                 rxt(i,k,usr_ISOPNITB_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_isopnitb, gamma_isopnitb )
+             end if
+             if( usr_XISOPNITB_aer_ndx > 0 ) then
+                rxt(i,k,usr_XISOPNITB_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_isopnitb, gamma_isopnitb )
              end if
              !-------------------------------------------------------------------------
              ! 	...  ONITR -> HNO3 (on sulfate, nh4no3, oc2, soa)
@@ -969,11 +1052,19 @@ contains
              if( usr_ONITR_aer_ndx > 0 ) then
                 rxt(i,k,usr_ONITR_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_onitr, gamma_onitr )
              end if
+!LKE 3/6/2018
+             if( usr_XONITR_aer_ndx > 0 ) then
+                rxt(i,k,usr_XONITR_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_onitr, gamma_onitr )
+             end if
              !-------------------------------------------------------------------------
              ! 	... HONITR -> HNO3  (on sulfate, nh4no3, oc2, soa)
              !-------------------------------------------------------------------------
              if( usr_HONITR_aer_ndx > 0 ) then
                 rxt(i,k,usr_HONITR_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_honitr, gamma_honitr )
+             end if
+!LKE 3/6/2018
+             if( usr_XHONITR_aer_ndx > 0 ) then
+                rxt(i,k,usr_XHONITR_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_honitr, gamma_honitr )
              end if
              !-------------------------------------------------------------------------
              ! 	... TERPNIT -> HNO3  (on sulfate, nh4no3, oc2, soa)
@@ -981,11 +1072,19 @@ contains
              if( usr_TERPNIT_aer_ndx > 0 ) then
                 rxt(i,k,usr_TERPNIT_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_terpnit, gamma_terpnit )
              end if
+!LKE 3/6/2018
+             if( usr_XTERPNIT_aer_ndx > 0 ) then
+                rxt(i,k,usr_XTERPNIT_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_terpnit, gamma_terpnit )
+             end if
              !-------------------------------------------------------------------------
              ! 	...  NTERPOOH -> HNO3 (on sulfate, nh4no3, oc2, soa)
              !-------------------------------------------------------------------------
              if( usr_NTERPOOH_aer_ndx > 0 ) then
                 rxt(i,k,usr_NTERPOOH_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nterpooh, gamma_nterpooh )
+             end if
+!LKE 3/6/2018
+             if( usr_XNTERPOOH_aer_ndx > 0 ) then
+                rxt(i,k,usr_XNTERPOOH_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nterpooh, gamma_nterpooh )
              end if
              !-------------------------------------------------------------------------
              ! 	...  NC4CHO -> HNO3 (on sulfate, nh4no3, oc2, soa)
@@ -993,11 +1092,19 @@ contains
              if( usr_NC4CHO_aer_ndx > 0 ) then
                 rxt(i,k,usr_NC4CHO_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nc4cho, gamma_nc4cho )
              end if
+!LKE 3/6/2018
+             if( usr_XNC4CHO_aer_ndx > 0 ) then
+                rxt(i,k,usr_XNC4CHO_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nc4cho, gamma_nc4cho )
+             end if
              !-------------------------------------------------------------------------
              ! 	...  NC4CH2OH -> HNO3 (on sulfate, nh4no3, oc2, soa)
              !-------------------------------------------------------------------------
              if( usr_NC4CH2OH_aer_ndx > 0 ) then
                 rxt(i,k,usr_NC4CH2OH_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nc4ch2oh, gamma_nc4ch2oh )
+             end if
+!LKE 3/6/2018
+             if( usr_XNC4CH2OH_aer_ndx > 0 ) then
+                rxt(i,k,usr_XNC4CH2OH_aer_ndx) = hetrxtrate( sfc, dm_aer, dg, c_nc4ch2oh, gamma_nc4ch2oh )
              end if
 
           end do long_loop
@@ -1182,7 +1289,7 @@ contains
 	   where( tp(:ncol) < trlim3 )
 		  rxt(:,k,ion3_ndx)  = 1.4e-10_r8 * tp(:)**.44_r8
 		  rxt(:,k,ion11_ndx) = 1.e-11_r8 * tp(:)**.23_r8
-           elsewhere
+       elsewhere
 		  rxt(:,k,ion3_ndx)  = 5.2e-11_r8 / tp(:)**.2_r8
 	      rxt(:,k,ion11_ndx) = 3.6e-12_r8 / tp(:)**.41_r8
 	   end where
