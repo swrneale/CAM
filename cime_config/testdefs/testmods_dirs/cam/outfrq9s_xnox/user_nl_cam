@@ -1,0 +1,51 @@
+ mfilt=1,1,1,1,1,1,1,1,1,1
+ ndens=1,1,1,1,1,1,1,1,1,1
+ nhtfrq=9,9,9,9,9,9,9,9,9,9
+ inithist='ENDOFRUN'
+
+ epp_all_filepath = 'NONE'
+ epp_all_varname = ' '
+
+ epp_gcr_filepath = '/glade/work/fvitt/solar_forcings/cesm_inputs/CMIP_SOLARIS-HEPPA-3-2_GCR_1950-2019_c190925.nc'
+ epp_gcr_varname = 'iprg'
+ epp_mee_filepath = '/glade/work/fvitt/solar_forcings/cesm_inputs/CMIP_SOLARIS-HEPPA-3-2_MEE_1950-2014_pi2015-2019_c190925.nc'
+ epp_mee_varname = 'iprm'
+ epp_spe_filepath = '/glade/work/fvitt/solar_forcings/ions_c6_Gp_1999-2019_part_1d_c20190918.nc'
+ epp_spe_varname = 'iprp'
+
+ epp_tagged_gcr_filepath = '/glade/work/fvitt/solar_forcings/cesm_inputs/CMIP_SOLARIS-HEPPA-3-2_GCR_1950-2019_c190925.nc'
+ epp_tagged_gcr_varname = 'iprg'
+ epp_tagged_mee_filepath = '/glade/work/fvitt/solar_forcings/cesm_inputs/CMIP_SOLARIS-HEPPA-3-2_MEE_1950-2014_pi2015-2019_c190925.nc'
+ epp_tagged_mee_varname = 'iprm'
+ epp_tagged_spe_filepath = '/glade/work/fvitt/solar_forcings/ions_c6_Gp_1999-2019_part_1d_c20190918.nc'
+ epp_tagged_spe_varname = 'iprp'
+
+ fincl3 = 'EPPions_tagged','EPPions'
+
+ met_data_file      = '2014/MERRA2_0.9x1.25_20140101.nc'
+ met_data_path      = '/glade/p/cesmdata/cseg/inputdata/atm/cam/met/MERRA2/0.9x1.25'
+ met_filenames_list = '/glade/p/cesmdata/cseg/inputdata/atm/cam/met/MERRA2/0.9x1.25/filenames_1975-2019_c191130.txt'
+
+ drydep_list = 'ALKNIT', 'ALKOOH', 'BENZOOH', 'BZOOH', 'C2H5OH', 'C2H5OOH',
+      'C3H7OOH', 'C6H5OOH', 'CH2O', 'CH3CHO', 'CH3CN', 'CH3COCH3', 'CH3COCHO',
+      'CH3COOH', 'CH3COOOH', 'CH3OH', 'CH3OOH', 'CO', 'EOOH', 'GLYALD', 'H2O2',
+      'H2SO4', 'HCN', 'HCOOH', 'HNO3', 'HO2NO2', 'HONITR', 'HPALD', 'HYAC',
+      'HYDRALD', 'IEPOX', 'ISOPNITA', 'ISOPNITB', 'ISOPNO3', 'ISOPNOOH',
+      'ISOPOOH', 'IVOC', 'MACROOH', 'MEKOOH', 'MPAN', 'NC4CH2OH', 'NC4CHO',
+      'NH3', 'NH4', 'NO', 'NO2', 'NOA', 'NTERPOOH', 'O3', 'O3S', 'ONITR', 'PAN',
+      'PHENOOH', 'POOH', 'ROOH', 'SO2', 'SOAG0', 'SOAG1', 'SOAG2', 'SOAG3',
+      'SOAG4', 'SVOC', 'TERP2OOH', 'TERPNIT', 'TERPOOH', 'TERPROD1', 'TERPROD2',
+      'TOLOOH', 'XHNO3', 'XHO2NO2', 'XMPAN', 'XNO', 'XNO2', 'XONITR', 'XOOH',
+      'XPAN', 'XYLENOOH', 'XYLOLOOH',
+      'XALKNIT', 'XHONITR', 'XISOPNITA', 'XISOPNITB', 'XISOPNO3', 'XISOPNOOH',
+      'XNC4CH2OH', 'XNC4CHO', 'XNOA', 'XNTERPOOH', 'XO3', 'XTERPNIT'
+
+ gas_wetdep_list = 'ALKNIT', 'ALKOOH', 'BENZOOH', 'BRONO2', 'BZOOH', 'C2H5OH', 'C2H5OOH', 'C3H7OOH', 'C6H5OOH', 'CH2O', 'CH3CHO',
+      'CH3CN', 'CH3COCH3', 'CH3COCHO', 'CH3COOH', 'CH3COOOH', 'CH3OH', 'CH3OOH', 'CLONO2', 'COF2', 'COFCL', 'EOOH', 'GLYALD',
+      'H2O2', 'H2SO4', 'HBR', 'HCL', 'HCN', 'HCOOH', 'HF', 'HNO3', 'HO2NO2', 'HOBR', 'HOCL',
+      'HONITR', 'HPALD', 'HYAC', 'HYDRALD', 'IEPOX', 'ISOPNITA', 'ISOPNITB', 'ISOPNO3', 'ISOPNOOH', 'ISOPOOH', 'IVOC',
+      'MACR', 'MACROOH', 'MEKOOH', 'MVK', 'NC4CH2OH', 'NC4CHO', 'NDEP', 'NH3', 'NH4', 'NHDEP', 'NOA',
+      'NTERPOOH', 'ONITR', 'PHENOOH', 'POOH', 'ROOH', 'SO2', 'SOAG0', 'SOAG1', 'SOAG2', 'SOAG3', 'SOAG4',
+      'SVOC', 'TERP2OOH', 'TERPNIT', 'TERPOOH', 'TERPROD1', 'TERPROD2', 'TOLOOH', 'XOOH', 'XYLENOOH', 'XYLOLOOH',
+      'XALKNIT', 'XBRONO2', 'XCLONO2', 'XHNO3', 'XHO2NO2', 'XHONITR', 'XISOPNITA', 'XISOPNITB', 'XISOPNO3', 'XISOPNOOH',
+      'XNC4CH2OH', 'XNC4CHO', 'XNOA', 'XNTERPOOH', 'XONITR', 'XTERPNIT' 

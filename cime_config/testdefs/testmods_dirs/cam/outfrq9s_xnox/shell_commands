@@ -1,0 +1,8 @@
+./xmlchange ROF_NCPL=\$ATM_NCPL
+./xmlchange GLC_NCPL=\$ATM_NCPL
+./xmlchange --append CAM_CONFIG_OPTS="-usr_mech_infile \$COMP_ROOT_DIR_ATM/cime_config/testdefs/testmods_dirs/cam/outfrq9s_xnox/MZ251_TSMLT1_XNOX_20190327.in"
+./xmlchange RUN_STARTDATE=2014-01-01
+./xmlchange SSTICE_DATA_FILENAME=/glade/work/tilmes/inputdata/sst/sst_HadOIBl_bc_0.9x1.25_1850_2019_c190704.nc 
+./xmlchange SSTICE_GRID_FILENAME=/glade/p/cesmdata/cseg/inputdata/atm/cam/ocnfrac/domain.camocn.0.9x1.25_gx1v7_170215.nc
+./xmlchange SSTICE_YEAR_END=2019
+./xmlchange RUN_TYPE=startup
