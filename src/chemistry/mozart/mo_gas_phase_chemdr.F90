@@ -196,10 +196,12 @@ contains
     call addfld( 'HNO3_STS',   (/ 'lev' /), 'I', 'mol/mol', 'STS condensed HNO3' )
     call addfld( 'HNO3_NAT',   (/ 'lev' /), 'I', 'mol/mol', 'NAT condensed HNO3' )
     call addfld( 'HNO3_GAS',   (/ 'lev' /), 'I', 'mol/mol', 'gas-phase hno3' )
-    call addfld( 'XHNO3_TOTAL',(/ 'lev' /), 'I', 'mol/mol', 'total XHNO3' )
-    call addfld( 'XHNO3_STS',  (/ 'lev' /), 'I', 'mol/mol', 'STS condensed XHNO3' )
-    call addfld( 'XHNO3_NAT',  (/ 'lev' /), 'I', 'mol/mol', 'NAT condensed XHNO3' )
-    call addfld( 'XHNO3_GAS',  (/ 'lev' /), 'I', 'mol/mol', 'gas-phase XHNO3' )
+    if (xhno3_ndx>0) then
+       call addfld( 'XHNO3_TOTAL',(/ 'lev' /), 'I', 'mol/mol', 'total XHNO3' )
+       call addfld( 'XHNO3_STS',  (/ 'lev' /), 'I', 'mol/mol', 'STS condensed XHNO3' )
+       call addfld( 'XHNO3_NAT',  (/ 'lev' /), 'I', 'mol/mol', 'NAT condensed XHNO3' )
+       call addfld( 'XHNO3_GAS',  (/ 'lev' /), 'I', 'mol/mol', 'gas-phase XHNO3' )
+    endif
     call addfld( 'H2O_GAS',    (/ 'lev' /), 'I', 'mol/mol', 'gas-phase h2o' )
     call addfld( 'HCL_TOTAL',  (/ 'lev' /), 'I', 'mol/mol', 'total hcl' )
     call addfld( 'HCL_GAS',    (/ 'lev' /), 'I', 'mol/mol', 'gas-phase hcl' )
@@ -316,7 +318,6 @@ contains
     use aero_model,        only : aero_model_gasaerexch
 
     use aero_model,        only : aero_model_strat_surfarea
-
 
     implicit none
 
@@ -652,7 +653,6 @@ contains
        hcl_gas (:,:)      = 0.0_r8  
        do k = 1,pver
           hno3_gas(:,k)   = vmr(:,k,hno3_ndx)
-          xhno3_gas(:,k)  = vmr(:,k,xhno3_ndx)
           h2o_gas(:,k)    = h2ovmr(:,k)
           hcl_gas(:,k)    = vmr(:,k,hcl_ndx)
           wrk(:,k)        = h2ovmr(:,k)
@@ -662,10 +662,12 @@ contains
              cldice(:ncol,k) = q(:ncol,k,cldice_ndx)
           endif
        end do
+       if (xhno3_ndx>0) then
+          xhno3_gas(:,:) = vmr(:,:,xhno3_ndx)
+       endif
        do m = 1,2
           do k = 1,pver
-             hno3_cond(:,k,m)  = 0._r8
-             xhno3_cond(:,k,m) = 0._r8
+             hno3_cond(:,k,m) = 0._r8
           end do
        end do
 
@@ -679,22 +681,27 @@ contains
             sad_strat, ncol, pbuf )
 
 !      NOTE: output of total HNO3 is before vmr is set to gas-phase.
-       call outfld( 'HNO3_TOTAL',  vmr(:ncol,:,hno3_ndx),  ncol ,lchnk )
-       call outfld( 'XHNO3_TOTAL', vmr(:ncol,:,xhno3_ndx), ncol ,lchnk )
+       call outfld( 'HNO3_TOTAL', vmr(:ncol,:,hno3_ndx), ncol ,lchnk )
        
        if (xhno3_ndx > 0) then
-         do j=1,ncol
-           do k = 1,pver 
-             if (vmr(j,k,hno3_ndx) .GT. 0._r8) then
-!              XHNO3_STS
-               xhno3_cond(j,k,1)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,1)/vmr(j,k,hno3_ndx) )
-!              XHNO3_NAT (this goes to aerosol settling)
-               xhno3_cond(j,k,2)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,2)/vmr(j,k,hno3_ndx) )
-!              XHNO3_GAS (this goes to chemical solver)
-               vmr(j,k,xhno3_ndx)  = vmr(j,k,xhno3_ndx) - ( xhno3_cond(j,k,1)+xhno3_cond(j,k,2) )
-             endif 
-           end do
+          call outfld( 'XHNO3_TOTAL', vmr(:ncol,:,xhno3_ndx), ncol ,lchnk )
+          xhno3_cond(:,:,:) = 0._r8
+          do j=1,ncol
+             do k = 1,pver 
+                if (vmr(j,k,hno3_ndx) .GT. 0._r8) then
+                   !              XHNO3_STS
+                   xhno3_cond(j,k,1)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,1)/vmr(j,k,hno3_ndx) )
+                   !              XHNO3_NAT (this goes to aerosol settling)
+                   xhno3_cond(j,k,2)   = vmr(j,k,xhno3_ndx) * ( hno3_cond(j,k,2)/vmr(j,k,hno3_ndx) )
+                   !              XHNO3_GAS (this goes to chemical solver)
+                   vmr(j,k,xhno3_ndx)  = vmr(j,k,xhno3_ndx) - ( xhno3_cond(j,k,1)+xhno3_cond(j,k,2) )
+                endif
+             end do
           end do
+          call outfld( 'XHNO3_GAS',   vmr(:ncol,:,xhno3_ndx), ncol, lchnk )
+          call outfld( 'XHNO3_STS',   xhno3_cond(:,:,1), ncol, lchnk )
+          call outfld( 'XHNO3_NAT',   xhno3_cond(:,:,2), ncol, lchnk )
+          !
        endif
 
        do k = 1,pver
@@ -703,7 +710,6 @@ contains
           vmr(:,k,h2o_ndx)  = h2o_gas(:,k)
           wrk(:,k)          = (h2ovmr(:,k) - wrk(:,k))*delt_inverse
        end do
-
 
        call outfld( 'QDSAD', wrk(:,:), ncol, lchnk )
 !
@@ -719,10 +725,6 @@ contains
        call outfld( 'HNO3_GAS',   vmr(:ncol,:,hno3_ndx), ncol, lchnk )
        call outfld( 'HNO3_STS',   hno3_cond(:,:,1), ncol, lchnk )
        call outfld( 'HNO3_NAT',   hno3_cond(:,:,2), ncol, lchnk )
-!
-       call outfld( 'XHNO3_GAS',   vmr(:ncol,:,xhno3_ndx), ncol, lchnk )
-       call outfld( 'XHNO3_STS',   xhno3_cond(:,:,1), ncol, lchnk )
-       call outfld( 'XHNO3_NAT',   xhno3_cond(:,:,2), ncol, lchnk )
 !
        call outfld( 'HCL_TOTAL',  vmr(:ncol,:,hcl_ndx), ncol, lchnk )
        call outfld( 'HCL_GAS',    hcl_gas (:,:), ncol ,lchnk )
@@ -1031,9 +1033,13 @@ contains
 #else
        call strat_aer_settling( invariants(1,1,indexm), pmid, delt, zmid, tfld, &
             hno3_cond(1,1,2), radius_strat(1,1,2), ncol, lchnk, 2 )
-!XHNO3_cond uses the radius from HNO3_cond
-       call strat_aer_settling( invariants(1,1,indexm), pmid, delt, zmid, tfld, &
-            xhno3_cond(1,1,2), radius_strat(1,1,2), ncol, lchnk, 2 )
+       if (xhno3_ndx > 0) then
+          !XHNO3_cond uses the radius from HNO3_cond
+          call strat_aer_settling( invariants(1,1,indexm), pmid, delt, zmid, tfld, &
+               xhno3_cond(1,1,2), radius_strat(1,1,2), ncol, lchnk, 2 )
+          vmr(:,:,xhno3_ndx) = vmr(:,:,xhno3_ndx) + xhno3_cond(:,:,1) &
+               + xhno3_cond(:,:,2) 
+       endif
 #endif
 
        !-----------------------------------------------------------------------      
@@ -1045,8 +1051,6 @@ contains
        do k = 1,pver
           vmr(:,k,hno3_ndx) = vmr(:,k,hno3_ndx) + hno3_cond(:,k,1) &
                + hno3_cond(:,k,2) 
-          vmr(:,k,xhno3_ndx) = vmr(:,k,xhno3_ndx) + xhno3_cond(:,k,1) &
-               + xhno3_cond(:,k,2) 
           vmr(:,k,hcl_ndx)  = vmr(:,k,hcl_ndx)  + hcl_cond(:,k) 
               
        end do

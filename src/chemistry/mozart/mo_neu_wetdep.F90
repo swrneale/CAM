@@ -201,11 +201,7 @@ subroutine neu_wetdep_init
     mol_weight(m) = cnst_mw(mapping_to_mmr(m))
     if ( debug ) print '(i4,a,f8.4)',m,' mol_weight ',mol_weight(m)
     ice_uptake(m) = .false.
-    if ( trim(gas_wetdep_list(m)) == 'HNO3' ) then
-      ice_uptake(m) = .true.
-    end if
-!LKE 3/6/2018 new XNOX
-    if ( trim(gas_wetdep_list(m)) == 'XHNO3' ) then
+    if ( trim(gas_wetdep_list(m)) == 'HNO3' .or. trim(gas_wetdep_list(m)) == 'XHNO3' ) then
       ice_uptake(m) = .true.
     end if
 !
@@ -632,10 +628,7 @@ species_loop : &
      do N = 1,NTRACE
        QTT(:lpar)    = QTTJFL(:lpar,N)
        QTTNEW(:lpar) = QTTJFL(:lpar,N)
-       is_hno3 = .false.
-       if( n .eq. hno3_ndx .or. n .eq. xhno3_ndx) then
-         is_hno3 = .true.
-       endif
+       is_hno3 = n == hno3_ndx .or. n == xhno3_ndx
        if( is_hno3 ) then
          qt_rain(:lpar) = zero
          qt_rime(:lpar) = zero

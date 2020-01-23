@@ -2896,7 +2896,6 @@ contains
              do i = 1,ncol
                 if( fr_lnduse(i,lt) ) then
                    sndx = index_season(i,lt)
-!                   if( ispec == o3_ndx .or. ispec == o3a_ndx .or. ispec == so2_ndx ) then
                    if( ispec == o3_ndx .or. ispec == o3a_ndx .or. ispec == xo3_ndx .or. ispec == so2_ndx ) then
                       rmx = 0._r8
                    else
@@ -3182,7 +3181,13 @@ contains
        end if
     end if
 
-
+    ! HCOOH, use CH3COOH dep.vel
+    if( hcooh_ndx > 0) then
+       if( has_dvel(hcooh_ndx) ) then
+          dvel(:ncol,hcooh_ndx) = dvel(:ncol,ch3cooh_ndx)
+          dflx(:ncol,hcooh_ndx) = term(:ncol) * dvel(:ncol,hcooh_ndx) * mmr(:ncol,plev,hcooh_ndx)
+       end if
+    end if
 !
 ! SOG species
 !

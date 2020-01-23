@@ -360,26 +360,26 @@
          rxt(:,k,rid_het16) = 0._r8
          rxt(:,k,rid_het17) = 0._r8
 
-         rxt(:,k,rid_xhet1a) = 0._r8
-         rxt(:,k,rid_xhet1b) = 0._r8
-         rxt(:,k,rid_xhet1c) = 0._r8
-         rxt(:,k,rid_xhet2) = 0._r8
-         rxt(:,k,rid_xhet3) = 0._r8
-         rxt(:,k,rid_xhet4) = 0._r8
+         if (rid_xhet1a>0) rxt(:,k,rid_xhet1a) = 0._r8
+         if (rid_xhet1b>0) rxt(:,k,rid_xhet1b) = 0._r8
+         if (rid_xhet1c>0) rxt(:,k,rid_xhet1c) = 0._r8
+         if (rid_xhet2>0)  rxt(:,k,rid_xhet2) = 0._r8
+         if (rid_xhet3>0)  rxt(:,k,rid_xhet3) = 0._r8
+         if (rid_xhet4>0)  rxt(:,k,rid_xhet4) = 0._r8
 
-         rxt(:,k,rid_xhet7a) = 0._r8
-         rxt(:,k,rid_xhet7b) = 0._r8
-         rxt(:,k,rid_xhet7c) = 0._r8
-         rxt(:,k,rid_xhet8) = 0._r8
-         rxt(:,k,rid_xhet9) = 0._r8
+         if (rid_xhet7a>0) rxt(:,k,rid_xhet7a) = 0._r8
+         if (rid_xhet7b>0) rxt(:,k,rid_xhet7b) = 0._r8
+         if (rid_xhet7c>0) rxt(:,k,rid_xhet7c) = 0._r8
+         if (rid_xhet8>0)  rxt(:,k,rid_xhet8) = 0._r8
+         if (rid_xhet9>0)  rxt(:,k,rid_xhet9) = 0._r8
 
-         rxt(:,k,rid_xhet11) = 0._r8
-         rxt(:,k,rid_xhet12a) = 0._r8
-         rxt(:,k,rid_xhet12b) = 0._r8
-         rxt(:,k,rid_xhet12c) = 0._r8
-         rxt(:,k,rid_xhet13) = 0._r8
-         rxt(:,k,rid_xhet14) = 0._r8
-         rxt(:,k,rid_xhet15) = 0._r8
+         if (rid_xhet11>0) rxt(:,k,rid_xhet11) = 0._r8
+         if (rid_xhet12a>0) rxt(:,k,rid_xhet12a) = 0._r8
+         if (rid_xhet12b>0) rxt(:,k,rid_xhet12b) = 0._r8
+         if (rid_xhet12c>0) rxt(:,k,rid_xhet12c) = 0._r8
+         if (rid_xhet13>0) rxt(:,k,rid_xhet13) = 0._r8
+         if (rid_xhet14>0) rxt(:,k,rid_xhet14) = 0._r8
+         if (rid_xhet15>0) rxt(:,k,rid_xhet15) = 0._r8
 
          gprob_n2o5(:,k)    = 0._r8
          gprob_cnt_h2o(:,k) = 0._r8
@@ -583,10 +583,10 @@ has_sadsulf : &
                   term1 = 9283.76_r8 + wt*(115.345_r8 - wt*(5.19258_r8 - .0483464_r8*wt))
                   term2 = -851801._r8 - wt*(22191.2_r8 - wt*(766.916_r8 - 6.85427_r8*wt))
                   gprob_n2o5(i,k) = exp( term0 + T_limiti*(term1 + term2*T_limiti) )
-                  rxt(i,k,rid_het1)   = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
-                  rxt(i,k,rid_xhet1a) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
-                  rxt(i,k,rid_xhet1b) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
-                  rxt(i,k,rid_xhet1c) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
+                  rxt(i,k,rid_het1) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
+                  if (rid_xhet1a>0) rxt(i,k,rid_xhet1a) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )               
+                  if (rid_xhet1b>0) rxt(i,k,rid_xhet1b) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
+                  if (rid_xhet1c>0) rxt(i,k,rid_xhet1c) = max( 0._r8,wrk*av_n2o5*gprob_n2o5(i,k) )
 
 !-----------------------------------------------------------------------
 !     ClONO2 + H2O(liq) =  HOCl + HNO3   Sulfate Aerosol Reaction
@@ -645,7 +645,7 @@ has_sadsulf : &
                   end if
 
                   rxt(i,k,rid_het2) = max( 0._r8,wrk*av_clono2*gprob_cnt_h2o(i,k) )
-                  rxt(i,k,rid_xhet2)= max( 0._r8,wrk*av_clono2*gprob_cnt_h2o(i,k) )
+                  if (rid_xhet2>0) rxt(i,k,rid_xhet2)= max( 0._r8,wrk*av_clono2*gprob_cnt_h2o(i,k) )
 
 
 !-----------------------------------------------------------------------
@@ -660,7 +660,7 @@ has_sadsulf : &
                   term2     = 1._r8/gprob_rxn
                   gprob_bnt_h2o(i,k) = 1._r8 / (term1 + term2)
                   rxt(i,k,rid_het3)  = max( 0._r8,wrk*av_brono2*gprob_bnt_h2o(i,k) )
-                  rxt(i,k,rid_xhet3) = max( 0._r8,wrk*av_brono2*gprob_bnt_h2o(i,k) )
+                  if (rid_xhet3>0) rxt(i,k,rid_xhet3) = max( 0._r8,wrk*av_brono2*gprob_bnt_h2o(i,k) )
 
 !-----------------------------------------------------------------------
 !     	... ClONO2 + HCl(liq) =  Cl2  + HNO3  Sulfate Aerosol Reaction
@@ -668,10 +668,10 @@ has_sadsulf : &
                if( hclvmr > small_div .and. clono2vmr > small_div ) then
                  if ( hclvmr > clono2vmr ) then
                     rxt(i,k,rid_het4)  = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*hcldeni
-                    rxt(i,k,rid_xhet4) = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*hcldeni
+                    if (rid_xhet4>0) rxt(i,k,rid_xhet4) = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*hcldeni
                  else
                     rxt(i,k,rid_het4)  = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*cntdeni
-                    rxt(i,k,rid_xhet4) = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*cntdeni
+                    if (rid_xhet4>0) rxt(i,k,rid_xhet4) = max( 0._r8,wrk*av_clono2*gprob_cnt_hcl(i,k) )*cntdeni
                  end if
                end if
 
@@ -786,10 +786,10 @@ has_sadnat : &
 !         also see Hanson and Ravi, JPC, 97, 2802-2803, 1993.
 !                 gprob_tot     = 4.e-4
 !-----------------------------------------------------------------------
-                rxt(i,k,rid_het7)   = wrk*av_n2o5*4.e-4_r8
-                rxt(i,k,rid_xhet7a) = wrk*av_n2o5*4.e-4_r8
-                rxt(i,k,rid_xhet7b) = wrk*av_n2o5*4.e-4_r8
-                rxt(i,k,rid_xhet7c) = wrk*av_n2o5*4.e-4_r8
+                rxt(i,k,rid_het7)  = wrk*av_n2o5*4.e-4_r8
+                if (rid_xhet7a>0) rxt(i,k,rid_xhet7a) = wrk*av_n2o5*4.e-4_r8
+                if (rid_xhet7b>0) rxt(i,k,rid_xhet7b) = wrk*av_n2o5*4.e-4_r8
+                if (rid_xhet7c>0) rxt(i,k,rid_xhet7c) = wrk*av_n2o5*4.e-4_r8
 
 !-----------------------------------------------------------------------
 !     ClONO2 + H2O(s) => HNO3 + HOCl  NAT Aerosol Reaction
@@ -800,7 +800,7 @@ has_sadnat : &
 !                 gprob_tot    = 0.004
 !-----------------------------------------------------------------------
                 rxt(i,k,rid_het8) = wrk*av_clono2*4.0e-3_r8
-                rxt(i,k,rid_xhet8)= wrk*av_clono2*4.0e-3_r8
+                if (rid_xhet8>0) rxt(i,k,rid_xhet8)= wrk*av_clono2*4.0e-3_r8
 
 !-----------------------------------------------------------------------
 !     	... ClONO2 + HCl(s) => HNO3 + Cl2, NAT Aerosol Reaction
@@ -813,10 +813,10 @@ has_sadnat : &
                 if( hclvmr > small_div .and. clono2vmr > small_div ) then
                    if ( hclvmr > clono2vmr ) then
                       rxt(i,k,rid_het9) = wrk*av_clono2*0.2_r8*hcldeni
-                      rxt(i,k,rid_xhet9)= wrk*av_clono2*0.2_r8*hcldeni
+                      if (rid_xhet9>0) rxt(i,k,rid_xhet9)= wrk*av_clono2*0.2_r8*hcldeni
                    else
                       rxt(i,k,rid_het9) = wrk*av_clono2*0.2_r8*cntdeni  
-                      rxt(i,k,rid_xhet9)= wrk*av_clono2*0.2_r8*cntdeni  
+                      if (rid_xhet9>0) rxt(i,k,rid_xhet9)= wrk*av_clono2*0.2_r8*cntdeni  
                    end if
                 end if
 
@@ -846,7 +846,7 @@ has_sadnat : &
 !                 gprob_tot   = 0.006
 !-----------------------------------------------------------------------
                   rxt(i,k,rid_het11) = wrk*av_brono2*0.006_r8
-                  rxt(i,k,rid_xhet11)= wrk*av_brono2*0.006_r8
+                  if (rid_xhet11>0) rxt(i,k,rid_xhet11)= wrk*av_brono2*0.006_r8
 
             end if has_sadnat
 
@@ -862,9 +862,9 @@ has_sadice : &
 !                 gprob_tot    = 0.02
 !-----------------------------------------------------------------------
                   rxt(i,k,rid_het12) = wrk*av_n2o5*0.02_r8
-                  rxt(i,k,rid_xhet12a)= wrk*av_n2o5*0.02_r8
-                  rxt(i,k,rid_xhet12b)= wrk*av_n2o5*0.02_r8
-                  rxt(i,k,rid_xhet12c)= wrk*av_n2o5*0.02_r8
+                  if (rid_xhet12a>0) rxt(i,k,rid_xhet12a)= wrk*av_n2o5*0.02_r8
+                  if (rid_xhet12b>0) rxt(i,k,rid_xhet12b)= wrk*av_n2o5*0.02_r8
+                  if (rid_xhet12c>0) rxt(i,k,rid_xhet12c)= wrk*av_n2o5*0.02_r8
 
 !-----------------------------------------------------------------------
 !     	... ClONO2 + H2O(s) => HNO3 + HOCl  ICE Aerosol Reaction
@@ -875,7 +875,7 @@ has_sadice : &
 !                 gprob_tot    = 0.3
 !-----------------------------------------------------------------------
                   rxt(i,k,rid_het13) = wrk*av_clono2*0.3_r8
-                  rxt(i,k,rid_xhet13)= wrk*av_clono2*0.3_r8
+                  if (rid_xhet13>0) rxt(i,k,rid_xhet13)= wrk*av_clono2*0.3_r8
 
 !-----------------------------------------------------------------------
 !     	... BrONO2 + H2O(s) => HNO3 + HOBr  ICE Aerosol Reaction
@@ -887,7 +887,7 @@ has_sadice : &
 !                 gprob_tot    = 0.3
 !-----------------------------------------------------------------------
                   rxt(i,k,rid_het14) = wrk*av_brono2*0.3_r8
-                  rxt(i,k,rid_xhet14)= wrk*av_brono2*0.3_r8
+                  if (rid_xhet14>0) rxt(i,k,rid_xhet14)= wrk*av_brono2*0.3_r8
 
 !-----------------------------------------------------------------------
 !     ClONO2 + HCl(s) => HNO3 + Cl2, ICE Aerosol Reaction
@@ -901,10 +901,10 @@ has_sadice : &
                  if( hclvmr > small_div .and. clono2vmr > small_div ) then
                      if ( hclvmr > clono2vmr ) then
                         rxt(i,k,rid_het15) = wrk*av_clono2*0.3_r8*hcldeni
-                        rxt(i,k,rid_xhet15)= wrk*av_clono2*0.3_r8*hcldeni
+                        if (rid_xhet15>0) rxt(i,k,rid_xhet15)= wrk*av_clono2*0.3_r8*hcldeni
                      else
                         rxt(i,k,rid_het15) = wrk*av_clono2*0.3_r8*cntdeni
-                        rxt(i,k,rid_xhet15)= wrk*av_clono2*0.3_r8*cntdeni
+                        if (rid_xhet15>0) rxt(i,k,rid_xhet15)= wrk*av_clono2*0.3_r8*cntdeni
                      end if
                  end if
 !
