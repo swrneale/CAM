@@ -10,6 +10,7 @@ module zm_conv
 !                based on an entraining plume a la Raymond and Blythe (1992)
 !
 ! Author: Byron Boville, from code in tphysbc
+!       : Rich Neale, Organization Infrastructure  
 !
 !---------------------------------------------------------------------------------
   use shr_kind_mod,    only: r8 => shr_kind_r8
