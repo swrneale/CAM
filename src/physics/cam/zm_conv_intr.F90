@@ -51,7 +51,7 @@ module zm_conv_intr
       dp_flxprc_idx, &
       dp_flxsnw_idx, &
       dp_cldliq_idx, &
-      ixorg,       &
+      ixorg,       &       ! RBN: Index for organization value
       dp_cldice_idx, &
       dlfzm_idx,     &     ! detrained convective cloud water mixing ratio.
       difzm_idx,     &     ! detrained convective cloud ice mixing ratio.
