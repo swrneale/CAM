@@ -4056,7 +4056,8 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
   real(r8)           :: hmn_zdp(pcols,pver)  ! Integrals of hmn_lev*dp_lev at each level
   real(r8)           :: q_zdp(pcols,pver)    ! Integrals of q*dp_lev at each level  
   real(r8)           :: dp_zfrac             ! Fraction of vertical grid box below mixing top (usually pblt)
-  real(r8)           :: parcel_ztop(pcols)   ! Depth of parcel mixing (usually pblt)
+  real(r8)           :: parcel_dz(pcols)     ! Depth of parcel mixing (usually parcel_hscale*parcel_dz)
+  real(r8)           :: parcel_ztop(pcols)   ! Height of parcel mixing (usually parcel_ztop+zm(nlev))
   real(r8)           :: parcel_dp(pcols)     ! Pressure integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_hdp(pcols)    ! Pressure*MSE integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_qdp(pcols)    ! Pressure*q integral over parcel mixing depth (usually pblt)  
@@ -4080,6 +4081,13 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
 
    real(r8) rd
    real(r8) rl
+
+   
+! Scaling of PBL height to give parcel mixing length for lparcel_pbl=True 
+
+   real(r8), parameter :: parcel_hscale  = 0.5_r8
+
+   
 !
 !-----------------------------------------------------------------------
 !
@@ -4097,8 +4105,9 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
       mx(i) = lon(i)
       cape(i) = 0._r8
       hmax(i) = 0._r8
-      pbl_z(i) = z(i,nint(pblt(i))) 
-      parcel_ztop(i) = 0.5_r8*pbl_z(i) ! 0.5*Boundary layer top by default
+      pbl_z(i) = zm(i,nint(pblt(i))) 
+      parcel_dz(i) = max(zm(i,nint(pblt(i))),parcel_hscale*pbl_z(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zm(i,nlev)]
+      parcel_ztop(i) = parcel_dz(i)+zm(i,nlev) ! PBL mixing height ztop
       parcel_hdp(i) = 0._r8
       parcel_dp(i) = 0._r8
       parcel_qdp(i) = 0._r8
@@ -4141,13 +4150,14 @@ if (lparcel_pbl) then
    do i = 1,ncol ! Loop columns
       do k = pver,msg + 1,-1
 
-         if (zi(i,k+1)<= parcel_ztop(i)) then ! Has to be relative to surface geo height.  
+         if (zi(i,k+1)<= parcel_dz(i)) then ! Has to be relative to near-surface layer center elevation
             ipar = k
+            
             if (k == pver) then ! Always at least the full depth of lowest model layer.
                dp_zfrac = 1._r8
             else
                ! Fraction of grid cell depth (mostly 1, except when parcel_ztop is in between levels.
-               dp_zfrac =  min(1._r8,(parcel_ztop(i)-zi(i,k+1))/(zi(i,k)-zi(i,k+1)))
+               dp_zfrac =  min(1._r8,(parcel_dz(i)-zi(i,k+1))/(zi(i,k)-zi(i,k+1)))
             end if
 
             parcel_hdp(i) = parcel_hdp(i)+hmn_zdp(i,k)*dp_zfrac ! Sum parcel profile up to a certain level.
