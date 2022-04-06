@@ -4061,7 +4061,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
   real(r8)           :: parcel_dp(pcols)     ! Pressure integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_hdp(pcols)    ! Pressure*MSE integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_qdp(pcols)    ! Pressure*q integral over parcel mixing depth (usually pblt)  
-  real(r8)           :: pbl_z(pcols)         ! Previously diagnosed PBL height
+  real(r8)           :: pbl_dz(pcols)        ! Previously diagnosed PBL height
   real(r8)           :: hpar(pcols)          ! Initial MSE of the parcel 
   real(r8)           :: qpar(pcols)          ! Initial humidity of the parcel
   real(r8)           :: ql(pcols)          ! Initial parcel humidity (for ientropy routine)
@@ -4105,9 +4105,9 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
       mx(i) = lon(i)
       cape(i) = 0._r8
       hmax(i) = 0._r8
-      pbl_z(i) = zm(i,nint(pblt(i))) 
-      parcel_dz(i) = max(zm(i,nint(pblt(i))),parcel_hscale*pbl_z(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zm(i,nlev)]
-      parcel_ztop(i) = parcel_dz(i)+zm(i,nlev) ! PBL mixing height ztop
+      pbl_dz(i) = zm(i,nint(pblt(i))) ! mid-point z (zm) reference to PBL depth
+      parcel_dz(i) = max(zi(i,nlev),parcel_hscale*pbl_dz(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zi(i,nlev)]
+      parcel_ztop(i) = parcel_dz(i)+zf(i,nlev+1) ! PBL mixing height ztop this is wrt phis=0
       parcel_hdp(i) = 0._r8
       parcel_dp(i) = 0._r8
       parcel_qdp(i) = 0._r8
@@ -4187,6 +4187,9 @@ else ! Default method finding level of MSE maximum (nlev sensitive though)
     end do
 
 end if ! Default method of determining parcel launch properties.
+
+
+
 
 
 ! LCL dilute calculation - initialize to mx(i)
