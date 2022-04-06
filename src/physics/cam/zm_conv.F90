@@ -4107,7 +4107,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
       cape(i) = 0._r8
       hmax(i) = 0._r8
       pbl_dz(i) = z(i,nint(pblt(i)))-zs(i) ! mid-point z (zm) reference to PBL depth
-      parcel_dz(i) = max(zi(i,nlev),parcel_hscale*pbl_dz(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zi(i,nlev)]
+      parcel_dz(i) = max(zi(i,pver),parcel_hscale*pbl_dz(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zi(i,pver)]
       parcel_ztop(i) = parcel_dz(i)+zs(i) ! PBL mixing height ztop this is wrt zs=0
       parcel_hdp(i) = 0._r8
       parcel_dp(i) = 0._r8
