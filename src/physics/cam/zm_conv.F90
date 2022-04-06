@@ -799,7 +799,7 @@ subroutine zm_convr(lchnk   ,ncol    , &
                   tp      ,qstp    ,tl      ,rl      ,cape     , &
                   pblt    ,lcl     ,lel     ,lon     ,maxi     , &
                   rgas    ,grav    ,cpres   ,msg     , &
-                  zi      ,tpert   , org2d  , landfrac)
+                  zi      ,zs      ,tpert   , org2d  , landfrac)
    end if
 
 !
@@ -3966,7 +3966,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
                   tp      ,qstp    ,tl      ,rl      ,cape    , &
                   pblt    ,lcl     ,lel     ,lon     ,mx      , &
                   rd      ,grav    ,cp      ,msg     , &
-                  zi,     tpert    ,org    , landfrac)
+                  zi      ,zs      ,tpert    ,org    , landfrac)
 !----------------------------------------------------------------------- 
 ! 
 ! Purpose: 
@@ -4008,11 +4008,12 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
    real(r8), intent(in) :: pblt(pcols)          ! index of pbl depth
    real(r8), intent(in) :: tpert(pcols)         ! perturbation temperature by pbl processes
 
-! Use z interface for parcel calculations.
+! Use z interface/surface relative values for PBL parcel calculations.
    real(r8), intent(in) :: zi(pcols,pver+1)
-
+   real(r8), intent(in) :: zs(pcols)
+   
 !
-! output arguments
+! output argumentszi
 !
    real(r8), intent(out) :: tp(pcols,pver)       ! parcel temperature
    real(r8), intent(out) :: qstp(pcols,pver)     ! saturation mixing ratio of parcel (only above lcl, just q below).
@@ -4105,9 +4106,9 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
       mx(i) = lon(i)
       cape(i) = 0._r8
       hmax(i) = 0._r8
-      pbl_dz(i) = zm(i,nint(pblt(i))) ! mid-point z (zm) reference to PBL depth
+      pbl_dz(i) = z(i,nint(pblt(i)))-zs(i) ! mid-point z (zm) reference to PBL depth
       parcel_dz(i) = max(zi(i,nlev),parcel_hscale*pbl_dz(i)) ! PBL mixing depth [parcel_hscale*Boundary, but no thinner than zi(i,nlev)]
-      parcel_ztop(i) = parcel_dz(i)+zf(i,nlev+1) ! PBL mixing height ztop this is wrt phis=0
+      parcel_ztop(i) = parcel_dz(i)+zs(i) ! PBL mixing height ztop this is wrt zs=0
       parcel_hdp(i) = 0._r8
       parcel_dp(i) = 0._r8
       parcel_qdp(i) = 0._r8
