@@ -4058,7 +4058,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
   real(r8)           :: q_zdp(pcols,pver)    ! Integrals of q*dp_lev at each level  
   real(r8)           :: dp_zfrac             ! Fraction of vertical grid box below mixing top (usually pblt)
   real(r8)           :: parcel_dz(pcols)     ! Depth of parcel mixing (usually parcel_hscale*parcel_dz)
-  real(r8)           :: parcel_ztop(pcols)   ! Height of parcel mixing (usually parcel_ztop+zm(nlev))
+  real(r8)           :: parcel_ztop(pcols)   ! Height of parcel mixing (usually parcel_ztop+zm(pver))
   real(r8)           :: parcel_dp(pcols)     ! Pressure integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_hdp(pcols)    ! Pressure*MSE integral over parcel mixing depth (usually pblt)
   real(r8)           :: parcel_qdp(pcols)    ! Pressure*q integral over parcel mixing depth (usually pblt)  
@@ -4172,7 +4172,7 @@ if (lparcel_pbl) then
       mx(i) = ipar       
    end do
 
-else ! Default method finding level of MSE maximum (nlev sensitive though)
+else ! Default method finding level of MSE maximum (pver sensitive though)
     !
     ! set "launching" level(mx) to be at maximum moist static energy.
     ! search for this level stops at planetary boundary layer top.
