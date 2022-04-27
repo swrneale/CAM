@@ -1,4 +1,2761 @@
 ===============================================================
+
+Tag name:cam6_3_054
+Originator(s): cacraig
+Date: 3/23/2022
+One-line Summary: Update externals to match cesm2_3_beta08
+Github PR URL: https://github.com/ESCOMP/CAM/pull/549
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+- Update externals to match cesm2_3_beta08 (https://github.com/ESCOMP/CAM/issues/548
+- Update all STARTDATE fields from year 0000 to 0001 (https://github.com/ESCOMP/CAM/issues/553)
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: goldy, courtneyp, nusbaume, fvitt
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M       Externals.cfg
+           - update externals to match cesm2_3_beta08
+
+M       cime_config/testdefs/testmods_dirs/cam/idphys/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/outfrq24h_port/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/outfrq3s_eoyttrac/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/outfrq3s_ttrac/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/scm_prep/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/scm_prep_c6/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/silhs/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/terminator/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/ttrac_loadbal0/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/ttrac_loadbal1/shell_commands
+M       cime_config/testdefs/testmods_dirs/cam/ttrac_loadbal3/shell_commands
+           - Change STARTDATE to year 0001 from 0000 which it had been previously
+
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  ERC_D_Ln9_Vmct.ne16_ne16_mg17.FADIAB.cheyenne_intel.cam-terminator (Overall: DIFF) details:
+  ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: DIFF) details:
+  ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: DIFF) details:
+  ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: DIFF) details:
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF) details:
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERS_Ln9_Vmct.f19_f19_mg17.FSPCAMS.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC5.cheyenne_intel.cam-scm_prep (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+  SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+  SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: DIFF) details:
+  SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: DIFF) details:
+  SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: DIFF) details:
+  SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: DIFF) details:
+  SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem (Overall: DIFF) details:
+         - Namelist and baseline failures due to updating externals
+
+izumi/nag/aux_cam:
+    DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+      - Preexisting failure
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.FHS94.izumi_nag.cam-idphys (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-outfrq3s_ttrac (Overall: DIFF) details:
+  ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL) details:
+  ERI_D_Ln18_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: DIFF) details:
+  SMS_D_Ld2_Vmct.f45_f45_mg37.PC5.izumi_nag.cam-outfrq24h_port (Overall: DIFF) details:
+  SMS_D_Ln7_Vmct.T42_T42_mg17.QPSCAMC5.izumi_nag.cam-scmarm (Overall: NLFAIL) details:
+  SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s (Overall: DIFF) details:
+  TMC_D_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: DIFF) details:
+         - Namelist and baseline failures due to updating externals
+
+
+izumi/pgi/aux_cam:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.FHS94.izumi_nag.cam-idphys (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal0 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal1 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal3 (Overall: DIFF) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC4.izumi_gnu.cam-scm_prep (Overall: DIFF) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_gnu.cam-scm_prep_c6 (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-outfrq3s_ttrac (Overall: DIFF) details:
+      - Namelist and baseline failures due to updating externals
+      
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_053
+Originator(s): peverwhee
+Date: 17 March 2022
+One-line Summary: Transition izumi PGI tests to GNU compiler
+Github PR URLs: https://github.com/ESCOMP/CAM/pull/541
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ Transition PGI tests to GNU #539
+ Migrate the following tests from PGI to GNU:
+  - all aux_cam pgi tests
+  - prebeta cheyenne pgi test
+  - waccmx izumi pgi test
+  - fv3_cam izumi pgi test
+
+Describe any changes made to build system: N/A
+
+Describe any changes made to the namelist: N/A
+
+List any changes to the defaults for the boundary datasets: N/A
+
+Describe any substantial timing or memory changes: N/A
+
+Code reviewed by: gold2718, cacraigucar, nusbaume
+
+List all files eliminated: N/A
+
+List all files added and what they do: N/A
+
+List all existing files that have been modified, and describe the changes:
+
+M	cime_config/testdefs/testlist_cam.xml
+ - change "pgi" to "gnu" for above tests
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: not run
+
+izumi/nag/aux_cam: not run
+
+izumi/gnu/aux_cam:
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.FADIAB.izumi_gnu.cam-terminator (Overall: DIFF)  details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC4.izumi_gnu.cam-outfrq3s_diags (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_gnu.cam-outfrq3s_unicon (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_gnu.cam-rad_diag (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPSPCAMM.izumi_gnu.cam-outfrq3s (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_gnu.cam-outfrq3s_ba (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.ne5pg2_ne5pg2_mg37.FADIAB.izumi_gnu.cam-outfrq3s (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.ne5pg4_ne5pg4_mg37.FADIAB.izumi_gnu.cam-outfrq3s (Overall: DIFF) details:
+  ERC_D_Ln9_Vmct.T5_T5_mg37.QPC3.izumi_gnu.cam-outfrq3s_usecase (Overall: DIFF) details:
+  ERI_D_Ln18_Vmct.T5_T5_mg37.QPC4.izumi_gnu.cam-co2rmp (Overall: DIFF) details:
+  ERP_Ln9_Vmct.ne5_ne5_mg37.FHS94.izumi_gnu.cam-outfrq9s (Overall: DIFF) details:
+  ERP_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_gnu.cam-outfrq9s (Overall: DIFF) details:
+  PEM_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.FADIAB.izumi_gnu.cam-outfrq3s (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal0 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal1 (Overall: DIFF) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-ttrac_loadbal3 (Overall: DIFF) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC4.izumi_gnu.cam-scm_prep (Overall: DIFF) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_gnu.cam-scm_prep_c6 (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_gnu.cam-outfrq9s_apmee (Overall: DIFF) details:
+  SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_gnu.cam-outfrq3s_ttrac (Overall: DIFF) details:
+ - NLCOMP failures because of case_name change (izumi_gnu instead of izumi_pgi)
+ - BASELINE compare differences due to compiler change
+Summarize any changes to answers: small answer changes due to compiler change
+
+===============================================================
+
+Tag name: cam6_3_052
+Originator(s): fvitt
+Date: 1 Mar 2022
+One-line Summary: Remove unused chemistry code; reduce memory footprint of SE dycore restarts
+Github PR URLs:
+ https://github.com/ESCOMP/CAM/pull/473
+ https://github.com/ESCOMP/CAM/pull/492
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Remove unused dead code related to deprecated xactive_prates (FTUV) photolysis option.
+ (Duplicate (possibly inconsistent) Lyman-alpha routines in chemistry/mozart #458)
+
+ Remove unused arrays in dry deposition code.
+
+ Reduce memory footprint of SE dycore read restart code.
+ (Allocatable arrays are not scalable in SE dycore read restart code #472)
+
+Describe any changes made to build system: na
+
+Describe any changes made to the namelist:
+ Removed deprecated namelist variables:
+   xactive_prates
+   tuv_xsect_file
+   o2_xsect_file
+
+List any changes to the defaults for the boundary datasets: na
+
+Describe any substantial timing or memory changes: na
+
+Code reviewed by: gold2718, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated:
+
+D	src/chemistry/mozart/mo_lymana.F90
+D	src/chemistry/mozart/mo_photoin.F90
+D	src/chemistry/mozart/mo_seto2.F90
+ - dead code
+
+List all files added and what they do: na
+
+List all existing files that have been modified, and describe the changes:
+
+M	bld/build-namelist
+M	bld/namelist_files/namelist_defaults_cam.xml
+M	bld/namelist_files/namelist_definition.xml
+ - removed deprecated namelist variables:
+     xactive_prates
+     tuv_xsect_file
+     o2_xsect_file
+
+M	src/chemistry/mozart/chemistry.F90
+M	src/chemistry/mozart/mo_chemini.F90
+ - removed deprecated namelist variables:
+     xactive_prates
+     tuv_xsect_file
+     o2_xsect_file
+
+M	src/chemistry/mozart/mo_gas_phase_chemdr.F90
+ - removed dead code related xactive_prates photolysis (FTUV)
+
+M	src/chemistry/mozart/mo_photo.F90
+ - removed dead code related xactive_prates photolysis (FTUV)
+ - removed unused dummy arguments to setcol subroutine
+
+M	src/chemistry/mozart/mo_waccm_hrates.F90
+ - removed unused actual arguments to setcol subroutine
+
+M       src/chemistry/mozart/mo_jshort.F90
+ - note added regarding the correction to the table
+
+M       src/chemistry/mozart/mo_drydep.F90
+ - remove dead code:
+   -- unused vegetation lat lon arrays
+ - provide string to endrun calls
+
+M	src/dynamics/se/restart_dynamics.F90
+ - reduce size of alloacted arrays
+ - add memory allocate checks
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+
+  ERC_D_Ln9_P144x1_Vmct.ne16pg3_ne16pg3_mg17.QPC6HIST.cheyenne_intel.cam-outfrq3s_ttrac_usecase (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq3s_cosp (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.ne16_ne16_mg17.QPC5HIST.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL) details:
+  ERP_D_Ln9_Vmct.f09_f09_mg17.QSC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: NLFAIL) details:
+  ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: NLFAIL) details:
+  ERP_Ln9_P24x3_Vmct.f45_f45_mg37.QPWmaC6.cheyenne_intel.cam-outfrq9s_mee_fluxes (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: NLFAIL) details:
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: NLFAIL) details:
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC5.cheyenne_intel.cam-scm_prep (Overall: NLFAIL) details:
+  SMS_D_Ld2_Vmct.f19_f19_mg17.QPC5HIST.cheyenne_intel.cam-volc_usecase (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.QPC5M7.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL) details:
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: NLFAIL) details:
+  SMS_Ld5_Vmct.f09_f09_mg17.PC6.cheyenne_intel.cam-cam6_port_f09 (Overall: NLFAIL) details:
+  SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: NLFAIL) details:
+  SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: NLFAIL) details:
+  SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: NLFAIL) details:
+  SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: NLFAIL) details:
+ - namelist variable xactive_prates removed, otherwise bit-for-bit unchanged
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-carma_sea_salt (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_cosp (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_subcol (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_am (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_convmic (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_cospsathist (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPWmaC6.izumi_nag.cam-outfrq3s (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-outfrq3s_ttrac (Overall: NLFAIL) details:
+  ERI_D_Ln18_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL) details:
+  ERI_D_Ln18_Vmct.f19_f19_mg17.QPC6.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC6.izumi_nag.cam-outfrq9s_clubbmf (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL) details:
+  SMS_D_Ld2_Vmct.f45_f45_mg37.PC5.izumi_nag.cam-outfrq24h_port (Overall: NLFAIL) details:
+  SMS_D_Ln3_Vmct.ne5pg3_ne5pg3_mg37.QPX2000.izumi_nag.cam-outfrq3s (Overall: NLFAIL) details:
+  SMS_D_Ln7_Vmct.T42_T42_mg17.QPSCAMC5.izumi_nag.cam-scmarm (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-rad_diag_mam (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPMAM5.izumi_nag.cam-outfrq3s (Overall: NLFAIL) details:
+  SMS_P48x1_D_Ln3_Vmct.f09_f09_mg17.QPC6HIST.izumi_nag.cam-outfrq3s_co2cycle_usecase (Overall: NLFAIL) details:
+  SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s (Overall: NLFAIL) details:
+  SUB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s (Overall: NLFAIL) details:
+  TMC_D_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL) details:
+  TMC_D_Vmct.T5_T5_mg37.QPC5.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL) details:
+ - namelist variable xactive_prates removed, otherwise bit-for-bit unchanged
+
+izumi/pgi/aux_cam:
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-outfrq3s_unicon (Overall: NLFAIL) details:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPSPCAMM.izumi_pgi.cam-outfrq3s (Overall: NLFAIL) details:
+  ERP_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq9s (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal0 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal1 (Overall: NLFAIL) details:
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal3 (Overall: NLFAIL) details:
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_pgi.cam-scm_prep_c6 (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_pgi.cam-outfrq9s_apmee (Overall: NLFAIL) details:
+  SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-outfrq3s_ttrac (Overall: NLFAIL) details:
+ - namelist variable xactive_prates removed, otherwise bit-for-bit unchanged
+
+Summarize any changes to answers: bit-for-bit unchanged
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_051
+Originator(s): fvitt
+Date: 25 Feb 2022
+One-line Summary: Inline chemical forcings due to medium energy electrons
+Github PR URL: https://github.com/ESCOMP/CAM/pull/478
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Inline chemical forcings due to ionization by medium energy electrons #425
+
+Describe any changes made to build system: na
+
+Describe any changes made to the namelist:
+
+ New namelist options:
+
+ mee_ion_inline
+  Switch to turn on medium energy electron ionization chemical forcings
+  computed inline using Ap geomagnetic activity index input data.
+  Default: FALSE
+
+ mee_ion_blc
+  Bounce cone loss angle (degrees) for medium energy electrons in radiation belts.
+  Must range from 0 to 90 degrees.
+  Default: 80 degrees
+
+ mee_ion_diagonly
+  If TRUE, compute medium energy electron ionization rates only for output to history stream.
+  Otherwise, apply the ionization rates as forcings to the chemistry.
+  Default: FALSE
+
+ mee_fluxes_filepath
+  Filepath input dataset for radiation belt medium energy electrons fluxes incident
+  on upper atmosphere.
+  Default: None.
+
+ mee_fluxes_fillin
+  If TRUE, fill in missing fluxes with computed fluxes based in Ap index using van de Kamp
+  method.
+  Default: FALSE
+
+List any changes to the defaults for the boundary datasets: na
+
+Describe any substantial timing or memory changes: na
+
+Code reviewed by: gold2718, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated: na
+
+List all files added and what they do:
+
+A	src/chemistry/mozart/mee_ap_util_mod.F90
+A	src/chemistry/mozart/mee_fluxes.F90
+A	src/chemistry/mozart/mee_ionization.F90
+ - for inline MEE calculations
+
+A	cime_config/testdefs/testmods_dirs/cam/outfrq9s_apmee/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/outfrq9s_mee_fluxes/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/outfrq9s_mee_fluxes/user_nl_cam
+ - added tests for inline MEE calculations
+
+List all existing files that have been modified, and describe the changes:
+
+M       bld/namelist_files/namelist_defaults_cam.xml
+ - default IC file for waccm-ma aqua-planet 2 degrees
+
+M	bld/build-namelist
+ - check for MEE inputs consistency
+ - set default mee_ion_blc (bounce cone loss angle)
+
+M	bld/namelist_files/namelist_defaults_cam.xml
+ - default mee_ion_blc (bounce cone loss angle) to 80 degrees
+ - default IC file for 1.9x2.5 aqua-planet waccm-ma
+
+M	bld/namelist_files/namelist_definition.xml
+ - new namelist options described above
+
+M	src/chemistry/mozart/chemistry.F90
+M	src/chemistry/mozart/mo_setext.F90
+M	src/chemistry/utils/input_data_utils.F90
+ - for inline MEE calculations
+
+M	cime_config/testdefs/testlist_cam.xml
+ - added tests for inline MEE calculations
+ - added time limits to some cheyenne aux_cam tests
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  ERP_Ln9_P24x3_Vmct.f45_f45_mg37.QPWmaC6.cheyenne_intel.cam-outfrq9s_mee_fluxes (Overall: DIFF) details:
+    FAIL ERP_Ln9_P24x3_Vmct.f45_f45_mg37.QPWmaC6.cheyenne_intel.cam-outfrq9s_mee_fluxes NLCOMP
+    FAIL ERP_Ln9_P24x3_Vmct.f45_f45_mg37.QPWmaC6.cheyenne_intel.cam-outfrq9s_mee_fluxes BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_050: ERROR BFAIL baseline directory '/glade/p/cesm/amwg/cesm_baselines/cam6_3_050/ERP_Ln9_P24x3_Vmct.f45_f45_mg37.QPWmaC6.cheyenne_intel.cam-outfrq9s_mee_fluxes' does not exist
+ - new test
+
+izumi/nag/aux_cam:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+izumi/pgi/aux_cam:
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_pgi.cam-outfrq9s_apmee (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_pgi.cam-outfrq9s_apmee NLCOMP
+    FAIL SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_pgi.cam-outfrq9s_apmee BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_050_pgi: ERROR BFAIL baseline directory '/fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_050_pgi/SMS_D_Ln9_Vmct.f10_f10_mg37.QPWmaC4.izumi_pgi.cam-outfrq9s_apmee' does not exist
+ - new test
+
+Summarize any changes to answers: bit-for-bit unchanged
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_050
+Originator(s): manderberg
+Date: 10 Feb 2022
+One-line Summary: Added CARMA tests and a new CARMA test category to CAM regression testing
+Github PR URL: https://github.com/ESCOMP/CAM/pull/505
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ Address github issue:
+ . Test different CARMA models in current CAM code #420
+
+Describe any changes made to build system: NA
+
+Describe any changes made to the namelist: NA
+
+List any changes to the defaults for the boundary datasets: NA
+
+Describe any substantial timing or memory changes: NA
+
+Code reviewed by: cacraigucar, cbardeen, fvitt, gold2718, nusbaume, peverwhee, tilmes
+
+List all files eliminated:
+
+D	cime_config/testdefs/testmods_dirs/cam/outfrq3s_carma/shell_commands
+D	cime_config/testdefs/testmods_dirs/cam/outfrq3s_carma/user_nl_cam
+D	cime_config/testdefs/testmods_dirs/cam/outfrq3s_carma/user_nl_clm
+D	cime_config/testdefs/testmods_dirs/cam/outfrq3s_carma/user_nl_cpl
+ - remove directory outfrq3s_carma; using CARMA model directories instead
+
+List all files added and what they do:
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_dust/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_dust/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_dust/user_nl_clm
+A	cime_config/testdefs/testmods_dirs/cam/carma_dust/suser_nl_cpl
+ -  testmods for testing the carma dust model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_impact/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_impact/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_impact/user_nl_cpl
+ - testmods for testing the carma meteor_impact model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_smoke/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_smoke/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_meteor_smoke/user_nl_cpl
+ - testmods for testing the carma meteor_smoke model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_mixed_sulfate/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_mixed_sulfate/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_mixed_sulfate/user_nl_clm
+A	cime_config/testdefs/testmods_dirs/cam/carma_mixed_sulfate/user_nl_cpl
+ - testmods for testing the carma mixed_sulfate model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_pmc/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_pmc/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_pmc/user_nl_cpl
+ - testmods for testing the carma pmc model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_sea_salt/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_sea_salt/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_sea_salt/user_nl_cpl
+ - testmods for testing the carma sea_salt model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_sulfate/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_sulfate/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_sulfate/user_nl_clm
+A	cime_config/testdefs/testmods_dirs/cam/carma_sulfate/user_nl_cpl
+ - testmods for testing the carma sulfate model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_growth/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_growth/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_growth/user_nl_cpl
+ - testmods for testing the carma test_growth model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_passive/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_passive/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_passive/user_nl_cpl
+ - testmods for testing the carma test_passive model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_radiative/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_radiative/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_radiative/user_nl_cpl
+ - testmods for testing the carma test_radiative model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_swelling/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_swelling/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_swelling/user_nl_cpl
+ - testmods for testing the carma test_swelling model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers/user_nl_cpl
+ - testmods for testing the carma test_tracers model
+
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers2/shell_commands
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers2/user_nl_cam
+A	cime_config/testdefs/testmods_dirs/cam/carma_test_tracers2/user_nl_cpl
+ - testmods for testing the carma test_tracers2 model
+
+
+List all existing files that have been modified, and describe the changes:
+
+M	cime_config/config_compsets.xml
+- added compset FW4ma2000
+
+M	cime_config/testdefs/testlist_cam.xml
+- added thirteen (13) carma tests to support CARMA development
+- added a new carma test suite to support CARMA development
+
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: All PASS
+
+izumi/nag/aux_cam:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+ ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-carma_sea_salt (Overall: FAIL) details:
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-carma_sea_salt NLCOMP
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-carma_sea_salt BASELINE
+ - expected failure, baseline directory does not exist (new test)
+
+izumi/pgi/aux_cam: All PASS
+
+CAM tag used for the baseline comparison tests if different than previous
+tag:
+
+Summarize any changes to answers, i.e.,
+- what code configurations:
+- what platforms/compilers:
+- nature of change (roundoff; larger than roundoff but same climate; new
+  climate):
+
+If bitwise differences were observed, how did you show they were no worse
+than roundoff?
+
+If this tag changes climate describe the run(s) done to evaluate the new
+climate in enough detail that it(they) could be reproduced, i.e.,
+- source tag (all code used must be in the repository):
+- platform/compilers:
+- configure commandline:
+- build-namelist command (or complete namelist):
+- MSS location of output:
+
+MSS location of control simulations used to validate new climate:
+
+URL for AMWG diagnostics output used to validate new climate:
+
+==============================================================================================================================
+
+Tag name: cam6_3_049
+Originator(s): fvitt
+Date: 7 Feb 2022
+One-line Summary: Misc updates for WACCM-X
+Github PR URL: https://github.com/ESCOMP/CAM/pull/474
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Address github issues:
+ . D-Region ion chemistry in WACCMX not converging #465
+ . WACCM-X conductance field seems to have a "hole" over geographic pole #456
+ . WACCM-X history fields EX, EY missing Rearth+z factor #455
+ . Need to reduce number of WACCMX history fields in the master field list #457
+
+ Provide more efficient default PE layouts for WACCM-X on cheyenne
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+ Added new namelist option "ionos_debug_hist" --
+   Switch to add history fields to master field list for the purpose
+   of debugging ionospheric processes in WACCMX.
+   Default: FALSE
+
+List any changes to the defaults for the boundary datasets: na
+
+Describe any substantial timing or memory changes: na
+
+Code reviewed by: gold2718, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated: na
+
+List all files added and what they do: na
+
+List all existing files that have been modified, and describe the changes:
+
+M	bld/namelist_files/namelist_definition.xml
+ - add "ionos_debug_hist" option
+
+M	cime_config/config_pes.xml
+ - more efficient default PE layouts on cheyenne for WACCMX
+
+M	cime_config/testdefs/testlist_cam.xml
+ - added f05 waccmx test
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq1d_amie/user_nl_cam
+ - increase time step splitting for AMIE test
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq1d_ltr/user_nl_cam
+ - use updated inputfile (netcdf format)
+ - increase time step splitting
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq1d_newyear/user_nl_cam
+ - include EX, EY, EZ and some debugging diagnostics in the history stream
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq3s_edyngrid_160x193/user_nl_cam
+ - include some debugging diagnostics in the history stream
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq3s_edyngrid_320x385/user_nl_cam
+ - include EX, EY, EZ, ED13D, and ED23D electric field components in the history stream
+
+M	cime_config/testdefs/testmods_dirs/cam/outfrq9s_amie/user_nl_cam
+M	cime_config/testdefs/testmods_dirs/cam/outfrq9s_ltr/user_nl_cam
+ - increase ionos_npes setting
+
+M	src/ionosphere/waccmx/adotv_mod.F90
+ - include geographic poles in calculation of adot factors
+
+M	src/ionosphere/waccmx/getapex.F90
+ - initialize factors to NaNs to ensure they get properly set at the geographic poles
+
+M	src/ionosphere/waccmx/edynamo.F90
+ - corrections to electric field diagnostics EX, EY, EZ
+   -- output code variables eex, eey, eez
+ - implement "hist_debug" option for including diagnostics for debugging purposes
+
+M	src/ionosphere/waccmx/dpie_coupling.F90
+M	src/ionosphere/waccmx/edyn_init.F90
+M	src/ionosphere/waccmx/oplus.F90
+ - implement "hist_debug" option for including diagnostics for debugging purposes
+ - move corresponding addfld calls to same module where outfld calls reside
+
+M	src/ionosphere/waccmx/ionosphere_interface.F90
+ - implement "ionos_debug_hist" namelist option
+ - rearrange initialization order to ensure history grids are defined before fields are
+   added to history master field list
+
+M	src/chemistry/pp_waccm_mad_mam4/chem_mech.doc
+M	src/chemistry/pp_waccm_mad_mam4/chem_mech.in
+M	src/chemistry/pp_waccm_mad_mam4/chem_mods.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_indprd.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_lin_matrix.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_lu_factor.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_lu_solve.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_nln_matrix.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_prod_loss.F90
+M	src/chemistry/pp_waccm_mad_mam4/mo_sim_dat.F90
+ - implicitly solve CO2
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s NLCOMP
+    FAIL ERC_D_Ln9_Vmct.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s NLCOMP
+    FAIL ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s NLCOMP
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie NLCOMP
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_048: DIFF
+ - differences due to geographic pole bug fix (issue #456)
+ - namelist compare failures due to changes in cheyenne PE layouts
+
+izumi/nag/aux_cam:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+  SMS_D_Ln3_Vmct.ne5pg3_ne5pg3_mg37.QPX2000.izumi_nag.cam-outfrq3s (Overall: DIFF) details:
+    FAIL SMS_D_Ln3_Vmct.ne5pg3_ne5pg3_mg37.QPX2000.izumi_nag.cam-outfrq3s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_048_nag: DIFF
+ - difference due to geographic pole bug fix (issue #456)
+
+izumi/pgi/aux_cam: All PASS
+
+Summarize any changes to answers: Larger than roundoff for WACCMX
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_048
+Originator(s): cacraig
+Date: Feb 3, 2022
+One-line Summary: Update externals to match cesm2_3_alpha08a
+Github PR URL: https://github.com/ESCOMP/CAM/pull/513
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+Add ESMCI/ccs_config_cesm in Externals.cfg: https://github.com/ESCOMP/CAM/issues/502
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: goldy, nusbaume, courtneyp, fvitt
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M       .gitignore
+           - Added new directory ccs_config which should be noted for git to ignore
+
+M       Externals.cfg
+           - Updated the externals to match cesm2_3_alpha08a
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all BFB
+
+izumi/nag/aux_cam: all BFB except:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+       - Pre-existing failure
+
+  ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL) details:
+    FAIL ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase NLCOMP
+        DRIVER_attributes->PELAYOUT_attributes->ALLCOMP_attributes:
+         - single_column_lnd_domainfile : UNSET
+         + single_column_lnd_domainfile : /fs/cgd/csm/inputdata/share/domains/unset
+        DRIVER_attributes->PELAYOUT_attributes->ALLCOMP_attributes->MED_attributes->CLOCK_attributes->ATM_attributes:
+         - mesh_atm : UNSET
+         + mesh_atm : /fs/cgd/csm/inputdata/share/meshes/mpasa480_ESMFmesh-211109.nc
+
+izumi/pgi/aux_cam: all BFB
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_047
+Originator(s): fvitt, MiWeim
+Date: 2 Feb 2022
+One-line Summary: Combine duplicate WACCMX specific code in dycores; Remove double call of outfld HNO3_GAS
+Github PR URL:
+  https://github.com/ESCOMP/CAM/pull/460
+  https://github.com/ESCOMP/CAM/pull/518
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Move WACCM-x code in dp_coupling to common module/subroutine for use by all dycores #444
+ Double call of outfld for HNO3_GAS in mo_gas_phase_chemdr.F90 #517
+
+Describe any changes made to build system: na
+
+Describe any changes made to the namelist: na
+
+List any changes to the defaults for the boundary datasets: na
+
+Describe any substantial timing or memory changes: na
+
+Code reviewed by: gold2718, PeterHjortLauritzen, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated: na
+
+List all files added and what they do: na
+
+List all existing files that have been modified, and describe the changes:
+
+M	src/dynamics/fv/dp_coupling.F90
+M	src/dynamics/mpas/dp_coupling.F90
+M	src/dynamics/se/dp_coupling.F90
+ - replace waccmx specific code block with call to phys_cnst_limit
+
+M	src/dynamics/mpas/dyn_comp.F90
+M	src/dynamics/se/dyn_comp.F90
+ - remove inquiries to get indices to WACCMX major species
+
+M	src/physics/cam/physics_types.F90
+ - add phys_cnst_limit routine to apply limiters to WACCMX major species
+   which is dycore independent
+
+
+M src/chemistry/mozart/mo_gas_phase_chemdr.F90
+ - removed second call of routine outfld for HNO3_GAS
+
+M src/chemistry/mozart/mo_chm_diags.F90
+ - added right parantheses to NOY and CLOX output long name variables
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+
+  ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: DIFF) details:
+    FAIL ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.QPC2000climo.cheyenne_intel.cam-outfrq3s_usecase (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.QPC2000climo.cheyenne_intel.cam-outfrq3s_usecase BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+    FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+  SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+    FAIL SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_046: DIFF
+ - differences in the HNO3_GAS diagnostic -- otherwise bit-for-bit unchanged
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_046_nag: ERROR BFAIL some baseline files were missing
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_046_nag: ERROR BFAIL some baseline files were missing
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_046_nag: ERROR BFAIL some baseline files were missing
+ - missing baselines -- these did not run seccessfully in the previous tag
+
+  SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_046_nag: DIFF
+ - differences in the HNO3_GAS diagnostic -- otherwise bit-for-bit unchanged
+
+izumi/pgi/aux_cam: All PASS
+
+Summarize any changes to answers:
+
+ differences in the HNO3_GAS diagnostic -- otherwise bit-for-bit unchanged
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_046
+Originator(s): katec, andrewgettelman
+Date: 01 Feb 2022
+One-line Summary: PUMAS v1 release to cam_dev
+Github PR URL:https://github.com/ESCOMP/CAM/pull/409
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+Fixes issue #408 (PUMAS/MG Science updates and bug fixes), and ESCOMP/PUMAS issues #20 and #28
+1. Fixes issue Possible removal of ice number limiter....doesn't work with new ice nucleation.
+2. adds in vapor deposition onto snow as a process
+3. Fall speed correction for rain/snow/graupel
+4. Option for implicit fall speed
+5. Option for the accretion to see newly autoconverted rain (liquid only)
+-- As part of this update to PUMAS we have renamed many micro_mg files and subroutines to
+	micro_pumas instead. This occured for the previous pumas code and this new update.
+
+Describe any changes made to build system:
+
+The previous code is now in a subdirectory called "pumas-frozen" and the newly released
+	pumas_v1 code is in the "pumas" directory, but only available with the cam_dev
+	configure option.
+
+Describe any changes made to the namelist:
+
+Two new namelist options: micro_mg_accre_sees_auto and micro_mg_implicit_fall. Both are
+	set to "true" as default but only available (applicable) in cam_dev pumas
+	configurations.
+
+List any changes to the defaults for the boundary datasets:
+
+None
+
+Describe any substantial timing or memory changes:
+
+None
+
+Code reviewed by: JulioTBacmeister, nusbaume, gold2718, fvitt, cacraigucar, pverwhee
+
+List all files eliminated:
+- micro_mg_cam.F90 renamed to micro_pumas_cam.F90
+
+List all files added and what they do:
+- micro_pumas_cam.F90 added to src/physics/cam_dev/
+
+List all existing files that have been modified, and describe the changes:
+M	.gitignore
+- Added a line for moving the preview PUMAS to a new directory in src/physics/pumas-frozen
+
+M	Externals_CAM.cfg
+- Update PUMAS externals tag to pumas_cam-release_v1.22, add
+	new external directory for previous PUMAS code in src/physics/pumas-frozen,
+	update tag for previous code to branch tag pumas_cam-release_v1.17_rename
+
+M	bld/build-namelist
+- add_default calls for new namelist options (only available to cam_dev physics)
+
+M	bld/configure
+- Build filepath for pumas depends on cam_dev configure option.
+	src/physics/pumas build with cam_dev, otherwise src/physics/pumas-frozen
+	is used in the build.
+
+M	bld/namelist_files/namelist_defaults_cam.xml
+- New namelist options default to true in cam_dev physics (not applicable otherwise)
+
+M	bld/namelist_files/namelist_definition.xml
+- Define two new namelist options micro_mg_implicit_fall and micro_mg_accre_sees_auto
+
+M	src/physics/cam/macrop_driver.F90
+- Rename micro_mg to micro_pumas
+
+M	src/physics/cam/micro_pumas_cam.F90
+- Rename micro_mg to micro_pumas, including micro_mg_tend3_0 -> micro_pumas_tend
+
+M 	src/physics/cam/microp_driver.F90
+- Rename micro_mg to micro_pumas
+
+M	src/physics/cam/nucleate_ice.F90
+- Add a new optional argument to nucleati that defaults to true. When set to false,
+	pre-existing ice is not added to the total. In cam_dev (pumas 1.21+) this
+	is set to false.
+
+M	src/physics/cam/nucleate_ice_cam.F90
+- In cam_dev (pumas 1.21+), several history fields are changed to tendencies. The
+	names of these fields are changed to include "TEN" in that case. An optional
+	argument is added for cam_dev physics calls to nucleati such that
+	add_preexisting_ice_in=false in that configuration.
+
+M	src/physics/cam/physpkg.F90
+- Rename micro_mg to micro_pumas
+
+M	src/physics/cam/zm_microphysics.F90
+- Rename micro_mg to micro_pumas
+
+M	src/physics/cam_dev/physpkg.F90
+- Rename micro_mg to micro_pumas
+
+M	src/physics/spcam/crm_physics.F90
+- Rename micro_mg to micro_pumas
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+
+  ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+	FAIL ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s NLCOMP
+	FAIL ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_045: DIFF
+	- Expected changes due to new PUMAS v1.22 microphysics
+
+izumi/pgi/aux_cam: All PASS
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+	FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+	 - pre-existing failure
+
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: FAIL) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 RUN time=276
+    PEND PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 COMPARE_base_default
+	- Known issue with mg_pack_accumulator instability, likely to be resolved in future tags
+
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: FAIL) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 RUN time=561
+    PEND PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 COMPARE_base_default
+	- Known issue with mg_pack_accumulator instability, likely to be resolved in future tags
+
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: FAIL) details:
+    FAIL PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 RUN time=248
+    PEND PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 COMPARE_base_default
+	- Known issue with mg_pack_accumulator instability, likely to be resolved in future tags
+
+
+===============================================================
+
+Tag name: cam6_3_045
+Originator(s): fvitt, billsacks
+Date: 19 Jan 2022
+One-line Summary: Pass surface ozone concentrations to coupler
+Github PR URL:https://github.com/ESCOMP/CAM/pull/404
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Address issues:
+ - Pass surface ozone concentrations to the coupler #381
+ - NUOPC does not call cam_final #411
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+new namelist option in drv_flds_in
+
+ atm_ozone_frequency:  valid_values="subdaily,multiday_average"
+  Frequency of surface ozone field passed from CAM to surface components.
+  Surface ozone is passed every coupling interval, but this namelist flag
+  indicates whether the timestep-level values are interpolated from a
+  coarser temporal resolution.
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: billsacks, nusbaume, gold2718, mvertens, cacraigucar, pverwhee
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+
+M	bld/build-namelist
+ - set atm_ozone_frequency when CMEPS mediator is used
+
+M	bld/namelist_files/namelist_definition.xml
+ - add atm_ozone_frequency definition
+
+M	cime_config/buildnml
+ - add cmeps flag when nuopc component coupling is used
+
+M	src/chemistry/mozart/chemistry.F90
+ - add SRFOZONE field to physics buffer
+
+M	src/chemistry/mozart/mo_gas_phase_chemdr.F90
+ - set SRFOZONE field to physics buffer to prognostic or prescribed ozone
+   in chemistry if available
+
+M	src/control/camsrfexch.F90
+ - set camout%ozone to pbuf SRFOZONE field if available,
+   otherwise to O3 used by radiation in the surface layer
+
+M	src/cpl/nuopc/atm_comp_nuopc.F90
+ - add call to cam_final
+
+M	src/cpl/nuopc/atm_import_export.F90
+ - add surface ozone field
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF) details:
+    FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 NLCOMP
+    FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_044: FIELDLIST field lists differ (otherwise bit-for-bit)
+ - differ only in the addition of atmImp_Sa_o3 coupler field
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+ - pre-existing failure
+
+  ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL) details:
+    FAIL ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase NLCOMP
+ - namelist compare fails with NUOPC coupling due to new atm_ozone_frequency namelist option
+   otherwise bit-for-bit
+
+izumi/pgi/aux_cam: All PASS
+
+Summarize any changes to answers: bit-for-bit unchanged
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_044
+Originator(s): cacraig, goldy, courtneyp, adamrher
+Date: Jan 16, 2022
+One-line Summary: Match cesm2_3_beta07 externals and bug fix for SE WACCM-X
+Github PR URL: https://github.com/ESCOMP/CAM/pull/501
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ - add value of zmconv_parcel_pbl in the namelist #498
+ - Update externals to cesm2_3_beta07 #499
+ - default pecount for ne120xx needs to be increased to run "out of the box" #500
+ - Update dyn_grid to read from the INI grid if the initial conditions file has dimension ‘ncol.’ Always write using the GLL grid. (no issue opened for this bug)
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: goldy, courtneyp, nusbaume
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M       Externals.cfg
+          - Update externals to match cesm2_3_beta07, except for FMS which is more recent
+          - Add comment to FMS to explain why more recent than CESM tag
+
+M       bld/build-namelist
+          - Write out zmconv_parcel_pbl to atm_in regardless of whether it is set or not
+
+M       cime_config/config_pes.xml
+          - Increase PE count for ne120 runs on cheyenne
+
+M       src/dynamics/se/dyn_grid.F90
+M       src/utils/cam_grid_support.F90
+          - Fix SE WACCM-X bug which was uncovered in cam6_3_043
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all BFB
+
+izumi/nag/aux_cam: all BFB except:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+      - preexisting failure
+
+izumi/pgi/aux_cam: all BFB
+
+Multiple namelist failures:
+  found extra variable: 'zmconv_parcel_pbl' <- From atm_in -- added in this tag
+  found extra variable: 'do_transient_urban' <- From lnd_in
+
+CAM tag used for the baseline comparison tests if different than previous
+tag: Used cam6_3_042 for NAG runs (so had comparison for WACCM-X failed test) PGI and Intel used cam6_3_043
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_043
+Originator(s): peverwhee
+Date: 11 Jan 2022
+One-line Summary: Enable use of initial data file with either horizontal
+dimension name "ncol" or "ncol_d"
+
+Github PR URL: https://github.com/ESCOMP/CAM/pull/489
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+Fixes issue #339 -- SE dycore not reading default ncdata for ne30np4 F2000
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: gold2718, cacraigucar, fvitt, nusbaume
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+
+M	src/dynamics/se/dyn_comp.F90
+ - use grid dimension name variable from dyn_grid
+
+M	src/dynamics/se/dyn_grid.F90
+ - make grid dimension name variable publicly available
+ - add logic to add '_d' to attributes lat, lon, and area if the dimension is 'ncol_d'
+ - make get_hdim_name dummy variables generic
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: ALL PASS
+
+izumi/nag/aux_cam:
+ DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall:FAIL) details:
+  - pre-existing failure
+
+izumi/pgi/aux_cam: ALL PASS
+
+CAM tag used for the baseline comparison tests if different than previous
+tag:
+
+Summarize any changes to answers: None, all BFB
+
+===============================================================
+
+Tag name: cam6_3_042
+Originator(s): fvitt, tilmes, emmons
+Date: 10 Jan 2022
+One-line Summary: Corrections to aerosol fire emissions
+Github PR URL: https://github.com/ESCOMP/CAM/pull/452
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Fixes issue #405 -- Bug fix needed for interactive fire compsets and capability
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+ Update to fire_emis_factors_file
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: gold2718, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+
+M	bld/namelist_files/use_cases/hist_trop_strat_vbsfire_cam6.xml
+ - include emissions of number densities of modal aerosols
+ - corrections to fire_emis_specifier
+ - point to updated fire_emis_factors_file file
+ - correction to specification of surface emissions files
+
+M	src/chemistry/mozart/fire_emissions.F90
+ - correction to units of aerosols number densities surface fluxes diagnostics
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: All PASS
+
+izumi/nag/aux_cam:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+   - pre-existing failure
+
+izumi/pgi/aux_cam: All PASS
+
+Summarize any changes to answers:
+
+ Compset FCfireHIST changed, otherwise bit-for-bit unchanged
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_041
+Originator(s): adamrher, rneale, mverten, cacraig
+Date: Jan 7, 2022
+One-line Summary: Fix a couple of issues with recent ZM changes, mods to pass cam_dev ERP tests, misc cam_dev bug fixes,removed unused memory allocation
+Github PR URL: https://github.com/ESCOMP/CAM/pull/490
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ - Bug when setting zmconv_parcel_pbl=true and using debug #479
+ - cam_dev is failing ERP test #491
+ - Remove global non-scalable array allocation from mo_drydep #485
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: adamrher, rneale, goldy, nusbaume, courtneyp, fvitt
+
+List all files eliminated:
+
+List all files added and what they do:
+M       cime_config/testdefs/testlist_cam.xml
+          - Changed test to debug now that it is working in this mode
+
+M       src/chemistry/mozart/mo_drydep.F90
+          - Remove unused allocate
+
+M       src/cpl/mct/atm_comp_mct.F90
+          - Remove nextsw_cday function calls in init
+M       src/cpl/nuopc/atm_comp_nuopc.F90
+          - Remove nextsw_cday function calls in init
+M       src/physics/cam/micro_mg_cam.F90
+          - Intialize 2pbuf vars to zero, used by radiation
+M       src/physics/cam_dev/physpkg.F90
+          - Fix indexing for 1pbuf var, pull reserve liquid from tphysbc into tphysac
+M       src/physics/camrt/radiation.F90
+          - Write/read nextsw_cday to/from restarts for exact restarts
+M       src/physics/rrtmg/radiation.F90
+          - Write/read nextsw_cday to/from restarts for exact restarts
+M       src/physics/simple/radiation.F90
+          - Remove nextsw_cday function as mct/nuopc caps will no longer use it
+
+M       src/physics/cam/zm_conv.F90
+          - Fix bug when setting zmconv_parcel_pbl=true and using debug
+
+List all existing files that have been modified, and describe the changes:
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all BFB except:
+  ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s NLCOMP
+    FAIL ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_040: ERROR BFAIL baseline directory '/glade/p/cesm/amwg/cesm_baselines/cam6_3_040/ERP_D_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s' does not exist
+      - Changed test to debug, so namelist and baseline are expected failures
+
+izumi/nag/aux_cam:   DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae TPUTCOMP Error: TPUTCOMP: Computation time increase > 25% from baseline
+      - preexisting failure
+
+izumi/pgi/aux_cam: all BFB
+===============================================================
+===============================================================
+Tag name: cam6_3_040
+Originator(s): jet
+Date: 22 Dec 2021
+One-line Summary:Mid-level pressure computation changed to the arithmetic mean of hydrostatic interface pressures
+Github PR URL: https://github.com/ESCOMP/CAM/pull/481
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+Fix MPAS CAM Crash with 58 levels and higher horiz resolution and correct error in energy diagnostics calculation.
+ (see issue #442)
+ (see issue #487)
+
+Describe any changes made to build system:
+NA
+
+Describe any changes made to the namelist:
+NA
+
+List any changes to the defaults for the boundary datasets:
+NA
+
+Describe any substantial timing or memory changes:
+NA
+
+Code reviewed by:
+
+List all files eliminated:
+NA
+
+List all files added and what they do:
+NA
+
+List all existing files that have been modified, and describe the changes:
+
+M	src/dynamics/mpas/dp_coupling
+ - pmid computation changed to the arithmetic mean of hydrostatic interface pressures
+ - correct swapped indices in calculation of energy diagnostics
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF)
+   - expect MPAS tests to show baseline differences due to modified pmid calculation
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: FAIL) COMPARE_base_rest
+   - pre-existing failure
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+   - pre-existing failure
+  ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase (Overall: DIFF)
+   - expected failure due to MPAS pressure fix
+
+izumi/pgi/aux_cam: all PASS
+
+Summarize any changes to answers: Larger than roundoff.  We are not supporting
+	an MPAS climate at this point.
+
+===============================================================
+
+
+===============================================================
+Tag name: cam6_3_039
+Originator(s): herrington, cacraig
+Date: Dec 21, 2021
+One-line Summary: move macro/micro/wetdep/radiation from tphysbc to tphysac
+Github PR URL: https://github.com/ESCOMP/CAM/pull/387
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ #342:numerical oscillations in near surface winds
+
+Describe any changes made to build system:
+ - Introduce cam_dev option for phys
+
+Describe any changes made to the namelist:
+ - cam_dev options have been added to configure and build-namelist
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: cacraig, goldy, nusbaume, courtneyp, mvertens, gettelman
+
+List all files eliminated:
+D       src/control/cam_snapshot.F90
+          - broken into 3 modules (see below)
+
+List all files added and what they do:
+A       src/physics/cam/cam_snapshot.F90
+          - cam_snapshot routines specific to cam physics package
+
+A       src/physics/cam_dev/cam_snapshot.F90
+          - cam_snapshot routines specific for the cam_dev physics package
+
+A       src/control/cam_snapshot_common.F90
+          - cam_snapshot routines common to all CAM implementations
+
+A       src/physics/cam_dev/convect_diagnostics.F90
+          - convection diagnostic to be called after convection routines
+
+A       src/physics/cam_dev/physpkg.F90
+          - this physpkg.F90 moves clubb and everything after it in tphysbc, to tphysac
+
+List all existing files that have been modified, and describe the changes:
+M       Externals.cfg
+          - Update CTSM tag to bring in changes required for cam_dev (increase skip_steps by one)
+
+M       bld/build-namelist
+          - set cam_dev to have cam6 namelists, exit if using cam_dev w/o clubb
+
+M       bld/config_files/definition.xml
+          - added cam_dev config flag
+
+M       bld/configure
+          - rules for cam_dev config flag to prioritize mods in src/cam_dev
+
+M       bld/namelist_files/namelist_defaults_cam.xml
+          - add default settings for cam_dev (with this commit is mainly a copy of cam6 settings for cam_dev)
+
+M       bld/namelist_files/namelist_definition.xml
+          - add convect_diagnostics_calc as a valid value for cam_take_snapshot_before and cam_take_snapshot_after
+
+M       bld/namelist_files/use_cases/sd_waccm_tsmlt_cam6.xml
+M       bld/namelist_files/use_cases/waccm_tsmlt_1850_cam6.xml
+M       bld/namelist_files/use_cases/waccm_tsmlt_2000_cam6.xml
+M       bld/namelist_files/use_cases/waccm_tsmlt_2010_cam6.xml
+M       bld/namelist_files/use_cases/waccm_tsmlt_hist_cam6.xml
+M       cime_config/usermods_dirs/CMIP6_B1850/user_nl_cam
+M       cime_config/usermods_dirs/CMIP6_B1850_WACCM/user_nl_cam
+M       cime_config/usermods_dirs/CMIP6_BHIST/user_nl_cam
+M       cime_config/usermods_dirs/CMIP6_BHIST_WACCM/user_nl_cam
+M       cime_config/usermods_dirs/CMIP6_GENERIC/user_nl_cam
+          - Change fldlst name from CMFMCDZM to CMFMC_DP
+
+M       cime_config/config_component.xml
+          - add a dev modifier for cam_dev physics
+
+M       cime_config/config_compsets.xml
+          - add F2000dev compset that uses cam_dev physics
+
+M       cime_config/testdefs/testlist_cam.xml
+          - add a test for cam_dev physics
+
+M       src/control/cam_comp.F90
+M       src/physics/cam/physpkg.F90
+M       src/physics/simple/physpkg.F90
+          - change use location to cam_snapshot_common
+
+M       src/cpl/mct/atm_comp_mct.F90
+M       src/cpl/nuopc/atm_comp_nuopc.F90
+          - move nextsw_cday calculation out of atm_comp_xxx
+
+M       src/physics/cam/phys_control.F90
+          - add exit statements for phys options incompatible w/ cam_dev
+
+M       src/physics/cam/zm_conv_intr.F90
+          - make convective mass fluxes a pbuf variable
+
+M       src/physics/camrt/radiation.F90
+M       src/physics/rrtmg/radiation.F90
+M       src/physics/simple/radiation.F90
+          - move nextsw_cday calculation into radiation code
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all BFB except:
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s (Overall: FAIL) details:
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s NLCOMP
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s COMPARE_base_rest
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_038: ERROR BFAIL baseline directory '/glade/p/cesm/amwg/cesm_baselines/cam6_3_038/ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.F2000dev.cheyenne_intel.cam-outfrq9s' does not exist
+       - New test
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 NLCOMP
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_038: FIELDLIST field lists differ (otherwise bit-for-bit)
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+    FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d NLCOMP
+    FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_038: FIELDLIST field lists differ (otherwise bit-for-bit)
+    FAIL SMS_Ld5_Vmct.f09_f09_mg17.PC6.cheyenne_intel.cam-cam6_port_f09 MEMCOMP Error: Memory usage increase > 10% from baseline
+       - Both had output fieldname change from CMFMCDZM to CMFMC_DP
+
+izumi/nag/aux_cam: all BFB except:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+       - Preexisting failure
+
+izumi/pgi/aux_cam: all BFB
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_038
+Originator(s): katec, sacks, fischer
+Date: 15 Dec 2021
+One-line Summary: Change CISM%NOEVOLVE to SGLC in all F compsets, update cime to support new network for Izumi
+Github PR URL: https://github.com/ESCOMP/CAM/pull/480
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+	- Changes compsets that use CISM%NOEVOLVE to use SGLC in the F-compsets managed by CAM. https://github.com/ESCOMP/CAM/issues/204
+	- Update to cime tag that supports the new name Izumi.cgd.ucar.edu
+
+Describe any changes made to build system: None
+
+Describe any changes made to the namelist: None
+
+List any changes to the defaults for the boundary datasets: None
+
+Describe any substantial timing or memory changes:
+	- Compsets with CISM replaced by stub glacier will use significantly fewer resources
+
+Code reviewed by: gold2718, billsacks, fvitt, cacraigucar, adamrher
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M Externals.cfg
+- Updated cime external from cime6.0.11 to cime6.0.12
+M cime_config/config_compsets.xml
+- Changed compsets using CISM2%NOEVOLVE to SGLC
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+
+ ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: DIFF) details:
+   FAIL ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d NLCOMP
+   FAIL ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 NLCOMP
+   FAIL ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 NLCOMP
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: DIFF) details:
+   FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 NLCOMP
+   FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF) details:
+   FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 NLCOMP
+   FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+   FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s NLCOMP
+   FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: DIFF) details:
+   FAIL SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem NLCOMP
+   FAIL SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+   FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d NLCOMP
+   FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+   FAIL SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d NLCOMP
+   FAIL SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: DIFF) details:
+   FAIL SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m NLCOMP
+   FAIL SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: DIFF) details:
+   FAIL SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging NLCOMP
+   FAIL SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: DIFF) details:
+   FAIL SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s NLCOMP
+   FAIL SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: DIFF) details:
+   FAIL SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs NLCOMP
+   FAIL SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+ SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem (Overall: DIFF) details:
+   FAIL SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem NLCOMP
+   FAIL SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_037: DIFF
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+ - pre-existing failure
+
+izumi/pgi/aux_cam: all PASS
+
+Summarize any changes to answers: All compsets that were changed from CISM2%NOEVOLVE to SGLC will have answer changes. These are seen in the baseline differences in the test listed above.
+
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_037
+Originator(s): fvitt
+Date: 8 Dec 2021
+One-line Summary: Add stratospheric sulfate mode (MAM5)
+Github PR URL: https://github.com/ESCOMP/CAM/pull/445
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Add a mode for coarse stratospheric sulfate to the modal aerosol model.
+ (see issue #141 -- MAM5 and updates to dust emis)
+
+Describe any changes made to build system:
+
+ chem options added:
+   trop_mam5
+   waccm_tsmlt_mam5
+
+Describe any changes made to the namelist:
+
+ cam_chempkg options added:
+   trop_mam5
+   waccm_tsmlt_mam5
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: gold2718, cacraigucar, peverwhee, nusbaume
+
+List all files eliminated:
+
+List all files added and what they do:
+
+A	src/chemistry/pp_trop_mam5/chem_mech.doc
+A	src/chemistry/pp_trop_mam5/chem_mech.in
+A	src/chemistry/pp_trop_mam5/chem_mods.F90
+A	src/chemistry/pp_trop_mam5/m_rxt_id.F90
+A	src/chemistry/pp_trop_mam5/m_spc_id.F90
+A	src/chemistry/pp_trop_mam5/mo_adjrxt.F90
+A	src/chemistry/pp_trop_mam5/mo_exp_sol.F90
+A	src/chemistry/pp_trop_mam5/mo_imp_sol.F90
+A	src/chemistry/pp_trop_mam5/mo_indprd.F90
+A	src/chemistry/pp_trop_mam5/mo_lin_matrix.F90
+A	src/chemistry/pp_trop_mam5/mo_lu_factor.F90
+A	src/chemistry/pp_trop_mam5/mo_lu_solve.F90
+A	src/chemistry/pp_trop_mam5/mo_nln_matrix.F90
+A	src/chemistry/pp_trop_mam5/mo_phtadj.F90
+A	src/chemistry/pp_trop_mam5/mo_prod_loss.F90
+A	src/chemistry/pp_trop_mam5/mo_rxt_rates_conv.F90
+A	src/chemistry/pp_trop_mam5/mo_setrxt.F90
+A	src/chemistry/pp_trop_mam5/mo_sim_dat.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/chem_mech.doc
+A	src/chemistry/pp_waccm_tsmlt_mam5/chem_mech.in
+A	src/chemistry/pp_waccm_tsmlt_mam5/chem_mods.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/m_rxt_id.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/m_spc_id.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_adjrxt.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_exp_sol.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_imp_sol.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_indprd.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_lin_matrix.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_lu_factor.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_lu_solve.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_nln_matrix.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_phtadj.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_prod_loss.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_rxt_rates_conv.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_setrxt.F90
+A	src/chemistry/pp_waccm_tsmlt_mam5/mo_sim_dat.F90
+ - chemical mechanisms with MAM5 aerosols
+
+List all existing files that have been modified, and describe the changes:
+
+M	bld/build-namelist
+ - add MAM5 settings
+
+M	bld/namelist_files/namelist_definition.xml
+M	bld/config_files/definition.xml
+M	bld/configure
+ - add MAM5 mechanisms to the chem option
+
+M	bld/namelist_files/namelist_defaults_cam.xml
+ - add MAM5 phys props files
+
+M	cime_config/config_component.xml
+M	cime_config/config_compsets.xml
+ - add MAM5 compsets
+
+M	cime_config/testdefs/testlist_cam.xml
+ - add tests for MAM5 compsets
+
+M	src/chemistry/modal_aero/dust_model.F90
+M	src/chemistry/modal_aero/modal_aero_coag.F90
+M	src/chemistry/modal_aero/modal_aero_data.F90
+M	src/chemistry/modal_aero/modal_aero_rename.F90
+M	src/physics/cam/hetfrz_classnuc_cam.F90
+M	src/physics/cam/nucleate_ice_cam.F90
+M	src/physics/cam/rad_constituents.F90
+ - add stratosphere coarse mode (MAM5)
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all PASS
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+ - pre-existing failure
+
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPMAM5.izumi_nag.cam-outfrq3s (Overall: DIFF) details:
+ - new MAM5 test
+
+izumi/pgi/aux_cam: all PASS
+
+Summarize any changes to answers: bit-for-bit unchanged
+
+
+===============================================================
+===============================================================
+
+Tag name:cam6_3_036
+Originator(s): cacraig
+Date: Dec 1, 2021
+One-line Summary: Update to cesm2_3_alpha07b externals with CTSM being dev064
+Github PR URL: https://github.com/ESCOMP/CAM/pull/477
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ - update externals to cesm2_3_alpha07b+ : https://github.com/ESCOMP/CAM/issues/476
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: adamher, courtneyp, nusbaume
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M       Externals.cfg
+          - update externals to cesm2_3_alpha07b (with CTSM being dev064)
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+** Namelist changes due to changes in external components
+
+cheyenne/intel/aux_cam:
+  ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: DIFF) details:
+    FAIL ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: DIFF) details:
+    FAIL ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: FIELDLIST field lists differ (otherwise bit-for-bit)
+  ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF) details:
+    FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERS_Ln9_Vmct.f19_f19_mg17.FSPCAMS.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FSPCAMS.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: FIELDLIST field lists differ (otherwise bit-for-bit)
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+    FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF) details:
+    FAIL SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: DIFF) details:
+    FAIL SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: DIFF) details:
+    FAIL SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: DIFF) details:
+    FAIL SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: DIFF) details:
+    FAIL SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+  SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem (Overall: DIFF) details:
+    FAIL SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_035: DIFF
+
+izumi/nag/aux_cam: all BFB except:
+  SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s (Overall: DIFF) details:
+    FAIL SMS_P48x1_D_Ln9_Vmct.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_nag: DIFF
+       - baseline difference due to changes to external componenents
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+       - pre-existing failure
+
+izumi/pgi/aux_cam:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC4.izumi_pgi.cam-outfrq3s_diags (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC4.izumi_pgi.cam-outfrq3s_diags BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-outfrq3s_unicon (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-outfrq3s_unicon BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-rad_diag (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-rad_diag BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPSPCAMM.izumi_pgi.cam-outfrq3s (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPSPCAMM.izumi_pgi.cam-outfrq3s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq3s_ba (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq3s_ba BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERC_D_Ln9_Vmct.T5_T5_mg37.QPC3.izumi_pgi.cam-outfrq3s_usecase (Overall: DIFF) details:
+    FAIL ERC_D_Ln9_Vmct.T5_T5_mg37.QPC3.izumi_pgi.cam-outfrq3s_usecase BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERI_D_Ln18_Vmct.T5_T5_mg37.QPC4.izumi_pgi.cam-co2rmp (Overall: DIFF) details:
+    FAIL ERI_D_Ln18_Vmct.T5_T5_mg37.QPC4.izumi_pgi.cam-co2rmp BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  ERP_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq9s (Overall: DIFF) details:
+    FAIL ERP_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq9s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal0 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal0 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal1 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal1 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal3 (Overall: DIFF) details:
+    FAIL PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal3 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC4.izumi_pgi.cam-scm_prep (Overall: DIFF) details:
+    FAIL SCT_D_Ln7_Vmct.T42_T42_mg17.QPC4.izumi_pgi.cam-scm_prep BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_pgi.cam-scm_prep_c6 (Overall: DIFF) details:
+    FAIL SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_pgi.cam-scm_prep_c6 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+  SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-outfrq3s_ttrac (Overall: DIFF) details:
+    FAIL SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-outfrq3s_ttrac BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_035_pgi: DIFF
+       - baseline difference due to changes to external componenents
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_035
+Originator(s): cacraig, mcurry, adamher, goldy, jedwards, nusbaume, zyuying, katec
+Date: Nov 29, 2021
+One-line Summary: Bring in numerous minor changes
+Github PR URL: https://github.com/ESCOMP/CAM/pull/469
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ - Reduce clubb stdout message: https://github.com/ESCOMP/CAM/issues/454
+ - CLUBB supersaturation issue: https://github.com/ESCOMP/CAM/issues/351
+ - Memory leak in CAM diagnostics: https://github.com/ESCOMP/CAM/issues/126
+ - Add descriptive long names to CLDLOW, CLDMED and CLDHGH: https://github.com/ESCOMP/CAM/issues/360
+ - Bug in cam_pio_fileexists: https://github.com/ESCOMP/CAM/issues/365
+ - FCHIST test fails for ocnemis: https://github.com/ESCOMP/CAM/issues/214
+ - outfrq9s_multi multi modifier not required: https://github.com/ESCOMP/CAM/issues/358
+ - FV nudging module contains endrun calls without messages: https://github.com/ESCOMP/CAM/issues/375
+ - Typo in cam_diagnostics.F90: https://github.com/ESCOMP/CAM/issues/421
+ - Remove extra snapshot calls: https://github.com/ESCOMP/CAM/issues/437
+ - bug in the lidar simulator (COSP1.4 and COSP2): https://github.com/ESCOMP/CAM/issues/262
+ - Adding zmconv_tau to CAM namelist options (no Issue, parameter should have been in PPE PR #398)
+ - Remove debug write which writes on all tasks: https://github.com/ESCOMP/CAM/issues/471
+
+Describe any changes made to build system: none
+
+Describe any changes made to the namelist:
+ - zmconv_tau is added: Convective adjustment timescale in units of (s)
+ - clubb_l_trapezoidal_rule_zm default value changed to false
+ - clubb_l_trapezoidal_rule_zt default value changed to false
+
+List any changes to the defaults for the boundary datasets: none
+
+Describe any substantial timing or memory changes: none
+
+Code reviewed by: katec, goldy, mcurry, jedwards, fvitt, courtneyp, aherring, numsbaume
+
+List all files eliminated:
+D       cime_config/testdefs/testmods_dirs/cam/outfrq9s_multi/shell_commands
+D       cime_config/testdefs/testmods_dirs/cam/outfrq9s_multi/user_nl_cam
+D       cime_config/testdefs/testmods_dirs/cam/outfrq9s_multi/user_nl_clm
+           - Using the _C2 testing qualifier to do mulitinstance testing and no need for these specialized testmods
+
+List all files added and what they do: none
+
+List all existing files that have been modified, and describe the changes:
+
+M       bld/build-namelist
+           - Bug fix to bring in ocnemis file when it needs to be imported from the inputdata repository
+           - Adding zmconv_tau to CAM namelist options
+
+M       src/cpl/nuopc/atm_comp_nuopc.F90
+           -  Remove debug write which writes on all tasks
+
+M       bld/namelist_files/namelist_defaults_cam.xml
+           - Change a couple of CLUBB namelist settings for supersaturation issue
+           - Adding zmconv_tau to CAM namelist options
+
+M       bld/namelist_files/namelist_definition.xml
+           - Adding zmconv_tau to CAM namelist options
+
+M       cime_config/testdefs/testlist_cam.xml
+           - Use the C2 testing qualifier
+
+M       src/dynamics/fv/metdata.F90
+           - Add information to look in atm.log for endrun calls which had no message
+
+M       src/physics/cam/cam_diagnostics.F90
+           - Fix description for Q200 to say 200 mbar instead of 700
+
+M       src/physics/cam/cloud_cover_diags.F90
+           - Add information about the ranges for the CLDLOW/CLDMED/CLDHGH variables in the description written in the file
+
+M       src/physics/cam/clubb_intr.F90
+           - Limit print_clubb_config_files_api to only the masterproc
+
+M       src/physics/cam/physpkg.F90
+           - Fix memory leak when phys_run2 returns quickly
+           - Remove extraneous cam_snapshot call around physics_dme_adjust which is just being run for diagnostics
+
+M       src/physics/cosp2/optics/cosp_optics.F90
+           - Fix COSP bug to include snow variable
+
+M       src/physics/simple/physpkg.F90
+           - Remove extraneous cam_snapshot call around physics_dme_adjust which is just being run for diagnostics
+
+M       src/physics/cam/zm_conv.F90
+M       src/physics/cam/zm_conv_intr.F90
+           - Adding zmconv_tau to CAM namelist options
+
+M       src/utils/cam_pio_utils.F90
+           - Fix bug in cam_pio_fileexists
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+** All regression tests were run without the changed settings to clubb_l_trapezoidal_rule_zm and clubb_l_trapezoidal_rule_zt on
+  on cheyenne/intel, izumi/nag and izumi/pgi. All tests were BFB
+
+cheyenne/intel/aux_cam:
+    FAIL ERC_D_Ln9_P144x1_Vmct.ne16pg3_ne16pg3_mg17.QPC6HIST.cheyenne_intel.cam-outfrq3s_ttrac_usecase BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERC_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq3s_cosp BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_D_Ln9_Vmct.f09_f09_mg17.QSC6.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.f19_f19_mg17.QPC2000climo.cheyenne_intel.cam-outfrq3s_usecase BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+    FAIL SMS_Ln9_Vmct.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem BASELINE /glade/p/cesm/amwg/cesm_baselines/cam6_3_034: DIFF
+     - Answers changed due to change in setting of clubb_l_trapezoidal_rule_zm and clubb_l_trapezoidal_rule_zt
+
+    ** Most tests had namelist failures due to the namelist changes in this tag
+
+izumi/nag/aux_cam:
+
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+     - Known failure from previous tag
+
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_am BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_convmic BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_cospsathist BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERC_D_Ln9_Vmct.f10_f10_mg37.QPWmaC6.izumi_nag.cam-outfrq3s BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERI_D_Ln18_Vmct.f19_f19_mg17.QPC6.izumi_nag.cam-ghgrmp_e8 BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL ERP_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC6.izumi_nag.cam-outfrq9s_clubbmf BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL SMS_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_ba BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+    FAIL SMS_P48x1_D_Ln3_Vmct.f09_f09_mg17.QPC6HIST.izumi_nag.cam-outfrq3s_co2cycle_usecase BASELINE /fs/cgd/csm/models/atm/cam/pretag_bl/cam6_3_034_nag: DIFF
+     - Answers changed due to change in setting of clubb_l_trapezoidal_rule_zm and clubb_l_trapezoidal_rule_zt
+
+    ** Most tests had namelist failures due to the namelist changes in this tag
+
+izumi/pgi/aux_cam: all BFB (no CAM6 tests)
+    ** Most tests had namelist failures due to the namelist changes in this tag
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_034
+Originator(s): rneale, cacraig
+Date: Nov 23, 2021
+One-line Summary: CAM6 Zhang-McFarlane option for parcel properties to be based on PBL Depth
+Github PR URL: https://github.com/ESCOMP/CAM/pull/451
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+ - Modify Launch Parcel Definition for ZM Deep Convection (option): https://github.com/ESCOMP/CAM/issues/383
+
+Describe any changes made to build system:
+
+Describe any changes made to the namelist:
+  - Introduce zmconv_parcel_pbl logical
+
+List any changes to the defaults for the boundary datasets:
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: goldy, nusbaume, cacraig
+
+List all files eliminated:
+
+List all files added and what they do:
+
+List all existing files that have been modified, and describe the changes:
+M       bld/namelist_files/namelist_defaults_cam.xml
+M       bld/namelist_files/namelist_definition.xml
+          - Introduce zmconv_parcel_pbl logical namelist
+
+M       cime_config/testdefs/testlist_cam.xml
+          - FX2000 consistently ran out of time - increased the permitted time
+
+M       src/physics/cam/zm_conv.F90
+M       src/physics/cam/zm_conv_intr.F90
+          - Changes to modify launch parcel defintion for ZM deep convection
+
+M       test/system/test_driver.sh
+          - Add "module load python" for cheyenne runs
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam: all BFB
+
+izumi/nag/aux_cam: all BFB except know failure:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL) details:
+    FAIL DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae COMPARE_base_da
+
+izumi/pgi/aux_cam: all BFB
+
+===============================================================
+
+Tag name: cam6_3_033
+Originator(s): fvitt
+Date: 20 Oct 2021
+One-line Summary: Transport CL, BR; max solar zenth angle; waccmx pelayout; fix leap day issue
+Github PR URL: https://github.com/ESCOMP/CAM/pull/449
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+
+ Address github issues:
+   . error in mo_srf_emissions using ESMF library with leap year #317
+   . Need to transport CL and BR #314
+   . photolysis maximum solar zenith #321
+   . Failing WACCMX test #446
+
+Describe any changes made to build system: NA
+
+Describe any changes made to the namelist:
+ New photo_max_zen namelist option:
+ Maximum zenith angle (degrees) used for photolysis.
+
+List any changes to the defaults for the boundary datasets: NA
+
+Describe any substantial timing or memory changes: NA
+
+Code reviewed by: gold2718, nusbaume, peverwhee
+
+List all files eliminated:
+
+        bld/namelist_files/use_cases/aquaplanet_waccm_ma_2000_cam6.xml
+ - obsolete
+
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_576tsks/shell_commands
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_576tsks/user_nl_cam
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_576tsks/user_nl_clm
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_576tsks/user_nl_cpl
+ - directory renamed as outfrq9s_f05
+
+List all files added and what they do:
+
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_f05/shell_commands
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_f05/user_nl_cam
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_f05/user_nl_clm
+        cime_config/testdefs/testmods_dirs/cam/outfrq9s_f05/user_nl_cpl
+ - for waccmx 0.5 degree tests
+
+A       bld/namelist_files/use_cases/aquaplanet_waccm_2000.xml
+ - for aqua-planet waccm
+
+List all existing files that have been modified, and describe the changes:
+
+M       .gitignore
+ - ignore libraries/mct, libraries/parallelio, and share externals
+
+M       bld/build-namelist
+ - add logic to set max solar zenith angle for photolysis
+
+M       bld/namelist_files/namelist_defaults_cam.xml
+ - increase se_hypervis_subcycle_sponge to 20 for waccmx
+ - use np4 ic file for waccmx cslam ne30pg3
+
+M       bld/namelist_files/namelist_definition.xml
+ - add photo_max_zen namelist option
+
+M       cime_config/config_component.xml
+M       cime_config/config_compsets.xml
+ - aquaplanet waccm compsets added:
+   . QPmaC4
+   . QPmadc4
+   . QPmadc6
+
+M       cime_config/config_pes.xml
+ - increase tasks in default PE layouts for WACCMX on cheyenne
+
+M       cime_config/testdefs/testlist_cam.xml
+ - add tests for aquaplanet waccm
+ - remove _P modifier for waccmx tests
+
+M       src/chemistry/mozart/chemistry.F90
+M       src/chemistry/mozart/mo_chemini.F90
+M       src/chemistry/mozart/mo_photo.F90
+ - changes for photo_max_zen namelist option
+
+M       src/chemistry/pp_waccm_ma/chem_mech.doc
+M       src/chemistry/pp_waccm_ma/chem_mech.in
+M       src/chemistry/pp_waccm_ma/chem_mods.F90
+M       src/chemistry/pp_waccm_ma/m_spc_id.F90
+M       src/chemistry/pp_waccm_ma/mo_adjrxt.F90
+M       src/chemistry/pp_waccm_ma/mo_indprd.F90
+M       src/chemistry/pp_waccm_ma/mo_lin_matrix.F90
+M       src/chemistry/pp_waccm_ma/mo_lu_factor.F90
+M       src/chemistry/pp_waccm_ma/mo_lu_solve.F90
+M       src/chemistry/pp_waccm_ma/mo_nln_matrix.F90
+M       src/chemistry/pp_waccm_ma/mo_prod_loss.F90
+M       src/chemistry/pp_waccm_ma/mo_rxt_rates_conv.F90
+M       src/chemistry/pp_waccm_ma/mo_sim_dat.F90
+ - remove CL and BR from the not-transported list
+ - add HO2 to the not-transported to be consistent with other waccm mechanisms
+ - change order of species
+
+M       src/chemistry/pp_waccm_ma_mam4/chem_mech.doc
+M       src/chemistry/pp_waccm_ma_mam4/chem_mech.in
+M       src/chemistry/pp_waccm_ma_mam4/chem_mods.F90
+M       src/chemistry/pp_waccm_ma_mam4/m_rxt_id.F90
+M       src/chemistry/pp_waccm_ma_mam4/m_spc_id.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_adjrxt.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_indprd.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_lin_matrix.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_lu_factor.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_lu_solve.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_nln_matrix.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_prod_loss.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_rxt_rates_conv.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_setrxt.F90
+M       src/chemistry/pp_waccm_ma_mam4/mo_sim_dat.F90
+ - remove CL and BR from the not-transported list
+ - change order of species and reactions
+
+M       src/chemistry/pp_waccm_mad/chem_mech.doc
+M       src/chemistry/pp_waccm_mad/chem_mech.in
+M       src/chemistry/pp_waccm_mad/chem_mods.F90
+M       src/chemistry/pp_waccm_mad/m_spc_id.F90
+M       src/chemistry/pp_waccm_mad/mo_adjrxt.F90
+M       src/chemistry/pp_waccm_mad/mo_exp_sol.F90
+M       src/chemistry/pp_waccm_mad/mo_imp_sol.F90
+M       src/chemistry/pp_waccm_mad/mo_indprd.F90
+M       src/chemistry/pp_waccm_mad/mo_lin_matrix.F90
+M       src/chemistry/pp_waccm_mad/mo_lu_factor.F90
+M       src/chemistry/pp_waccm_mad/mo_lu_solve.F90
+M       src/chemistry/pp_waccm_mad/mo_nln_matrix.F90
+M       src/chemistry/pp_waccm_mad/mo_prod_loss.F90
+M       src/chemistry/pp_waccm_mad/mo_rxt_rates_conv.F90
+M       src/chemistry/pp_waccm_mad/mo_setrxt.F90
+M       src/chemistry/pp_waccm_mad/mo_sim_dat.F90
+ - remove CL and BR from the not-transported list
+ - add HO2 to the not-transported to be consistent with other waccm mechanisms
+ - explicitly solve CO2 to be consistent with other waccm mechanisms
+ - use scalar solver for d-region ion chemistry mechanisms (mad)
+ - change order of species
+
+M       src/chemistry/pp_waccm_mad_mam4/chem_mech.doc
+M       src/chemistry/pp_waccm_mad_mam4/chem_mech.in
+M       src/chemistry/pp_waccm_mad_mam4/chem_mods.F90
+M       src/chemistry/pp_waccm_mad_mam4/m_rxt_id.F90
+M       src/chemistry/pp_waccm_mad_mam4/m_spc_id.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_adjrxt.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_exp_sol.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_imp_sol.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_indprd.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_lin_matrix.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_lu_factor.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_lu_solve.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_nln_matrix.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_prod_loss.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_rxt_rates_conv.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_setrxt.F90
+M       src/chemistry/pp_waccm_mad_mam4/mo_sim_dat.F90
+ - remove CL and BR from the not-transported list
+ - use scalar solver for d-region ion chemistry mechanisms (mad)
+ - change order of species and reactions
+
+M       src/utils/time_manager.F90
+ - fix for leap days in cases when interp_missing_months is used
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  ERC_D_Ln9_P144x1_Vmct.ne16pg3_ne16pg3_mg17.QPC6HIST.cheyenne_intel.cam-outfrq3s_ttrac_usecase (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq3s_cosp (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPMOZ.cheyenne_intel.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.ne16_ne16_mg17.QPC5HIST.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERP_D_Ln9_Vmct.f09_f09_mg17.QSC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_D_Ln9_Vmct.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ld3_Vmct.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: NLFAIL)
+  ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: NLFAIL)
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: NLFAIL)
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC5.cheyenne_intel.cam-scm_prep (Overall: NLFAIL)
+  SMS_D_Ld2_Vmct.f19_f19_mg17.QPC5HIST.cheyenne_intel.cam-volc_usecase (Overall: NLFAIL)
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9_Vmct.f19_f19_mg17.QPC5M7.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9_Vmct.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_Ld1_Vmct.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: NLFAIL)
+  SMS_Ld5_Vmct.f09_f09_mg17.PC6.cheyenne_intel.cam-cam6_port_f09 (Overall: NLFAIL)
+  SMS_Lm13_Vmct.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: NLFAIL)
+  SMS_Ln9_Vmct.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: NLFAIL)
+  SMS_Ln9_Vmct.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: NLFAIL)
+  SMS_Ln9_Vmct.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: NLFAIL)
+ - new "photo_max_zen" namelist variable caused namelist compare test to fail
+
+  ERP_Ln9_Vmct.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday (Overall: DIFF)
+  SMS_D_Ln9_Vmct.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  SMS_D_Ln9_Vmct.f19_f19_mg17.QPC2000climo.cheyenne_intel.cam-outfrq3s_usecase (Overall: DIFF)
+  SMS_D_Ln9_Vmct.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: DIFF)
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  SMS_Ld1_Vmct.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: DIFF)
+ - differences are due to increased max solar zenith angle in CAM-Chem
+
+  ERC_D_Ln9_Vmct.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s (Overall: DIFF)
+  ERP_Lh12_Vmct.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: DIFF)
+  ERS_Ln9_Vmct.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  ERS_Ln9_Vmct.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: DIFF)
+  SMS_D_Ln9_Vmct.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s (Overall: DIFF)
+ - differences are due to updates in middle-atmosphere chemistry mechanisms
+
+izumi/nag/aux_cam:
+  DAE_Vmct.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL)
+ - pre-existing failure
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_carma (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_cosp (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_subcol (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_am (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_convmic (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_cospsathist (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-outfrq3s_ttrac (Overall: NLFAIL)
+  ERI_D_Ln18_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL)
+  ERI_D_Ln18_Vmct.f19_f19_mg17.QPC6.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL)
+  ERP_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC6.izumi_nag.cam-outfrq9s_clubbmf (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  SMS_D_Ld2_Vmct.f45_f45_mg37.PC5.izumi_nag.cam-outfrq24h_port (Overall: NLFAIL)
+  SMS_D_Ln7_Vmct.T42_T42_mg17.QPSCAMC5.izumi_nag.cam-scmarm (Overall: NLFAIL)
+  SMS_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-rad_diag_mam (Overall: NLFAIL)
+  SMS_P48x1_D_Ln3_Vmct.f09_f09_mg17.QPC6HIST.izumi_nag.cam-outfrq3s_co2cycle_usecase (Overall: NLFAIL)
+  SUB_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  TMC_D_Vmct.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL)
+  TMC_D_Vmct.T5_T5_mg37.QPC5.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL)
+ - new "photo_max_zen" namelist variable caused namelist compare test to fail
+
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPWmaC6.izumi_nag.cam-outfrq3s (Overall: DIFF)
+  SMS_D_Ln3_Vmct.ne5pg3_ne5pg3_mg37.QPX2000.izumi_nag.cam-outfrq3s (Overall: DIFF)
+ - differences are due to updates in middle-atmosphere chemistry mechanisms
+
+izumi/pgi/aux_cam:
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC4.izumi_pgi.cam-outfrq3s_diags (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPC5.izumi_pgi.cam-outfrq3s_unicon (Overall: NLFAIL)
+  ERC_D_Ln9_Vmct.f10_f10_mg37.QPSPCAMM.izumi_pgi.cam-outfrq3s (Overall: NLFAIL)
+  ERP_Ln9_Vmct.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq9s (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  SCT_D_Ln7_Vmct.T42_T42_mg17.QPC6.izumi_pgi.cam-scm_prep_c6 (Overall: NLFAIL)
+  SMS_D_Ln9_Vmct.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-outfrq3s_ttrac (Overall: NLFAIL)
+ - new "photo_max_zen" namelist variable caused namelist compare test to fail
+
+CAM tag used for the baseline comparison tests if different than previous
+tag:
+
+Summarize any changes to answers:
+ larger than roundoff for CAM-Chem and middle-atmosphere chemistry configurations
+
+===============================================================
+===============================================================
+
+Tag name: cam6_3_032
+Originator(s): pel, jet
+Date: July 12, 2021
+One-line Summary: Full-physics physics-dynamics coupling with MPAS dynamical core (issues #388 #399)
+Github PR URL:https://github.com/ESCOMP/CAM/pull/403
+
+Purpose of changes (include the issue number and title text for each relevant GitHub issue):
+These mods are for enabling full physics climate simulations with the MPAS dynamical core,
+issue #399 Full-physics physics-dynamics coupling with MPAS dynamical core
+
+. add total energy diagnostics in MPAS dp_coupling layer (addfld's in dyn_comp.F90)
+. make dry air mass namelist - see scale_dry_air_mass
+. introduce dry air mass scaling in MPAS (dyn_comp.F90)
+. change physics-dynamics coupling to be more consistent with CAM (in terms of total energy conservation/consistency)
+
+
+Describe any changes made to build system:
+ -
+
+Describe any changes made to the namelist:
+    Added scale_dry_air_mass to initial_conditions namelist
+	Specifiy whether and how to perform dry surface pressure scaling.
+	If less than or equal to 0.0 do not perform scaling. If greater
+	than 0.0, perform scaling but use scale_dry_air_mass value (in Pa)
+	as the average dry surface pressure target.
+	Default: set by build_namelist
+
+List any changes to the defaults for the boundary datasets:
+	. updated default mpasa120 ncdata file using Peter's 120-km topography
+	  and interpolated from the 1 January 2000 0000 UTC CFSR fields.
+	  new file is atm/cam/inic/mpas/mpasa120.CFSR.L32.nc
+
+Describe any substantial timing or memory changes:
+
+Code reviewed by: goldy, cacraig, peverwhee, nusbaume, mgduda, mcurry, fvitt
+
+List all files eliminated:
+
+List all files added and what they do:
+        A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa120/shell_commands
+        A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa120/user_nl_cam
+        A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa120/user_nl_clm
+	  . new mpasa120 full physics regression test
+        A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa480/shell_commands
+        A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa480/user_nl_cam
+	A cime_config/testdefs/testmods_dirs/cam/outfrq9s_mpasa480/user_nl_clm
+	  . new mpasa480 full physics regression test
+
+List all existing files that have been modified, and describe the changes:
+	M ChangeLog
+	  . updated for cam6_3_032
+	M Externals.cfg
+	  . FMS external library back to xanadu to fix broken FV3 due to cam6_3_031
+	M bld/build-namelist
+	  . add scale_dry_air_mass namelist parameter as default
+	M bld/namelist_files/namelist_defaults_cam.xml
+	  . new mpasa120/mpasa480 initial condition file interpolated from CFSF 1 jan 2000
+	  . new mpasa120/mpasa480 topo data
+	  . scale_dry_air_mass default values for full and simple physics cases
+	  . update rayleigh damping from 3 levels to 5 levels for stability
+	M bld/namelist_files/namelist_definition.xml
+	  . add definition of scale_dry_air_mass
+	    Specify whether and how to perform dry surface pressure scaling. If
+	    less than or equal to 0.0, do not perform scaling. If greater than 0.0,
+	    perform scaling to scale_dry_air_mass value (in Pa) as the average
+	    dry surface pressure target.
+	M cime_config/testdefs/testlist_cam.xml
+	  . new regression tests for full physics mpas (mpas120/chey mpas480/izumi)
+	M src/control/cam_initfiles.F90
+	  . define/read/distribute scale_dry_air_mass variable and add to cam_initfiles_nl
+	M src/cpl/nuopc/atm_comp_nuopc.F90
+	  . lower tolerance for lat/lon residual of calculated and values read off dataset
+	M src/dynamics/eul/dyn_comp.F90
+	  . add scale_dry_air_mass functionality to eul dycore
+        M src/dynamics/fv/dryairm.F90
+	  . add scale_dry_air_mass functionality to fv dycore
+	M src/dynamics/fv/dyn_comp.F90
+	  . add/initialize thermodynamic species indicies to fv
+	M src/dynamics/fv/stepon.F90
+	  . call to scale dry air mass if requested via namelist
+	M src/dynamics/fv3/dyn_comp.F90
+	  . initialize vertical coordinate call to scale dry air mass if requested
+	M src/dynamics/mpas/dp_coupling.F90
+	  . thermodynamic refactor to ensure energy conservation
+	  . add new total energy diagnostics
+	  . update cpairv, rairv, mbarv and cappav as const dependent vars
+	M src/dynamics/mpas/driver/cam_mpas_subdriver.F90
+	  . new function for global sum on dynamics grid
+	M src/dynamics/mpas/dyn_comp.F90
+	  . thermodynamic refactor to ensure energy conservation
+	  . set vertical coordinate type
+	  . new energy diagnostics
+	  . scaling of dry air mass for MPAS dycore
+	M src/dynamics/mpas/dyn_grid.F90
+	  . remove excess white space
+	M src/dynamics/se/dyn_comp.F90
+	  . initialize new physconst thermodynamic species indicies
+	  . set vertical coordinate info for SE dycore
+	  . new energy diagnostics
+	M src/dynamics/tests/dyn_tests_utils.F90
+	  . log vertical coordinate info
+	M src/physics/cam/cam_diagnostics.F90
+	  . new diagnostics for energy conservation
+	M src/physics/cam/check_energy.F90
+	  . refactor code to better diagnose cam physics total energy
+	  . add energy calculation for height based coord (MPAS)
+	M src/physics/cam/physics_types.F90
+	  . increase dimensionality of global arrays of energy and water
+	    to carry integrals of both physics and dynamics
+	    Second dimension is (phys_te_idx) CAM physics total energy and
+	    (dyn_te_idx) dycore total energy computed in physics
+	M src/physics/cam/physpkg.F90
+	  . refactor physics dme adjust functionality to account for increased
+	    dimensionality of global energy integrals
+	M src/physics/simple/physpkg.F90
+	  . refactor simple physics dme adjust functionality to account for increased
+	    dimensionality of global energy integrals
+	M src/utils/physconst.F90
+	  . new routine for vertically integrated total energy
+	  . define/initialize/log thermodynamic indicies for liquid and ice species
+	  . call logging of vertical coord info
+	M test/system/test_driver.sh
+	  . mods to allow nuopc test in testlist_cam
+
+If there were any failures reported from running test_driver.sh on any test
+platform, and checkin with these failures has been OK'd by the gatekeeper,
+then copy the lines from the td.*.status files for the failed tests to the
+appropriate machine below.  All failed tests must be justified.
+
+cheyenne/intel/aux_cam:
+  SMS_D_Ln9_Vmct.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie RUN time=125
+    - Known failure in previous tag not sure of the cause.  This test aborts during run.
+
+  ERP_Ln9_Vmct.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: DIFF)
+    - Known failure in previous tag due to FMS interface update.  FV3 functionality
+      corrected with this update. New Baselines created.
+  ERS_Ln9_P288x1_Vnuopc.mpasa120_mpasa120.F2000climo.cheyenne_intel.cam-outfrq9s_mpasa120 (Overall: DIFF)
+    - New Cheyenne MPAS regression test, no previous baselines
+  ERC_D_Ln9.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq3s_cosp (Overall: NLFAIL)
+  ERC_D_Ln9.f19_f19_mg17.QPMOZ.cheyenne_intel.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.f19_f19_mg17.QPX2000.cheyenne_intel.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.ne16_ne16_mg17.FADIAB.cheyenne_intel.cam-terminator (Overall: NLFAIL)
+  ERC_D_Ln9.ne16_ne16_mg17.QPC5HIST.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERC_D_Ln9_P144x1.ne16pg3_ne16pg3_mg17.QPC6HIST.cheyenne_intel.cam-outfrq3s_ttrac_usecase (Overall: NLFAIL)
+  ERC_D_Ln9.T42_T42_mg17.FDABIP04.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERC_D_Ln9.T42_T42_mg17.FHS94.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERI_D_Ln18.f45_f45_mg37.QPC41850.cheyenne_intel.cam-co2rmp_usecase (Overall: NLFAIL)
+  ERP_D_Ln9.f09_f09_mg17.QSC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_D_Ln9.f19_f19_mg17.QPC6.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ld3.f09_f09_mg17.FWHIST.cheyenne_intel.cam-reduced_hist1d (Overall: NLFAIL)
+  ERP_Lh12.f19_f19_mg17.FW4madSD.cheyenne_intel.cam-outfrq3h (Overall: NLFAIL)
+  ERP_Ln9.C96_C96_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL)
+  ERP_Ln9.f09_f09_mg17.F1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.f09_f09_mg17.F2000climo.cheyenne_intel.cam-outfrq9s_mg3 (Overall: NLFAIL)
+  ERP_Ln9.f09_f09_mg17.F2010climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.f09_f09_mg17.FHIST_BDRD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.f19_f19_mg17.FWsc1850.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.ne30_ne30_mg17.FCnudged.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.ne30pg3_ne30pg3_mg17.FW2000climo.cheyenne_intel.cam-outfrq9s_wcm_ne30 (Overall: NLFAIL)
+  ERS_Ln9.f09_f09_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERS_Ln9.f19_f19_mg17.FSPCAMS.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERS_Ln9.f19_f19_mg17.FXSD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  ERS_Ln9.ne0TESTONLYne5x4_ne0TESTONLYne5x4_mg37.FADIAB.cheyenne_intel.cam-outfrq3s_refined (Overall: NLFAIL)
+  SCT_D_Ln7.T42_T42_mg17.QPC5.cheyenne_intel.cam-scm_prep (Overall: NLFAIL)
+  SMS_D_Ld2.f19_f19_mg17.QPC5HIST.cheyenne_intel.cam-volc_usecase (Overall: NLFAIL)
+  SMS_D_Ld5.f19_f19_mg17.PC4.cheyenne_intel.cam-cam4_port5d (Overall: NLFAIL)
+  SMS_D_Ln9.f09_f09_mg17.FCts2nudged.cheyenne_intel.cam-outfrq9s_leapday (Overall: NLFAIL)
+  SMS_D_Ln9.f09_f09_mg17.FCvbsxHIST.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.f09_f09_mg17.FSD.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.f19_f19_mg17.FWma2000climo.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.f19_f19_mg17.FXHIST.cheyenne_intel.cam-outfrq9s_amie (Overall: NLFAIL)
+  SMS_D_Ln9.f19_f19_mg17.QPC2000climo.cheyenne_intel.cam-outfrq3s_usecase (Overall: NLFAIL)
+  SMS_D_Ln9.f19_f19_mg17.QPC5M7.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.ne0CONUSne30x8_ne0CONUSne30x8_mt12.FCHIST.cheyenne_intel.cam-outfrq9s_refined_camchem (Overall: NLFAIL)
+  SMS_D_Ln9.ne16_ne16_mg17.FX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.ne16_ne16_mg17.QPX2000.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_D_Ln9.T42_T42.FSCAM.cheyenne_intel.cam-outfrq9s (Overall: NLFAIL)
+  SMS_Ld1.f09_f09_mg17.FW2000climo.cheyenne_intel.cam-outfrq1d (Overall: NLFAIL)
+  SMS_Ld1.ne30pg3_ne30pg3_mg17.FC2010climo.cheyenne_intel.cam-outfrq1d (Overall: NLFAIL)
+  SMS_Ld5.f09_f09_mg17.PC6.cheyenne_intel.cam-cam6_port_f09 (Overall: NLFAIL)
+  SMS_Lm13.f10_f10_mg37.F2000climo.cheyenne_intel.cam-outfrq1m (Overall: NLFAIL)
+  SMS_Ln9.f09_f09_mg17.F2010climo.cheyenne_intel.cam-nudging (Overall: NLFAIL)
+  SMS_Ln9.f09_f09_mg17.FW1850.cheyenne_intel.cam-reduced_hist3s (Overall: NLFAIL)
+  SMS_Ln9.f19_f19.F2000climo.cheyenne_intel.cam-silhs (Overall: NLFAIL)
+  SMS_Ln9.f19_f19_mg17.FHIST.cheyenne_intel.cam-outfrq9s_nochem (Overall: NLFAIL)
+    - Namelist comparisons are failing due to the addition of scale_dry_air_mass variable
+
+izumi/nag/aux_cam:
+  DAE.f45_f45_mg37.FHS94.izumi_nag.cam-dae (Overall: FAIL)
+    - pre-existing failure
+  ERC_D_Ln9_Vnuopc.mpasa480z32_mpasa480.FHS94.izumi_nag.cam-outfrq3s_usecase (Overall: DIFF)
+    - New Izumi MPAS regression test, no previous baselines
+  ERC_D_Ln9.f10_f10_mg37.FHS94.izumi_nag.cam-idphys (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_carma (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_cosp (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_subcol (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_am (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_convmic (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_cospsathist (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPWmaC6.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QSPCAMS.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.ne16_ne16_mg17.QPC4.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERC_D_Ln9.ne16pg3_ne16pg3_mg17.QPC4.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERC_D_Ln9.ne5_ne5_mg37.QPC5.izumi_nag.cam-outfrq3s_ttrac (Overall: NLFAIL)
+  ERC_D_Ln9.T5_T5_mg37.QPC4.izumi_nag.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERI_D_Ln18.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL)
+  ERI_D_Ln18.f19_f19_mg17.QPC6.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL)
+  ERI_D_Ln18.ne5_ne5_mg37.FADIAB.izumi_nag.cam-outfrq3s_bwic (Overall: NLFAIL)
+  ERI_D_Ln18.ne5pg3_ne5pg3_mg37.FADIAB.izumi_nag.cam-outfrq3s_bwic (Overall: NLFAIL)
+  ERP_Ln9.ne5pg3_ne5pg3_mg37.QPC6.izumi_nag.cam-outfrq9s_clubbmf (Overall: NLFAIL)
+  ERS_Ln27.ne5pg3_ne5pg3_mg37.FKESSLER.izumi_nag.cam-outfrq9s (Overall: NLFAIL)
+  ERS_Ln9.ne5_ne5_mg37.FADIAB.izumi_nag.cam-outfrq9s (Overall: NLFAIL)
+  PEM_D_Ln9.ne5_ne5_mg37.FADIAB.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  PLB_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  PLB_D_Ln9.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9.ne5_ne5_mg37.QPC5.izumi_nag.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  SMS_D_Ld2.f45_f45_mg37.PC5.izumi_nag.cam-outfrq24h_port (Overall: NLFAIL)
+  SMS_D_Ln3.ne5pg3_ne5pg3_mg37.QPX2000.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  SMS_D_Ln7.T42_T42_mg17.QPSCAMC5.izumi_nag.cam-scmarm (Overall: NLFAIL)
+  SMS_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-rad_diag_mam (Overall: NLFAIL)
+  SMS_D_Ln9.f10_f10_mg37.QPC6.izumi_nag.cam-outfrq3s_ba (Overall: NLFAIL)
+  SMS_D_Ln9_P1x1.ne5_ne5_mg37.FADIAB.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  SMS_P48x1_D_Ln3.f09_f09_mg17.QPC6HIST.izumi_nag.cam-outfrq3s_co2cycle_usecase (Overall: NLFAIL)
+  SMS_P48x1_D_Ln9.f19_f19_mg17.FW4madSD.izumi_nag.cam-outfrq9s (Overall: NLFAIL)
+  SUB_D_Ln9.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s (Overall: NLFAIL)
+  TMC_D.f10_f10_mg37.QPC5.izumi_nag.cam-outfrq3s_eoyttrac (Overall: NLFAIL)
+  TMC_D.T5_T5_mg37.QPC5.izumi_nag.cam-ghgrmp_e8 (Overall: NLFAIL)
+    - Namelist comparisons are failing due to the addition of scale_dry_air_mass variable
+
+izumi/pgi/aux_cam:
+  ERC_D_Ln9.f10_f10_mg37.QPC5.izumi_pgi.cam-rad_diag (Overall: DIFF)
+    - Roundoff difference due to difference in order of sums for internal energy
+
+  ERC_D_Ln9.f10_f10_mg37.FADIAB.izumi_pgi.cam-terminator (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC4.izumi_pgi.cam-outfrq3s_diags (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPC5.izumi_pgi.cam-outfrq3s_unicon (Overall: NLFAIL)
+  ERC_D_Ln9.f10_f10_mg37.QPSPCAMM.izumi_pgi.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq3s_ba (Overall: NLFAIL)
+  ERC_D_Ln9.ne5pg2_ne5pg2_mg37.FADIAB.izumi_pgi.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.ne5pg4_ne5pg4_mg37.FADIAB.izumi_pgi.cam-outfrq3s (Overall: NLFAIL)
+  ERC_D_Ln9.T5_T5_mg37.QPC3.izumi_pgi.cam-outfrq3s_usecase (Overall: NLFAIL)
+  ERI_D_Ln18.T5_T5_mg37.QPC4.izumi_pgi.cam-co2rmp (Overall: NLFAIL)
+  ERP_Ln9.ne5_ne5_mg37.FHS94.izumi_pgi.cam-outfrq9s (Overall: NLFAIL)
+  ERP_Ln9.ne5_ne5_mg37.QPC5.izumi_pgi.cam-outfrq9s (Overall: NLFAIL)
+  PEM_D_Ln9.ne5pg3_ne5pg3_mg37.FADIAB.izumi_pgi.cam-outfrq3s (Overall: NLFAIL)
+  PLB_D_Ln9.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal0 (Overall: NLFAIL)
+  PLB_D_Ln9.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal1 (Overall: NLFAIL)
+  PLB_D_Ln9.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-ttrac_loadbal3 (Overall: NLFAIL)
+  SCT_D_Ln7.T42_T42_mg17.QPC4.izumi_pgi.cam-scm_prep (Overall: NLFAIL)
+  SCT_D_Ln7.T42_T42_mg17.QPC6.izumi_pgi.cam-scm_prep_c6 (Overall: NLFAIL)
+  SMS_D_Ln9.ne5pg3_ne5pg3_mg37.QPC5.izumi_pgi.cam-outfrq3s_ttrac (Overall: NLFAIL)
+    - Namelist comparisons are failing due to the addition of scale_dry_air_mass variable
+===============================================================
+===============================================================
 Tag name: cam6_3_031
 Originator(s): goldy
 Date: 2021-09-03
