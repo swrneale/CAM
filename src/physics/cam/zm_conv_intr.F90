@@ -65,7 +65,7 @@ module zm_conv_intr
       mconzm_idx           ! convective mass flux
 
    real(r8), parameter :: unset_r8 = huge(1.0_r8)
-   real(r8) :: zmconv_c0_lnd = unset_r8
+   real(r8) :: zmconv_c0_lnd = unset_r8_tau
    real(r8) :: zmconv_c0_ocn = unset_r8
    real(r8) :: zmconv_ke     = unset_r8
    real(r8) :: zmconv_ke_lnd = unset_r8
