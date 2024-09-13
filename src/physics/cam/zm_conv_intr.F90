@@ -65,7 +65,7 @@ module zm_conv_intr
       mconzm_idx           ! convective mass flux
 
    real(r8), parameter :: unset_r8 = huge(1.0_r8)
-   real(r8) :: zmconv_c0_lnd = unset_r8_tau
+   real(r8) :: zmconv_c0_lnd = unset_r8
    real(r8) :: zmconv_c0_ocn = unset_r8
    real(r8) :: zmconv_ke     = unset_r8
    real(r8) :: zmconv_ke_lnd = unset_r8
@@ -295,7 +295,6 @@ subroutine zm_conv_init(pref_edge)
 
 ! RBN: Output variables for more detailed ZM analysis (+dynamica parcel and tau)
 
-   
     call addfld ('TAUZM',   horiz_only,   'A', '/s      ', 'ZM deep convection timescale')  
     call addfld ('WINCLD', (/ 'lev' /),   'A', 'm/s     ', 'Deep convective in-cloud vertical velocity')
     call addfld ('KEPAR',  (/ 'lev' /),   'A', 'J/kg    ', 'Convective parcel kinetic energy')
@@ -499,7 +498,21 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
    ! history output fields
    real(r8) :: cape(pcols)        ! w  convective available potential energy.
    real(r8) :: mu_out(pcols,pver)
-   real(r8) :: md_out(pcols,pver)
+      real(r8) :: md_out(pcols,pver)
+
+      
+! RBN Convective parcel history output variables
+   real(r8) :: wm_incld(pcols) ! Convective in-cloud vertical velocity
+   real(r8) :: w_incld(pcols,pver) ! Gathered Convective in-cloud vertical velocity
+   real(r8) :: buoy(pcols,pver) ! Buoyancy in the vertical (K)
+   real(r8) :: pl(pcols)      ! Pressure at the lifting condensation level (Pa)
+   real(r8) :: tl(pcols)                  ! Pparcel temperature at lcl.
+   real(r8) :: hmax(pcols) ! Moist Static energy maximum
+   real(r8) ::plev_ke(pcols,pver) ! Parcel kinetic energy at a particular level (J/kg).
+   integer :: lcl(pcols)                  ! w  base level index of deep cumulus convection.
+   integer :: lel(pcols)                  ! w  index of highest theoretical convective plume.
+   integer :: maxi(pcols)                 ! w  index of level with largest moist static energy.
+      
 
    ! used in momentum transport calculation
    real(r8) :: pguallu(pcols, pver)
@@ -616,7 +629,7 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
 !CACNOTE - Need to check errflg and report errors
    call zm_convr_run(ncol, pver, &
                     pverp, gravit, latice, cpwv, cpliq, rh2o,  &
-                    state%t(:ncol,:), state%q(:ncol,:,1),  state%omega(:ncol,:,1), prec(:ncol),  &
+                    state%t(:ncol,:), state%q(:ncol,:,1),  state%omega(:ncol,:), prec(:ncol),  &
                     pblh(:ncol), state%zm(:ncol,:), state%phis(:ncol), state%zi(:ncol,:), ptend_loc%q(:ncol,:,1), &
                     ptend_loc%s(:ncol,:), state%pmid(:ncol,:), state%pint(:ncol,:), state%pdel(:ncol,:), &
                     .5_r8*ztodt, mcon(:ncol,:), cme(:ncol,:), cape(:ncol),      &
@@ -626,7 +639,8 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
                     ql(:ncol,:),  rliq(:ncol), landfrac(:ncol),                          &
                     org_ncol(:ncol,:), orgt_ncol(:ncol,:), zm_org2d_ncol(:ncol,:),  &
                     dif(:ncol,:), dnlf(:ncol,:), dnif(:ncol,:),  &
-                    rice(:ncol), errmsg, errflg)
+                    buoy(:ncol,:)    ,wm_incld(:ncol) ,w_incld(:ncol,:) ,lcl(:ncol) ,pl(:ncol) ,tl(:ncol)  ,hmax(:ncol) , maxi(:ncol) ,lel(:ncol)   ,plev_ke(:ncol,:), &
+                    rice(:ncol), errmsg, errflg,iulog)
 
 
    if (zmconv_org) then
@@ -644,8 +658,25 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
       jcbot(ideep(i)) = real(maxg(i), r8)
    end do
 
-   call outfld('CAPE', cape, pcols, lchnk)        ! RBN - CAPE output
+
 !
+
+!      RBN - Variables required for dyanmic plumes + PBL parcel analysis (brought up from buoyanc_dilute)
+      
+   call outfld('CAPE', cape, pcols, lchnk)        ! RBN - CAPE output
+   call outfld('BUOY', buoy, pcols, lchnk)  
+   call outfld('MWINCLD',wm_incld, pcols, lchnk) ! In-cloud vertical velocity
+   call outfld('WINCLD', w_incld, pcols, lchnk)     
+   call outfld('LCL',real(lcl,r8),pcols, lchnk)
+   call outfld('KHMAX',real(maxi,r8),pcols, lchnk)  
+   call outfld('PLCL', pl, pcols, lchnk)            ! Pressure at the lifting condensation level.
+   call outfld('TLCL', tl, pcols, lchnk)            ! Temp        "
+   call outfld('HMAX', hmax, pcols, lchnk)     
+   call outfld('LEL', real(lel,r8), pcols, lchnk)
+   call outfld('KEPAR', plev_ke, pcols, lchnk)    ! Parcel K.E.
+
+
+      
 ! Output fractional occurance of ZM convection
 !
    freqzm(:) = 0._r8
