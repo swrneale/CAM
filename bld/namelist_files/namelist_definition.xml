@@ -3277,6 +3277,24 @@ Tunable entrainment rate in ZM deep convection scheme in units of (m-1).
 Default: -1.0e-3 m-1
 </entry>
 
+<entry id="zmconv_dmpdz_ut" type="real" category="conv"
+       group="zmconv_nl" valid_values="" >
+Tunable entrainment rate in ZM deep convection scheme in the upper troposphere if there is a transtion from the value of zmconv_dmpdz in units of (m-1). Default behavior for zmconv_dmpdz_ut = zmconv_dmpdz
+Default: -1.0e-3 m-1
+</entry>
+
+<entry id="zmconv_dmpdz_ltzlev" type="real" category="conv"
+       group="zmconv_nl" valid_values="" >
+Lower elevation for the start of the transition between default ZM deep convection scheme plume entrainment (zmconv_dmpdz) and the upper troposphere entrainment (zmconv_dmpdz_ut) in units of meters. This has no impact if zmconv_dmpdz_ut = zmconv_dmpdz
+Default: 1000 m
+</entry>
+
+<entry id="zmconv_dmpdz_utzlev" type="real" category="conv"
+       group="zmconv_nl" valid_values="" >
+Upper elevation for the end of the transition between deault ZM deep convection scheme plume entrainment (zmconv_dmpdz) and the upper troposphere entrainment (zmconv_dmpdz_ut) in units of meters. This has no impact if zmconv_dmpdz_ut = zmconv_dmpdz
+Default: 5000 m
+</entry>
+
 <entry id="zmconv_tiedke_add" type="real" category="conv"
        group="zmconv_nl" valid_values="" >
 Tunable parcel temperature perturbation in ZM deep convection scheme in units of (K).
@@ -3289,6 +3307,9 @@ Tunable triggering threshold for convection in ZM deep scheme in units of (J kg-
 Default: 70.0 J kg-1
 </entry>
 
+
+
+
 <entry id="zmconv_parcel_pbl" type="logical" category="conv"
        group="zmconv_nl" valid_values="" >
 Turn on ZM deep convection initial parcel properties as a function of a well mixed boundary layer
@@ -3296,10 +3317,24 @@ Default: .false.
 </entry>
 
 <entry id="zmconv_parcel_ke" type="logical" category="conv"
-       group="zmconv_nl" valid_values="" >                                                                                                                                                                    
+       group="zmconv_nl" valid_values="" >
 Turn on ZM deep convection parcel kinetic energy for use in the convective top calculation                                                                                              
 Default: .false.                                                                                                                                                                                
 </entry>
+
+<entry id="zmconv_pini_ke" type="real" category="conv"
+       group="zmconv_nl" valid_values="" >
+Initial (convective cloud plume base) kinetic energy for use in the dyanmic plume calcualtion when zmconv_parcel_ke=.true.
+Default: 5 J kg-1
+</entry>
+
+<entry id="zmconv_pe2ke_eff" type="real" category="conv"
+       group="zmconv_nl" valid_values="" >
+Efficiency of conversion from potential energy (buoyancy) to kinetic energy for use in the dyanmic plume calcualtion when zmconv_parcel_ke=.true. Expressed as a fraction (i.e. 0.1 = 10% efficiency)
+Default: 0.1 fraction
+</entry>
+
+
 
 <entry id="zmconv_tau" type="real" category="conv"
        group="zmconv_nl" valid_values="" >

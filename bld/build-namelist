@@ -3198,7 +3198,8 @@ if ($phys =~ /cam7/ and $deep_scheme =~ /ZM/) {
 
 # ZM Parcel KE
 add_default($nl, 'zmconv_parcel_ke', 'val'=>'.false.');
-
+add_default($nl, 'zmconv_pini_ke', 'val'=>'5.0D0');
+add_default($nl, 'zmconv_pe2ke_eff', 'val'=>'0.1D0');
 
 # Radiation scheme
 add_default($nl, 'radiation_scheme', 'val'=>$rad_pkg);
@@ -3657,6 +3658,9 @@ if (!$simple_phys) {
     add_default($nl, 'zmconv_org');
     add_default($nl, 'zmconv_num_cin');
     add_default($nl, 'zmconv_dmpdz');
+    add_default($nl, 'zmconv_dmpdz_ltzlev');
+    add_default($nl, 'zmconv_dmpdz_utzlev');
+    add_default($nl, 'zmconv_dmpdz_ut');
     add_default($nl, 'zmconv_tiedke_add');
     add_default($nl, 'zmconv_capelmt');
     add_default($nl, 'zmconv_tau');

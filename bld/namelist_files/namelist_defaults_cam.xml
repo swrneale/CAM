@@ -2910,12 +2910,17 @@
 <zmconv_num_cin                                       phys="cam7"     > 1       </zmconv_num_cin>
 
 <zmconv_dmpdz                                                         > -1.0E-3 </zmconv_dmpdz>
+<zmconv_dmpdz_ut                                                      > -1.0E-3 </zmconv_dmpdz_ut>
+<zmconv_dmpdz_ltzlev                                                  > 1000. </zmconv_dmpdz_ltzlev>
+<zmconv_dmpdz_utzlev                                                  > 5000. </zmconv_dmpdz_utzlev>
 <zmconv_tiedke_add                                                    > 0.5     </zmconv_tiedke_add>
 <zmconv_capelmt                                                       > 70.0    </zmconv_capelmt>
 <zmconv_tau                                                           > 3600.0    </zmconv_tau>
 
 <zmconv_parcel_pbl                                                    > .false. </zmconv_parcel_pbl>
 <zmconv_parcel_ke                                                     > .false. </zmconv_parcel_ke>
+<zmconv_pini_ke                                                       > 5. </zmconv_pini_ke>
+<zmconv_p2ke_eff                                                      > 0.1 </zmconv_p2ke_eff>
 
 <!-- Cloud sedimentation -->
 
@@ -3138,7 +3143,7 @@
 <eul_nsplit  hgrid="512x1024"> 12 </eul_nsplit>
 
 <!-- iop dataset for SCAM mode -->
-<iopfile dyn="eul">atm/cam/scam/iop/ARM95_4scam.nc</iopfile>
+<iopfile dyn="eul">atm/cam/scam/iop/TOGAII_4scam.nc</iopfile>
 
 <!-- physics loadbalance -->
 <phys_loadbalance dyn="eul"> 3 </phys_loadbalance>

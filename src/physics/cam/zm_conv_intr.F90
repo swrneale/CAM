@@ -59,7 +59,8 @@ module zm_conv_intr
       dnifzm_idx,    &     ! detrained convective cloud ice num concen.
       prec_dp_idx,   &
       snow_dp_idx,   &
-      mconzm_idx           ! convective mass flux
+      mconzm_idx,   &             ! convective mass flux
+      tke_idx            !RBN: tke from cloud/turbulence scheme(s)
 
    real(r8), parameter :: unset_r8 = huge(1.0_r8)
    real(r8) :: zmconv_c0_lnd = unset_r8
@@ -72,11 +73,19 @@ module zm_conv_intr
                                          ! before the convection top and CAPE calculations are completed.
    logical  :: zmconv_org                ! Parameterization for sub-grid scale convective organization for the ZM deep
                                          ! convective scheme based on Mapes and Neale (2011)
-   real(r8) :: zmconv_dmpdz = unset_r8        ! Parcel fractional mass entrainment rate
+   real(r8) :: zmconv_dmpdz = unset_r8 ! Parcel fractional mass entrainment rate
+   real(r8) :: zmconv_dmpdz_ut = unset_r8 ! Parcel fractional mass entrainment rate in upper troposphere) 
+   real(r8) :: zmconv_dmpdz_ltzlev = unset_r8 ! Start of transition to zmconv_dmpdz_ut entrainment rate, in mb (if zmconv_dmpdz_ut /= zmconv_dmpdz)
+   real(r8) :: zmconv_dmpdz_utzlev = unset_r8 ! End of transition to zmconv_dmpdz_ut entrainment rate, in mb (if zmconv_dmpdz_ut /= zmconv_dmpdz)
+      
    real(r8) :: zmconv_tiedke_add = unset_r8   ! Convective parcel temperature perturbation
    real(r8) :: zmconv_capelmt = unset_r8      ! Triggering thereshold for ZM convection
    logical  :: zmconv_parcel_pbl = .false.             ! switch for parcel pbl calculation
-   logical  :: zmconv_parcel_ke = .false.     ! Switch for parcel kinetic energy augmentation
+
+   logical  :: zmconv_parcel_ke = .false. ! Switch for parcel kinetic energy augmentation
+   real(r8) :: zmconv_pini_ke = unset_r8 ! Initial (plume base) kinetic energy of test parcel ascent (if  zmconv_parcel_ke = .true.)
+   real(r8) :: zmconv_pe2ke_eff = unset_r8 ! Efficiency of potential energy to kinetic energy conversation of test parcel ascent (if  zmconv_parcel_ke = .true.)
+         
    real(r8) :: zmconv_tau = unset_r8          ! Timescale for convection
 
 
@@ -147,6 +156,8 @@ subroutine zm_conv_register
    ! convective mass fluxes
    call pbuf_add_field('CMFMC_DP', 'physpkg', dtype_r8, (/pcols,pverp/), mconzm_idx)
 
+      
+
 !CACNOTE - Is zm_org really a constituent or was it just a handy structure to use for an allocatable which persists in the run?
    if (zmconv_org) then
       call cnst_add('ZM_ORG',0._r8,0._r8,0._r8,ixorg,longname='organization parameter')
@@ -171,8 +182,9 @@ subroutine zm_conv_readnl(nlfile)
    namelist /zmconv_nl/ zmconv_c0_lnd, zmconv_c0_ocn, zmconv_num_cin, &
                         zmconv_ke, zmconv_ke_lnd, zmconv_org, &
                         zmconv_momcu, zmconv_momcd, &
-                        zmconv_dmpdz, zmconv_tiedke_add, zmconv_capelmt, &
-                        zmconv_parcel_pbl, zmconv_parcel_ke,  zmconv_tau
+                        zmconv_dmpdz, zmconv_dmpdz_ut, zmconv_dmpdz_ltzlev, zmconv_dmpdz_utzlev, &
+                        zmconv_tiedke_add, zmconv_capelmt, zmconv_parcel_pbl, &
+                        zmconv_parcel_ke, zmconv_pini_ke,  zmconv_pe2ke_eff, zmconv_tau
    !-----------------------------------------------------------------------------
 
    if (masterproc) then
@@ -207,14 +219,24 @@ subroutine zm_conv_readnl(nlfile)
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_momcd")
    call mpi_bcast(zmconv_org,               1, mpi_logical, masterprocid, mpicom, ierr)
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_org")
-   call mpi_bcast(zmconv_dmpdz,             1, mpi_real8, masterprocid, mpicom, ierr)
+   call mpi_bcast(zmconv_dmpdz,             1, mpi_real8, masterprocid, mpicom, ierr)      
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_dmpdz")
+   call mpi_bcast(zmconv_dmpdz_ut,          1, mpi_real8, masterprocid, mpicom, ierr)      
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_dmpdz_ut")
+   call mpi_bcast(zmconv_dmpdz_ltzlev,      1, mpi_real8, masterprocid, mpicom, ierr)      
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_dmpdz_ltzlev")
+   call mpi_bcast(zmconv_dmpdz_utzlev,      1, mpi_real8, masterprocid, mpicom, ierr)      
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_dmpdz_utzlev")
    call mpi_bcast(zmconv_tiedke_add,        1, mpi_real8, masterprocid, mpicom, ierr)
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_tiedke_add")
    call mpi_bcast(zmconv_capelmt,           1, mpi_real8, masterprocid, mpicom, ierr)
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_capelmt")
-   call mpi_bcast(zmconv_parcel_ke,        1, mpi_logical, masterprocid, mpicom, ierr)   
-   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_parcel_ke")  
+   call mpi_bcast(zmconv_parcel_ke,         1, mpi_logical, masterprocid, mpicom, ierr)   
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_parcel_ke")
+   call mpi_bcast(zmconv_pini_ke,          1, mpi_logical, masterprocid, mpicom, ierr)   
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_pini_ke")
+   call mpi_bcast(zmconv_pe2ke_eff,         1, mpi_logical, masterprocid, mpicom, ierr)   
+   if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_pe2ke_eff")
    call mpi_bcast(zmconv_tau,               1, mpi_real8, masterprocid, mpicom, ierr)
    if (ierr /= 0) call endrun("zm_conv_readnl: FATAL: mpi_bcast: zmconv_tau")
 
@@ -296,6 +318,8 @@ subroutine zm_conv_init(pref_edge)
     call addfld ('WINCLD', (/ 'lev' /),   'A', 'm/s     ', 'Deep convective in-cloud vertical velocity')
     call addfld ('KEPAR',  (/ 'lev' /),   'A', 'J/kg    ', 'Convective parcel kinetic energy')
     call addfld ('BUOY',   (/ 'lev' /),   'A', 'K       ', 'Buoyancy as temperature')
+    call addfld ('DMPDZ',   (/ 'lev' /),   'A', '/s     ', 'ZM Plume Entrainment Rate')
+    call addfld ('TKE',   (/ 'lev' /),   'A', 'J/kg     ', 'CLUBB Turbulent Kinetic Energy') 
 
     call addfld ('MWINCLD', horiz_only,'A','m/s     ',    'Deep convective mean in-cloud vertical velocity')
     call addfld ('HMAX',    horiz_only,'A','J/kg',    'Moist Static energy maximum')
@@ -392,13 +416,17 @@ subroutine zm_conv_init(pref_edge)
                   limcnv,zmconv_c0_lnd, zmconv_c0_ocn, zmconv_ke, zmconv_ke_lnd, &
                   zmconv_momcu, zmconv_momcd, zmconv_num_cin, zmconv_org, &
                   no_deep_pbl, zmconv_tiedke_add, &
-                  zmconv_capelmt, zmconv_dmpdz,zmconv_parcel_pbl, zmconv_parcel_ke, zmconv_tau, &
+                  zmconv_capelmt, zmconv_dmpdz, zmconv_dmpdz_ut, zmconv_dmpdz_ltzlev, zmconv_dmpdz_utzlev, &
+                  zmconv_parcel_pbl, zmconv_parcel_ke, zmconv_pini_ke,  zmconv_pe2ke_eff, zmconv_tau, &
                   masterproc, iulog, errmsg, errflg)
 
 
     cld_idx         = pbuf_get_index('CLD')
     fracis_idx      = pbuf_get_index('FRACIS')
-
+      
+! RBN: Grab index for tke here as the variable was initialized elsewhere
+    tke_idx         = pbuf_get_index('tke')
+      
 end subroutine zm_conv_init
 !=========================================================================================
 !subroutine zm_conv_tend(state, ptend, tdt)
@@ -516,11 +544,16 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
    real(r8) :: pl(pcols)      ! Pressure at the lifting condensation level (Pa)
    real(r8) :: tl(pcols)                  ! Pparcel temperature at lcl.
    real(r8) :: hmax(pcols) ! Moist Static energy maximum
-   real(r8) ::plev_ke(pcols,pver) ! Parcel kinetic energy at a particular level (J/kg).
+   real(r8) :: plev_ke(pcols,pver) ! Parcel kinetic energy at a particular level (J/kg).
+   real(r8) :: dmpdz(pcols,pver) ! ZM variable entrainment rate.
+      
    integer :: lcl(pcols)                  ! w  base level index of deep cumulus convection.
    integer :: lel(pcols)                  ! w  index of highest theoretical convective plume.
-   integer :: maxi(pcols)                 ! w  index of level with largest moist static energy.
+   integer :: maxi(pcols)    ! w  index of level with largest moist static energy.
       
+
+! RBN:  TKE variable from PBL/clod scheme.
+   real(r8), pointer, dimension(:,:) :: tke          ! Pointer allocation for TKE on PBUF
 
    ! used in momentum transport calculation
    real(r8) :: pguallu(pcols, pver)
@@ -592,6 +625,10 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
    call pbuf_get_field(pbuf, difzm_idx,  dif)
    call pbuf_get_field(pbuf, mconzm_idx, mconzm)
 
+! RBN: Pull tke from pbuf to use in KE parcel calculation
+
+   call pbuf_get_field(pbuf, tke_idx, tke)   
+      
    allocate(dnlf(pcols,pver), dnif(pcols,pver))
 
 !
@@ -647,7 +684,8 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
                     ql(:ncol,:),  rliq(:ncol), landfrac(:ncol),                          &
                     org_ncol(:ncol,:), orgt_ncol(:ncol,:), zm_org2d_ncol(:ncol,:),  &
                     dif(:ncol,:), dnlf(:ncol,:), dnif(:ncol,:),  &
-                    buoy(:ncol,:)    ,wm_incld(:ncol) ,w_incld(:ncol,:) ,lcl(:ncol) ,pl(:ncol) ,tl(:ncol)  ,hmax(:ncol) , maxi(:ncol) ,lel(:ncol)   ,plev_ke(:ncol,:), &
+                    buoy(:ncol,:)    ,wm_incld(:ncol) ,w_incld(:ncol,:) ,lcl(:ncol) ,pl(:ncol) ,tl(:ncol)  ,hmax(:ncol) , maxi(:ncol) , &
+                    lel(:ncol)   ,plev_ke(:ncol,:), dmpdz(:ncol,:),tke(:ncol,:), &
                     rice(:ncol), errmsg, errflg,iulog)
 
 
@@ -682,8 +720,9 @@ subroutine zm_conv_tend(pblh    ,mcon    ,cme     , &
    call outfld('HMAX', hmax, pcols, lchnk)     
    call outfld('LEL', real(lel,r8), pcols, lchnk)
    call outfld('KEPAR', plev_ke, pcols, lchnk)    ! Parcel K.E.
+   call outfld('DMPDZ', dmpdz, pcols, lchnk)    ! Variable ZM entrainment rate 
 
-
+   call outfld('TKE', tke, pcols, lchnk)    ! Variable ZM entrainment rate 
       
 ! Output fractional occurance of ZM convection
 !
